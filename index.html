@@ -1,0 +1,1139 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+
+<meta charset="UTF-8">
+<meta name="color-scheme" content="dark">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VICKI® — Brief per investitori</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E1B2C; --navy-2:#13243a; --chalk:#F2EFE6;
+    --clay:#E07B42; --green:#6FC09E; --steel:#C5CEDA; --line:#34496A; --body:#E4E1D8;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth;background:#0E1B2C}
+  body{background:#0E1B2C;color:#F2EFE6;font-family:'Inter',sans-serif;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;min-height:100vh}
+  .wrap{max-width:1080px;margin:0 auto;padding:0 32px}
+  .display{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em;line-height:1.02}
+  .eyebrow{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:0.28em;text-transform:uppercase;color:var(--clay);font-weight:600}
+
+  .growthline{position:fixed;inset:0;width:100%;height:100%;z-index:0;pointer-events:none;opacity:0.5}
+  .content{position:relative;z-index:1}
+
+  header{min-height:90vh;display:flex;flex-direction:column;justify-content:center;padding:80px 0 56px}
+  
+  .logo-img{height:42px;width:auto;display:block}
+  .logo{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:22px;letter-spacing:0.04em}
+  .logo .dot{color:var(--clay)}
+  .topbar{position:absolute;top:0;left:0;right:0;padding:28px 0}
+  .topbar .wrap{display:flex;justify-content:space-between;align-items:center}
+  .tag{font-size:11px;letter-spacing:0.22em;text-transform:uppercase;color:var(--steel)}
+  h1.hero{font-size:clamp(40px,7.4vw,96px);font-weight:700;margin:22px 0 0}
+  h1.hero .l2{color:var(--clay)}
+  .lede{font-size:clamp(18px,2.4vw,25px);max-width:700px;margin-top:28px;color:var(--body);font-weight:400}
+  .lede b{color:var(--chalk);font-weight:600}
+  .scrollcue{margin-top:50px;font-size:12px;letter-spacing:0.2em;text-transform:uppercase;color:var(--steel);display:flex;align-items:center;gap:10px}
+  .scrollcue .bar{width:46px;height:1px;background:var(--steel);display:inline-block}
+
+  section{padding:72px 0;border-top:1px solid var(--line)}
+  .sec-head{display:flex;gap:20px;align-items:baseline;margin-bottom:30px}
+  .sec-num{font-family:'Space Grotesk',sans-serif;font-size:13px;color:var(--clay);font-weight:600;letter-spacing:0.1em;padding-top:5px}
+  h2{font-size:clamp(26px,3.6vw,40px);font-weight:600}
+  .sec-body{font-size:18px;max-width:780px;color:var(--body)}
+  .sec-body + .sec-body{margin-top:16px}
+  .sec-body b{color:var(--chalk)}
+
+  .vs{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:14px;border:1px solid var(--line);border-radius:3px;overflow:hidden}
+  .vs > div{padding:30px 28px}
+  .vs .effect{background:var(--navy-2);border-right:1px solid var(--line)}
+  .vs .chain{background:linear-gradient(160deg,rgba(200,97,46,0.10),rgba(91,168,138,0.06))}
+  .vs .k{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;font-weight:600;margin-bottom:14px}
+  .vs .effect .k{color:var(--steel)}
+  .vs .chain .k{color:var(--clay)}
+  .vs h4{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;margin-bottom:10px;line-height:1.2}
+  .vs p{font-size:15px;color:#D6D3CA}
+
+  .perimeter{margin-top:28px;border:1px solid var(--line);border-left:3px solid var(--green);padding:22px 26px;background:rgba(91,168,138,0.06);max-width:780px;border-radius:2px}
+  .perimeter .k{font-family:'Space Grotesk',sans-serif;color:var(--green);font-weight:600;font-size:13px;letter-spacing:0.16em;text-transform:uppercase;display:block;margin-bottom:8px}
+  .perimeter p{font-size:16px;color:var(--body)}
+  .perimeter code{font-family:'Space Grotesk',sans-serif;color:var(--chalk);background:rgba(242,239,230,0.08);padding:2px 7px;border-radius:3px;font-size:14px}
+
+  .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:10px}
+  .role{border:1px solid var(--line);border-radius:3px;padding:26px 22px 28px;background:var(--navy-2);transition:transform .35s ease,border-color .35s ease}
+  .role:hover{transform:translateY(-5px);border-color:var(--clay)}
+  .role .icon{height:32px;margin-bottom:16px}
+  .role .icon svg{height:100%;width:auto}
+  .role h3{font-family:'Space Grotesk',sans-serif;font-size:20px;font-weight:600;margin-bottom:4px}
+  .role .who{font-size:12px;letter-spacing:0.14em;text-transform:uppercase;color:var(--steel);margin-bottom:16px}
+  .role ul{list-style:none}
+  .role li{font-size:14.5px;color:var(--body);padding:8px 0 8px 20px;position:relative;border-top:1px solid rgba(36,55,80,0.6)}
+  .role li:first-child{border-top:none}
+  .role li::before{content:"";position:absolute;left:0;top:15px;width:7px;height:7px;border-radius:50%;background:var(--clay)}
+  .role.athlete li::before{background:var(--green)}
+
+  .assets{margin-top:8px}
+  .asset{display:grid;grid-template-columns:200px 1fr 150px;gap:24px;padding:20px 0;border-top:1px solid var(--line);align-items:baseline}
+  .asset:first-child{border-top:none}
+  .asset .nm{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:600;color:var(--chalk)}
+  .asset .nm span{display:block;font-size:12px;color:var(--steel);font-weight:400;letter-spacing:0.04em;margin-top:4px;font-family:'Inter',sans-serif}
+  .asset .ds{font-size:15px;color:#D6D3CA}
+  .asset .ow{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600;text-align:right}
+  .ow.coach{color:var(--clay)} .ow.acad{color:#7FA8D0} .ow.ath{color:var(--green)} .ow.shared{color:var(--steel)}
+  @media(max-width:720px){.asset{grid-template-columns:1fr;gap:6px}.asset .ow{text-align:left}}
+
+  /* analysis domains */
+  .domains{display:flex;flex-wrap:wrap;gap:12px;margin-top:8px}
+  .domain{border:1px solid var(--line);border-radius:3px;padding:18px 20px;background:var(--navy-2);flex:1 1 180px;min-width:160px;position:relative}
+  .domain.core{border-color:var(--green);background:linear-gradient(165deg,rgba(111,192,158,0.10),var(--navy-2))}
+  .domain .dn{font-family:'Space Grotesk',sans-serif;font-size:17px;font-weight:600;color:var(--chalk)}
+  .domain .dd{font-size:13px;color:#D6D3CA;margin-top:6px;line-height:1.4}
+  .domain .badge{position:absolute;top:14px;right:14px;font-family:'Space Grotesk',sans-serif;font-size:9px;letter-spacing:0.12em;text-transform:uppercase;font-weight:600}
+  .domain.core .badge{color:var(--green)}
+  .domain .badge.soon{color:var(--steel)}
+  .domains-legend{font-size:13px;color:var(--steel);margin-top:16px}
+  .domains-legend b{color:#D6D3CA}
+
+  .levers{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:10px}
+  .lever{border:1px solid var(--line);border-radius:3px;padding:24px 22px;background:var(--navy-2);position:relative}
+  .lever .step{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--clay);letter-spacing:0.14em;font-weight:600}
+  .lever h3{font-family:'Space Grotesk',sans-serif;font-size:19px;font-weight:600;margin:8px 0 12px}
+  .lever p{font-size:14.5px;color:#D6D3CA;margin-bottom:14px}
+  .lever .econ{font-size:12px;letter-spacing:0.06em;color:var(--steel);border-top:1px solid var(--line);padding-top:12px}
+  .lever .econ b{color:var(--chalk);font-weight:600}
+  .lever.hl{border-color:var(--clay);background:linear-gradient(165deg,rgba(200,97,46,0.10),var(--navy-2))}
+
+  table{width:100%;border-collapse:collapse;margin-top:6px}
+  th,td{text-align:left;padding:13px 12px;border-bottom:1px solid var(--line);font-size:15px;vertical-align:top}
+  th{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--steel);font-weight:600}
+  td .big{font-family:'Space Grotesk',sans-serif;font-size:21px;font-weight:600;color:var(--chalk)}
+  td .note{font-size:13px;color:var(--steel);display:block;margin-top:3px}
+  .tier{font-family:'Space Grotesk',sans-serif;font-weight:600;color:var(--clay)}
+  .price{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:600}
+
+  .grid2{display:grid;grid-template-columns:1.25fr 1fr;gap:46px}
+
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin-top:10px;position:relative}
+  .yr{padding:24px 18px;border-left:1px solid var(--line);position:relative}
+  .yr:first-child{border-left:none}
+  .yr .y{font-family:'Space Grotesk',sans-serif;font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--clay);font-weight:600}
+  .yr .v{font-family:'Space Grotesk',sans-serif;font-size:clamp(17px,2vw,23px);font-weight:600;margin-top:10px}
+  .yr .d{font-size:13px;color:var(--steel);margin-top:6px}
+  .yr .dotmark{position:absolute;top:-5px;left:-5px;width:9px;height:9px;border-radius:50%;background:var(--clay)}
+  .yr:first-child .dotmark{left:0}
+
+  .domains{display:grid;grid-template-columns:repeat(7,1fr);gap:12px;margin-top:8px}
+  .dom{border:1px solid var(--line);border-radius:3px;padding:16px 8px;background:var(--navy-2);text-align:center;transition:transform .3s ease,border-color .3s ease}
+  .dom:hover{transform:translateY(-4px);border-color:var(--clay)}
+  .dom .di{height:30px;margin-bottom:12px;display:flex;justify-content:center}
+  .dom .di svg{height:100%}
+  .dom .dn{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;color:var(--chalk)}
+  .dom .dd{font-size:11px;color:var(--steel);margin-top:5px;line-height:1.4}
+  .dom-future{margin-top:14px;font-size:14px;color:var(--steel)}
+  .dom-future b{color:var(--body);font-weight:600}
+  .dom-future .tagf{font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:0.14em;text-transform:uppercase;color:var(--clay);font-weight:600}
+  @media(max-width:780px){.domains{grid-template-columns:repeat(2,1fr)}}
+  .chips{display:flex;flex-wrap:wrap;gap:9px;margin-top:22px;max-width:840px}
+  .chip{font-family:'Space Grotesk',sans-serif;font-size:13px;border:1px solid var(--line);border-radius:40px;padding:7px 15px;color:#D6D3CA;background:var(--navy-2)}
+  .chip.live{border-color:var(--green);color:var(--green)}
+  .chip.live::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--green);margin-right:8px;vertical-align:middle;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.35}}
+
+  footer{padding:46px 0 70px;border-top:1px solid var(--line)}
+  .note-internal{font-size:13px;color:var(--steel);max-width:800px;line-height:1.7}
+  .note-internal b{color:#b9b6ac}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:780px){
+    .roles,.levers{grid-template-columns:1fr}
+    .vs,.grid2{grid-template-columns:1fr}
+    .vs .effect{border-right:none;border-bottom:1px solid var(--line)}
+    .timeline{grid-template-columns:1fr 1fr}
+    .yr{border-left:none;border-top:1px solid var(--line)}
+    .sec-head{flex-direction:column;gap:6px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    .reveal{opacity:1;transform:none;transition:none}
+    .chip.live::before{animation:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+
+
+<style>
+  #langbar{position:fixed;top:14px;right:16px;z-index:9999;display:flex;gap:4px;
+    background:rgba(14,27,44,0.82);backdrop-filter:blur(8px);border:1px solid rgba(242,239,230,0.16);
+    border-radius:999px;padding:4px}
+  #langbar button{font-family:'Inter',sans-serif;font-size:13px;font-weight:600;letter-spacing:.04em;
+    color:#A9B4C2;background:transparent;border:none;border-radius:999px;padding:7px 14px;cursor:pointer;
+    transition:all .18s}
+  #langbar button:hover{color:#F2EFE6}
+  #langbar button.active{background:#E07B42;color:#0E1B2C}
+  .langpane{display:none}
+  .langpane.show{display:block}
+  @media print{#langbar{display:none}}
+  /* evita sovrapposizione tag header con selettore lingua */
+  .langpane .tag{ display:none; }  /* sostituito dal selettore lingua in alto */
+  @media(max-width:640px){ #langbar button{padding:6px 11px;font-size:12px;} }
+
+</style>
+
+
+<style>
+  #pwgate{position:fixed;inset:0;z-index:99999;background:#0E1B2C;display:flex;
+    flex-direction:column;align-items:center;justify-content:center;gap:22px;
+    font-family:'Inter',sans-serif;color:#F2EFE6;text-align:center;padding:24px}
+  #pwgate .pw-brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:26px;letter-spacing:.04em}
+  #pwgate .pw-sub{color:#A9B4C2;font-size:15px;max-width:320px;line-height:1.5}
+  #pwgate input{font-family:'Inter',sans-serif;font-size:16px;text-align:center;
+    background:rgba(242,239,230,0.06);border:1px solid rgba(242,239,230,0.2);border-radius:10px;
+    color:#F2EFE6;padding:13px 18px;width:240px;outline:none}
+  #pwgate input:focus{border-color:#E07B42}
+  #pwgate button{font-family:'Inter',sans-serif;font-weight:600;font-size:15px;
+    background:#E07B42;color:#0E1B2C;border:none;border-radius:10px;padding:13px 28px;cursor:pointer}
+  #pwgate .pw-err{color:#E07B42;font-size:14px;min-height:18px}
+  body.locked{overflow:hidden}
+</style>
+</head>
+<body>
+
+<div id="pwgate">
+  <div class="pw-brand">VICKI<span style="font-size:.55em;vertical-align:super">&reg;</span></div>
+  <div class="pw-sub">Documento riservato. Inserisci la password per accedere.<br>Confidential document &middot; Vertraulich</div>
+  <input id="pwinput" type="password" placeholder="Password" autocomplete="off"
+    onkeydown="if(event.key==='Enter')pwCheck()">
+  <button onclick="pwCheck()">Accedi</button>
+  <div class="pw-err" id="pwerr"></div>
+</div>
+
+
+<div id="langbar">
+  <button data-l="it" onclick="setLang('it')">IT</button>
+  <button data-l="en" onclick="setLang('en')">EN</button>
+  <button data-l="de" onclick="setLang('de')">DE</button>
+</div>
+
+<div id="lang-it" class="langpane">
+
+<svg class="growthline" preserveAspectRatio="none" viewBox="0 0 1440 4200">
+  <defs>
+    <linearGradient id="gl" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#C8612E" stop-opacity="0.0"/>
+      <stop offset="0.5" stop-color="#C8612E" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#5BA88A" stop-opacity="0.65"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,4080 C320,4030 380,3500 540,3250 C720,2970 800,2400 980,2150 C1180,1870 1230,1100 1440,520"
+        fill="none" stroke="url(#gl)" stroke-width="2.5"/>
+</svg>
+
+<div class="topbar"><div class="wrap">
+  <img class="logo-img" src="data:image/png;base64,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" alt="VICKI">
+  <span class="tag">Brief per investitori · riservato</span>
+</div></div>
+
+<div class="content">
+
+<header><div class="wrap">
+  <span class="eyebrow">Sport intelligence per il tennis</span>
+  <h1 class="hero display">L’analisi vede<br>l’effetto.<br><span class="l2">VICKI® vede il processo.</span></h1>
+  <p class="lede">I dati di visione sono una commodity. Il moat di VICKI® è la <b>memoria metodologica stratificata</b> che ci sta sopra — come un coach ha deciso, su quale atleta, perché, e cosa ha prodotto nel tempo. Non si compra. Si costruisce.</p>
+  <div class="scrollcue"><span class="bar"></span> Scorri</div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">01</span><h2 class="display">Il moat</h2></div>
+  <p class="sec-body reveal">I componenti di computer vision che VICKI usa — rilevamento, tracking, stima della posa, classificazione dei colpi — sono commodity scientifica. Chiunque abbia le competenze adeguate può assemblare una pipeline confrontabile in 6–12 mesi. Competere lì significa competere sul prezzo e sulla qualità dell’interfaccia, dove i player affermati hanno già vantaggi di scala.</p>
+  <p class="sec-body reveal">Il vantaggio di VICKI sta altrove: nella <b>stratificazione temporale</b>. Un colpo analizzato oggi vale poco. Diecimila colpi di un atleta su diciotto mesi — correlati con le decisioni metodologiche del coach, gli esiti in partita, la risposta fisica dell’atleta, le correzioni che hanno funzionato e quelle che non hanno funzionato — sono un asset che non si replica comprando infrastruttura migliore. Si accumula solo nel tempo. Il moat matura tipicamente dopo 6–12 mesi di uso continuativo.</p>
+  <p class="sec-body reveal" style="margin-top:14px"><b style="color:#E07B42">I risultati sono ovvi, la crescita spesso è nascosta — VICKI la dimostra.</b> I risultati in partita sono un segnale ritardato e rumoroso: un atleta può migliorare rovescio, movimento e tattica e perdere lo stesso, o peggiorare sulla carta mentre ricostruisce un colpo. VICKI vede il progresso reale che il punteggio nasconde. L'accesso ad accademie e club è un investimento importante per una famiglia, e va percepito come ben speso: quella prova oggettiva di crescita — anche in una stagione di risultati piatti — è esattamente ciò che la trattiene dall'andarsene. È la differenza tra un termometro e una diagnosi.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">02</span><h2 class="display">Perché è difendibile</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:8px">I player di analisi affermati registrano fatti misurabili sul campo — velocità dei colpi, posizione dei rimbalzi, pattern, statistiche di partita. Lo storico che costruiscono è uno <b>storico di misure</b>. È valore reale. Ma è un layer diverso.</p>
+  <div class="vs reveal">
+    <div class="effect">
+      <span class="k">Player di analisi</span>
+      <h4>Vedono l’effetto</h4>
+      <p>Cosa è successo sul campo: misure, pattern, statistiche nel tempo. Un layer orizzontale — dati su dati osservati.</p>
+    </div>
+    <div class="chain">
+      <span class="k">VICKI</span>
+      <h4>VICKI vede il processo</h4>
+      <p>Quali scelte metodologiche un coach e un’accademia hanno applicato, perché, come hanno agito sull’atleta in quella fase, gli esiti osservati nel tempo — e quanto spesso quelle scelte producono quegli esiti. Un layer verticale che sta sopra l’analisi e la usa come input.</p>
+    </div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">Questi layer non competono — si integrano. E la differenza non è replicabile aggiungendo funzionalità: anche un player che oggi iniziasse a costruire un layer metodologico partirebbe da <b>memoria zero</b>, e la memoria stratificata non si sintetizza. Si accumula.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">03</span><h2 class="display">Una piattaforma chiusa</h2></div>
+  <p class="sec-body reveal">VICKI analizza il gioco in modo continuo e costruisce un profilo longitudinale dell’atleta — la crescita nel tempo, non una fotografia di un giorno — mentre apprende il metodo del singolo coach.</p>
+  <div class="perimeter reveal">
+    <span class="k">Non esce mai dall’accademia</span>
+    <p>L’accademia è il perimetro e il cliente. <b>VICKI® team</b> (app.vicki.pro) è l'app di collegamento che unisce coach, atleta e genitore/tutore <i>dentro</i> quel perimetro — basato su ruoli, con permessi, privato all’accademia. Non è un’app consumer che l’atleta usa per conto suo.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">04</span><h2 class="display">Domini di analisi</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">VICKI non legge solo il colpo. Legge l’atleta intero su sette domini core — inclusa la voce dell’atleta stesso — ed è per questo che il layer metodologico può ragionare su un giocatore in modo completo, non solo sulla sua tecnica.</p>
+  <div class="domains reveal">
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M4 18 L10 10 L14 13 L20 5"/><circle cx="20" cy="5" r="1.4" fill="#E07B42"/></svg></div><div class="dn">Tecnico</div><div class="dd">Meccanica ed esecuzione del colpo</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M12 4v16M4 12h16" stroke-dasharray="2 2"/><circle cx="8" cy="9" r="1.4" fill="#E07B42"/></svg></div><div class="dn">Tattico</div><div class="dd">Pattern e scelte di partita</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M6 20c0-5 3-8 6-8s6 3 6 8"/><circle cx="12" cy="6" r="2.6"/><path d="M9 13l-3-2M15 13l3-2"/></svg></div><div class="dn">Atletico</div><div class="dd">Movimento e resa fisica</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3M6.3 6.3l2 2M15.7 15.7l2 2M17.7 6.3l-2 2M6.3 17.7l2-2"/></svg></div><div class="dn">Biomeccanico</div><div class="dd">Analisi 3D articolare e cinematica</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M12 4c-3 0-5 2-5 5 0 2 1 3 1 5 0 1.5 1.5 2 4 2s4-.5 4-2c0-2 1-3 1-5 0-3-2-5-5-5z"/><path d="M10 20h4"/></svg></div><div class="dn">Mentale</div><div class="dd">Risposta e stato competitivo</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M7 8h10M7 12h7"/><path d="M5 4h14a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4 3V5a1 1 0 0 1 1-1z"/></svg></div><div class="dn">Soggettivo</div><div class="dd">Note del coach e input dell’atleta</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M12 5v14M5 12h14" stroke-width="2.2"/></svg></div><div class="dn">Medico</div><div class="dd">Stato di salute e condizione fisica</div></div>
+  </div>
+  <p class="dom-future reveal"><span class="tagf">Approfondimento nel tempo</span> &nbsp; Tutti e sette i domini si arricchiscono con la maturità. Il dominio <b>medico</b> in particolare si estende verso l’integrazione di referti clinici esterni, il tracking di infortuni e recupero e il monitoraggio longitudinale del carico fisico — portando la piattaforma verso il full athlete management.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">05</span><h2 class="display">Cosa ottiene ciascun ruolo</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">Il valore è condiviso tra tre attori — è questo che spinge l’accademia ad adottarlo e la famiglia a restare.</p>
+  <div class="roles">
+    <div class="role reveal coach">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C8612E" stroke-width="1.6"><circle cx="12" cy="6" r="3.2"/><path d="M5 20c0-4 3.2-6.5 7-6.5S19 16 19 20"/><path d="M16.5 4.5l4 1.5-4 1.5"/></svg></div>
+      <h3>Coach</h3><div class="who">Il detentore del metodo</div>
+      <ul>
+        <li>La sua metodologia viene catturata come asset strutturato e in crescita — codificata invece che tacita.</li>
+        <li>La visione continua analizza ogni sessione, non solo quelle che riesce a seguire da vicino.</li>
+        <li>Il metodo è portabile e resta con lui se cambia accademia — il suo capitale professionale, reso tangibile.</li>
+      </ul>
+    </div>
+    <div class="role reveal athlete">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5BA88A" stroke-width="1.6"><circle cx="12" cy="5" r="2.6"/><path d="M12 7.6V14l-3.5 6M12 14l3.5 6M7 10.5h10"/></svg></div>
+      <h3>Atleta</h3><div class="who">Seguito in modo continuo</div>
+      <ul>
+        <li>Seguito in ogni momento dalla visione continua — il progresso si vede, non si indovina.</li>
+        <li>Una memoria agonistica completa: sua, portabile, sua per sempre.</li>
+        <li>Si presenta a un nuovo coach o accademia con un dossier strutturato, non con aneddoti.</li>
+      </ul>
+    </div>
+    <div class="role reveal parent">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C8612E" stroke-width="1.6"><circle cx="8" cy="6" r="2.6"/><circle cx="16" cy="7" r="2.2"/><path d="M3 19c0-3.2 2.2-5 5-5s5 1.8 5 5M13.5 18c.4-2.4 2.2-3.8 4.5-3.8 2 0 3.5 1.3 4 3.3"/></svg></div>
+      <h3>Genitore</h3><div class="who">Monitora il percorso</div>
+      <ul>
+        <li>Trasparenza sul percorso del figlio e sull’investimento, con visibilità adatta all’età.</li>
+        <li>Continuità — il percorso non si interrompe se il coach cambia.</li>
+        <li>Evidenza tracciabile di decisioni e responsabilità.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">06</span><h2 class="display">Perché un'accademia lo compra — il ROI</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">Un campo ELITE costa €240/mese oltre alla base del sito — il canone copre analisi cloud, manutenzione, aggiornamenti software e il layer metodologico completo (l'hardware è una tantum, a parte). Un costo modesto rispetto al valore che sblocca. Si ripaga con più leve che si sommano:</p>
+  <div class="levers reveal">
+    <div class="lever">
+      <h3>Premium pricing</h3>
+      <p>Un'accademia VICKI®-powered — risultati misurabili, metodo tracciato — giustifica un aumento della quota di pochi punti sulla base degli atleti già presenti. Da solo copre il canone.</p>
+    </div>
+    <div class="lever">
+      <h3>Affluenza e unicità</h3>
+      <p>VICKI® rende l'accademia unica: quella che dimostra la crescita con dati oggettivi attrae atleti che le altre non intercettano. Nuove iscrizioni che la concorrenza non vede.</p>
+    </div>
+    <div class="lever">
+      <h3>Retention</h3>
+      <p>Il percorso dell'atleta vive dentro l'accademia — andarsene significa ripartire da memoria zero. Costo di abbandono più alto, churn più basso, canoni ricorrenti assicurati anno su anno.</p>
+    </div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:20px">A queste si somma ogni vantaggio che la piattaforma già offre: il metodo del coach codificato come asset, il patrimonio dell'accademia come memoria istituzionale, la continuità anche quando un coach se ne va, la trasparenza per le famiglie. VICKI® è un investimento per l'accademia, non un costo — e il successo del cliente rinforza il moat di VICKI®: più l'accademia fa crescere atleti, più ricca la memoria metodologica che non può portare altrove.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">07</span><h2 class="display">Il modello di proprietà intellettuale</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:6px">VICKI separa la memoria metodologica in oggetti distinti, ciascuno con ownership definita. Questo trasforma VICKI da strumento di analisi a <b>infrastruttura per la gestione della proprietà intellettuale agonistica</b> — un bisogno reale che nessun concorrente affronta.</p>
+  <div class="assets reveal">
+    <div class="asset"><div class="nm">Il metodo del coach<span>regole decisionali, euristiche di correzione, pattern di intervento</span></div><div class="ds">Il sapere operativo del coach, strutturato. Portabile quando lascia l’accademia.</div><div class="ow coach">Coach</div></div>
+    <div class="asset"><div class="nm">Il metodo dell’accademia<span>principi fondativi, protocolli di sviluppo, standard</span></div><div class="ds">Sapere istituzionale tacito trasformato in patrimonio strutturato e difendibile. Licenziabile a maturità.</div><div class="ow acad">Academy</div></div>
+    <div class="asset"><div class="nm">Il percorso dell’atleta<span>storico biomeccanico, decisioni ricevute, esiti</span></div><div class="ds">La memoria agonistica personale dell’atleta. Portabile tra accademie. Sua per la vita.</div><div class="ow ath">Atleta</div></div>
+    <div class="asset"><div class="nm">Tracce di allenamento<span>registro operativo grezzo di ogni sessione</span></div><div class="ds">Il substrato di cui si nutrono i grafi. Infrastrutturale, non un oggetto vendibile di per sé.</div><div class="ow shared">Condiviso</div></div>
+    <div class="asset"><div class="nm">Il patrimonio dell’accademia<span>pattern metodologici anonimizzati e aggregati nel tempo</span></div><div class="ds">La memoria lunga dell’istituzione — ciò che resta quando le persone cambiano. Prova empirica della validità del metodo.</div><div class="ow acad">Academy</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">La ownership è configurabile per ogni rapporto: quando un coach entra in un’accademia, le parti negoziano chi possiede cosa, e VICKI lo implementa tecnicamente. Il risultato — un coach può andarsene col proprio metodo, un atleta può portare con sé il proprio percorso, un’accademia conserva il proprio patrimonio anche quando le persone cambiano.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">08</span><h2 class="display">Tre leve di scala</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">Poiché il valore è il layer metodologico, non la visione in sé, VICKI è agnostico rispetto alla sorgente di analisi. Questo apre tre modalità di go-to-market complementari.</p>
+  <div class="levers">
+    <div class="lever reveal"><div class="step">Mode 01</div><h3>Integrata</h3><p>End-to-end: la pipeline di visione di VICKI più il layer metodologico. Per accademie nuove senza analisi già installata.</p><div class="econ"><b>Marginalità piena</b> · crescita lineare, una vendita alla volta</div></div>
+    <div class="lever reveal"><div class="step">Mode 02</div><h3>Sovrapposta</h3><p>L’accademia tiene la sua infrastruttura di analisi esistente; VICKI ci si innesta sopra e aggiunge il cervello metodologico che non ha. Pitch additivo, basso attrito di adozione.</p><div class="econ"><b>Marginalità alta</b> · nessun costo hardware</div></div>
+    <div class="lever reveal hl"><div class="step">Mode 03</div><h3>White-label</h3><p>VICKI integrato come layer metodologico dentro il prodotto di un player di analisi, raggiungendo l’intera base installata attraverso un solo canale.</p><div class="econ"><b>Distribuzione su scala</b> · il CAC crolla di un ordine di grandezza</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">La difesa strutturale in ogni accordo white-label: la memoria stratificata accumulata resta a VICKI e ai clienti finali, non al partner. Un player che sostituisse VICKI partirebbe da memoria zero — perdendo la continuità metodologica che i suoi clienti hanno costruito. <b>Il moat protegge il canale.</b></p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">09</span><h2 class="display">Mercato</h2></div>
+  <div class="reveal">
+  <p class="sec-body reveal" style="margin-bottom:22px">VICKI vende per campo e per accademia, quindi l'universo indirizzabile onesto è fatto di campi e circoli — non della popolazione di giocatori. Tre livelli concentrici:</p>
+  <table>
+    <thead><tr><th style="width:24%">Livello</th><th style="width:30%">Universo indirizzabile</th><th>Nota</th></tr></thead>
+    <tbody>
+      <tr><td>Italia<br><span class="note">beachhead di lancio</span></td><td><span class="big">~9.300</span> campi<span class="note">~4.096 circoli (FITP)</span></td><td>1,15M tesserati (dic 2024, +266% vs 2020); ~440k agonisti. Federazione sportiva a crescita più rapida in Italia.</td></tr>
+      <tr><td>Europa<br><span class="note">regione più densa</span></td><td><span class="big">gran parte</span> della base globale<span class="note">50 federazioni</span></td><td>I leader da soli mostrano la scala — Germania ~40.000 campi / ~5.500 circoli, Francia ~33.000 / ~7.000. Oltre l'80% dei circoli mondiali è in Europa + Nord America.</td></tr>
+      <tr><td>Mondo<br><span class="note">totale</span></td><td><span class="big">~578.000</span> campi<span class="note">~115.000 circoli</span></td><td>L'universo completo di lungo periodo, raggiungibile su scala attraverso il canale white-label.</td></tr>
+    </tbody>
+  </table>
+  <p class="note-internal" style="margin-top:16px">Go-to-market: accademie e coach, con le partnership federative come canale primario. Prima l'Italia, l'Europa come nucleo denso, il mondo via white-label.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">10</span><h2 class="display">Precedenti di mercato</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">La nostra curva di adozione non è una speranza astratta. Sistemi di analisi con hardware — prodotto che consideriamo commodity rispetto al nostro layer metodologico — hanno già costruito una base installata significativa in Europa partendo da zero. La nostra traiettoria è in linea con quanto già dimostrato fattibile, su un prodotto più difendibile.</p>
+  <div class="reveal"><table>
+    <thead><tr><th style="width:18%">Sistema</th><th style="width:22%">Base installata</th><th style="width:14%">Tempo</th><th>Nota</th></tr></thead>
+    <tbody>
+      <tr><td class="tier" style="color:var(--chalk)">Wingfield (DE)</td><td><span class="big">400+</span> campi<span class="note">250+ strutture, 16 paesi</span></td><td>~5 anni<span class="note">dal 2019</span></td><td>Partnership con la federazione nazionale; clienti tra cui un'accademia di riferimento e uno storico club londinese. Prodotto di sola analisi.</td></tr>
+      <tr><td class="tier" style="color:var(--chalk)">PlaySight</td><td><span class="big">35 → 1.000+</span> campi<span class="note">globale</span></td><td>~7 anni</td><td>Sostenuta da investitori atleti di vertice; ITF-approved. Analisi a camera connessa.</td></tr>
+      <tr><td class="tier">VICKI · target Scale</td><td><span class="big">~470</span> campi diretti<span class="note">Anno 5, + reach white-label</span></td><td>5 anni</td><td>Stesso ordine di grandezza — col layer metodologico che a loro manca, più l'acceleratore white-label.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:22px">Un player europeo di sola analisi ha raggiunto 400+ campi e una partnership federale in ~5 anni. Il target di VICKI all'Anno 5 è nello stesso range — raggiunto con un prodotto che fa ciò che fanno loro <b>più</b> il layer metodologico che non hanno, e col white-label come canale aggiuntivo. Il benchmark rende la curva credibile, non ottimistica.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">11</span><h2 class="display">Prezzi e unit economics</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:26px">Canone software ricorrente, con l'hardware fatturato a parte come una tantum, così il canone mensile resta margine software — è così che i €149/mese reggono. Il layer metodologico (il moat) è in ogni tier a pagamento, non un upsell.</p>
+  <div class="reveal"><table>
+    <thead><tr><th style="width:14%">Tier</th><th style="width:24%">Prezzo / mese</th><th>Cosa è</th></tr></thead>
+    <tbody>
+      <tr><td class="tier">BASE</td><td class="price">€149 <span class="note">per coach</span></td><td>Via iPad — nessun hardware fisso. Il motore di adozione, margine quasi pieno.</td></tr>
+      <tr><td class="tier">PRO</td><td class="price">€390 + €200<span class="note">base + per campo</span></td><td>4 telecamere/campo. Domini ridotti (no medico/mentale, biomeccanica base) + layer metodologico. Es. 1 campo €590, 2 campi €790.</td></tr>
+      <tr><td class="tier">ELITE</td><td class="price">€490 + €240<span class="note">base + per campo</span></td><td>6 telecamere/campo. Profondità full su tutti i domini + layer completo. Es. 1 campo €730, 2 campi €970, 3 campi €1.210.</td></tr>
+      <tr><td class="tier">OVERLAY</td><td class="price">€690 <span class="note">per campo</span></td><td>Su telecamere di terzi — VICKI aggiunge il cervello metodologico. Solo edge, niente telecamere.</td></tr>
+      <tr><td class="tier">WHITE-LABEL</td><td class="price">per partner</td><td>Integrato nel prodotto di un player di analisi. ~€75k integrazione + ~€20/campo/mese. 8+ campi → enterprise, a trattativa.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:22px;font-size:16px"><b style="color:#E07B42">Un canone base per sito + una quota per campo.</b> La base copre la piattaforma, il layer metodologico e l'edge condiviso (costi per sito); la quota campo copre telecamere e analisi (costi per campo). Così un'accademia con un campo paga per un campo, non per tre — il prezzo scala con ciò che usa.</p>
+  <p class="sec-body reveal" style="margin-top:14px;font-size:16px"><b style="color:#E07B42">L'hardware, in due formule a scelta del cliente.</b> <b>A — Setup una tantum:</b> edge €2.500 per sito (condiviso tra campi attigui) + €4.118/campo PRO / €5.738/campo ELITE, poi il canone. Es. ELITE 1 campo: €8.238 + €730/mese. <b>B — All-inclusive:</b> nessun anticipo, l'hardware è spalmato nel canone su 36 mesi. Es. ELITE 1 campo: €977/mese tutto incluso. L'edge fa pre-analisi locale e invia dati — non video — al processing cloud, così un solo edge serve più campi.</p>
+  <p class="note-internal" style="margin-top:10px">La formula all-inclusive sposta ricavo da una-tantum a ricorrente — alza l'ARR ma richiede capitale circolante, perché VICKI anticipa l'hardware e lo recupera nel canone.</p>
+  <div class="perimeter reveal" style="border-left-color:#E07B42;background:rgba(224,123,66,0.06)">
+    <span class="k" style="color:#E07B42">Come reggono i €149/mese</span>
+    <p>Le telecamere costano €600 l'una, l'edge ~€1.750. Separare un setup una tantum dal canone toglie l'ammortamento hardware dal prezzo mensile: BASE gira su iPad (nessun rig), PRO/ELITE recuperano l'hardware in anticipo col setup — così il canone copre cloud, manutenzione e margine, non il rig.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">12</span><h2 class="display">Revenue — scenari illustrativi</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">L'Italia è il pilota; l'espansione europea parte dall'Anno 2 sui mercati più densi. Tutte le ipotesi dichiarate. <b>Base</b> è un floor prudente. <b>Scale</b> aggiunge clienti multi-campo, il rollout europeo e il canale white-label — la leva che piega la curva. L'hardware è finanziato al 50% da VICKI solo nell'Anno 1, come incentivo di lancio.</p>
+  <div class="reveal" style="margin-bottom:30px">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel);margin-bottom:8px">Scenario Base · floor prudente</p>
+    <table>
+      <thead><tr><th>Anno</th><th>BASE / PRO / ELITE</th><th>Ricavo totale</th><th>Penetr. EU</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>40 / 6 / 3</td><td><span class="big">€290k</span></td><td>0,02%</td></tr>
+        <tr><td>3</td><td>380 / 55 / 26</td><td><span class="big">€2,59M</span></td><td>0,19%</td></tr>
+        <tr><td>5</td><td>1.150 / 160 / 80</td><td><span class="big">€7,44M</span></td><td>0,58%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="reveal">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#E07B42;margin-bottom:8px">Scenario Scale · rollout Europa + white-label</p>
+    <table>
+      <thead><tr><th>Anno</th><th>Mercati</th><th>White-label</th><th>Ricavo totale</th><th>Penetr. EU</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Italia (pilota)</td><td>—</td><td><span class="big">€207k</span></td><td>0,03%</td></tr>
+        <tr><td>2</td><td>Italia + ingresso Europa</td><td>—</td><td><span class="big">€1,73M</span></td><td>0,11%</td></tr>
+        <tr><td>3</td><td>Europa multi-paese</td><td>—</td><td><span class="big">€4,64M</span></td><td>0,30%</td></tr>
+        <tr><td>4</td><td>scala europea</td><td>1 partner (~1,75k campi)</td><td><span class="big">€10,0M</span></td><td>0,60%</td></tr>
+        <tr><td>5</td><td>Europa + primo export</td><td>3 partner (~5,6k campi)</td><td><span class="big" style="color:#E07B42">€19,8M</span></td><td>1,13%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note-internal" style="margin-top:18px">Scenari illustrativi, non previsioni. Penetrazione = (PRO+ELITE) ÷ 41.687 circoli europei — all'Anno 5 ancora solo ~1,1%, tutto headroom davanti. White-label modellato a ~€20/campo/mese + ~€75k integrazione per partner. Hardware Anno 1 finanziato al 50% da VICKI (capex di acquisizione). Churn non modellato. I numeri si riconciliano col modello interno a 7 fogli.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">13</span><h2 class="display">Partnership di sviluppo del metodo</h2></div>
+  <p class="sec-body reveal">Il posizionamento di VICKI sul metodo — non sull'analisi — la rende l'interlocutore naturale per accordi di co-sviluppo e validazione con coach e accademie di riferimento, a livello internazionale ed élite italiana. È una leva di go-to-market deliberata verso il segmento premium: codificare un metodo di vertice valida il prodotto e apre il canale verso le accademie top. <span style="color:var(--steel)">Priorità strategica per la fase post-investimento.</span></p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">14</span><h2 class="display">Traiettoria</h2></div>
+  <div class="reveal">
+  <div class="timeline">
+    <div class="yr"><span class="dotmark"></span><div class="y">Anno 1</div><div class="v">Build</div><div class="d">Solo sviluppo</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Anno 3</div><div class="v" style="color:#5BA88A">EBITDA+</div><div class="d">Positivo</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Anno 4</div><div class="v" style="color:#5BA88A">Break-even</div><div class="d">Auto-sostenibile</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Anno 5</div><div class="v">€30–200M</div><div class="d">Valutazione stimata</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:26px;margin-bottom:14px"><b>Conto economico indicativo</b> (scenario Scale, M€):</p>
+  <div class="reveal"><table>
+    <thead><tr><th>M€</th><th>Anno 1</th><th>Anno 2</th><th>Anno 3</th><th>Anno 4</th><th>Anno 5</th></tr></thead>
+    <tbody>
+      <tr><td>Ricavi</td><td>0,2</td><td>1,7</td><td>4,6</td><td>10,0</td><td>19,8</td></tr>
+      <tr><td>Costi</td><td>1,2</td><td>2,3</td><td>4,2</td><td>7,1</td><td>11,3</td></tr>
+      <tr><td><b>EBITDA</b></td><td>−1,0</td><td>−0,6</td><td><span style="color:#6FC09E">+0,5</span></td><td><span style="color:#6FC09E">+2,9</span></td><td><span style="color:#6FC09E">+8,5</span></td></tr>
+      <tr><td>Margine</td><td>—</td><td>−33%</td><td>11%</td><td>29%</td><td><b>43%</b></td></tr>
+      <tr><td>Cassa cumulata</td><td>−1,0</td><td><b>−1,5</b></td><td>−1,0</td><td><span style="color:#6FC09E">+1,9</span></td><td><span style="color:#6FC09E">+10,4</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:14px">Il <b>picco di fabbisogno di cassa è ~€1,5M</b> (Anno 2): è il capitale necessario per portare l'azienda all'autosufficienza. EBITDA positivo dall'Anno 3, cassa positiva dall'Anno 4. I costi restano contenuti perché il prodotto è già operativo (non da costruire) e i canali — federazioni, white-label — hanno un costo di acquisizione a leva.</p>
+  <p class="sec-body reveal" style="margin-top:18px">La valutazione segue ricavo × un multiplo di crescita. <b>Visione base</b> (€7,44M ricavo Anno 5, 4–7× SaaS) → <b>€30–50M</b>. <b>Visione estesa</b> (€19,8M, 8–10× — prudente per AI ad alta crescita) → <b>€150–200M</b>. Il range riflette quale scenario si realizza, non incertezza sul metodo.</p>
+  <p class="note-internal" style="margin-top:12px">Proiezioni Anno 5 dal modello interno a 7 fogli, non la pre-money del round attuale. Ricavi e costi illustrativi; multipli secondo le norme di mercato SaaS/AI. Non una validazione di mercato.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">15</span><h2 class="display">Prodotto e tecnologia</h2></div>
+  <p class="sec-body reveal">Una piattaforma di collegamento multi-ruolo, live, su una pipeline di computer vision proprietaria e pienamente operativa.</p>
+  <div class="chips reveal">
+    <span class="chip live">Live · app.vicki.pro</span>
+    <span class="chip">PWA multi-ruolo — coach / atleta / genitore</span>
+    <span class="chip">12 modelli CV in produzione</span>
+    <span class="chip">Pipeline proprietaria — nessuna dipendenza da terzi sul core</span>
+    <span class="chip">Analisi su 7 domini core</span>
+    <span class="chip">Scoring degli esiti su 3 orizzonti temporali</span>
+    <span class="chip">Memoria metodologica stratificata</span>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p class="note-internal"><b>Fonti.</b> Mercato AI Coaching for Tennis (RealTimeDataStats, 2025); mercato Tennis Coaching Services (MarketIntelo, 2024); Report FITP Tennis &amp; Padel 2024. <b>Prezzi, proiezioni e metriche di prodotto sono dati interni VICKI;</b> la valutazione all’Anno 5 è un output del modello interno, non una validazione di mercato.</p>
+</div></footer>
+
+</div>
+
+
+</div>
+<div id="lang-en" class="langpane">
+
+<svg class="growthline" preserveAspectRatio="none" viewBox="0 0 1440 4200">
+  <defs>
+    <linearGradient id="gl" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#C8612E" stop-opacity="0.0"/>
+      <stop offset="0.5" stop-color="#C8612E" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#5BA88A" stop-opacity="0.65"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,4080 C320,4030 380,3500 540,3250 C720,2970 800,2400 980,2150 C1180,1870 1230,1100 1440,520"
+        fill="none" stroke="url(#gl)" stroke-width="2.5"/>
+</svg>
+
+<div class="topbar"><div class="wrap">
+  <img class="logo-img" src="data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAB/AGUDASIAAhEBAxEB/8QAHQABAAICAwEBAAAAAAAAAAAAAAcIBgkBBAUCA//EAEIQAAECBQIFAgMEBQkJAAAAAAECAwAEBQYRByEIEjFBURNhInGBFDJCUhUjYoKhFhczcnORorGyJkNjg5KjwdHx/8QAFAEBAAAAAAAAAAAAAAAAAAAAAP/EABQRAQAAAAAAAAAAAAAAAAAAAAD/2gAMAwEAAhEDEQA/AKZQhHoW9RqpcNalaNRpJ2dn5twNsstjJUf/AAANyTsACTAdFtC3HEttoUtaiAlKRkknoAInjSvhju+52mqjczwtqnLwoNut8824P7PI5Pmogj8pifdA9CaHp5LM1aqpZqlzqTlUyU5blc9Usg9+xWdz2wDiJkgIqs3h80ttttBNvprEynq/VFevzfNGzf8AhjocT1gUyraJ1RFHpEnKzFJxUJdMswlvZvPqD4QP92V7eQImSPh9pt9hxh5CXG3ElC0qGQoEYIMBrJ00tt28L+oltNc2J+bQ24pPVDWcuKHyQFH6RsYqtj2ZVZREpU7Vos4y2gIQHpJtRQAMDBIyNvEQDwu6XOWzrTek3NtqLFAcVISKl9V+r8aV/P0eXP8AaRZ+AgK/eFmxa0249bT81bk4d0pSovy5PuhZ5h9FADx2isGqmkV66cvFdbp4epxVyt1GVJcYV4BOMoPsoDPbMbHI/KdlZadlHZOcl2piXeQUOtOoCkLSeoIOxEBqphFluJTh6/k+xM3fYrDjlLRlydpqcqVKjqXG+5bHdPVPXcZ5a0wCEIQHIBJwBkxe7hW0kasO2EV6sS3+0tUZBdC07yjJwQyPCjsVe+B+HJrtwiWGm8tUGqhOshyl0IJnHwoZSt3P6lB+agVe4QR3i+sAj8puZl5OVdm5t9qXl2UFbrrqwlCEgZJJOwA8mPp91phhx99xDTTaSta1qCUpSBkkk9AB3iiPEprVPag1d2h0R9yWtaVcwhCSUmdUD/SL/Zz91Pbqd+gS7qnxVUelPPU6xacmszCCUmemsolgf2UjCnB75SPGYgS49edVq48tbt2zck2T8LUglMulA8AoAUfqSYjOEBlkpqXqJKvrfYvq5UuOK53Cam8oLVgJyoFWCcADJ7AeIz+zeJrU2huoTUpyUr8qMAtzrASsDvhxvlOfdXNEKQgNhGj2udnajLRT2XF0mtkZ/R82oZcPf0l9HPlsrYnlxvEpxqnZdcYeQ8y4tt1tQUhaFYUkjcEEdDF2OFPWty9ZYWhdD4NwSrXNLTKjgzzaRvn/AIiRufI37GAsAQCMHcRR3i30kbsmvouigS3p0CqOELaQn4ZSY6lA8IVuU+MKGwAi8UeFf9r0687OqVtVRAMvPMlHNjJbX1Qse6VAEfKA1gwju16lzlErc9R6i36U5IzC5d9HhaFFJ+mRCAu9wV24ijaNtVZTYEzWppyZUrG/poPpoT8vgUof14nCMT0bkkU7SW05NAHwUeVKsdCotJUo/UkxlkBX7javp637DlbWp7xbm68pSX1JO6ZVGOce3MVJHuAoRSWJr406s5UdcpySWTyUuSl5ZA7fEj1if+7/AAiFIBCEIBCEIBHoW7WJ+367I1ulvlidkX0vsrHZSTnfyOxHcR58IDaDYtwyt2WdSbkkxys1CVQ+EZzyKI+JGfKVZH0j2ogbgbqzs9o6/IOqJ/RtUeZaHhCkoc/1LXE8wFGeNq3EUfV8VVhvlarMk3MKI6eqjLav4JQfmqETRxeWjL3Ou2FurDapcTQz0JCvR228Y/jCAlzTBaXNNLXcQoKQqjyhSR0ILKN4yKI14YK0iuaGW08F8zkrLGScTndJZUUAH90JPyIiSoDX3xbyq5XiAuMqC+V77M6gqOcgy7efoCCPpEURZ3j1tZxi4KHeTLf6ibYMhMKHRLiCVoJ91JUof8uKxQCEIQCEIQCEIQFzeAeUWjTyvzxB5Xqt6Q/caQT/AKxFjojfhptZ20tGqHT5pv05yZbM7MpOxC3TzAEdiEciT7piSICMddq21Rv0N6hkR63r4+047en03Hn/AChEIcedwuC7LboUrMutOSkk7Mu+msj+mWEgHHf9ST9feEB2+A28UNvVmxZt4JLp/SEiCfvKACXUj6BBA9lGLZRq8sq4qjaV10246Uvlm5B9LqATssD7yFY/CoZSfYmNk1g3VSr0tKQuSjO88rONhXKT8TS+im1ftJOQflttAdXVKzaff1j1G2agQgTKMsPcuSw8N0OD5HqO4JHeNcN3W9VrUuOdoFblVS0/JuFDiD0PhST3SRgg9wY2ixG+uWkNB1QpKRMq+wVqWQRJ1BCMqSOvIsfjRnt1B3B3OQ12QjM9StMby0+nVM3DSXES3PytTzIK5Z3xyrxsT+VWFe0YZAIQjlIKiEpBJOwA7wHETLws6Vv39eTdWqUsTblJdS5NKWPhmHBulkeexV4TttzCO7oxw5XTeEwzUrmaft+hZCiXUcs1MDwhB+6D+ZQ75AVF17XoNJtmgytDock3JSEojkaaQOnkk9SSdyTuScmA9KOFqShClrUEpSMkk4AHmOYgTjF1NRa1nKtGlTGK1Wmil0oO8vKnZSvYr3SPbmO2BAVT1vu4XxqjXLhaWVSjz/pSeRj9Q2ORs47ZCQojyowjC4QCJY4ctX5zTK4FS876s1bk8ofbJdJyWldA82PzAbEfiHuARE8IDadQqtTa7SJarUedZnpGZQFsvsq5krH/AL7EdQdjHdjXPo3q7dOmVRKqY6JylOq5pmmvqPpOeVJP4F/tD2yDjEXP0s1rsXUBppmSqSadVlDCqdOqDbvN4QfuufunOOoEBIsywxMy65eZZbeZcHKttxIUlQ8EHYiI4uPQbSiuvLfmLRlZV5W5XIuLlh/0oIT/AAiS4QELMcMWk7boWunVJ5I/AufWAf7sH+MZ3Z2mVg2gtLtvWrTpN9P3XyguvJ+TiypQ/vjLoQCEflOzUtJSrk3OTDMtLtJ5nHXVhCEDySdgIr1rDxP0CiNPUuxEt1upYKTOqBEqyfI7un5YT03PSAknW7VSh6Y26ZucUiaqswkiQp6V4W8r8yvyoHdX0GTGvu77iq113HO3BXJozM/OOc7i+gHYJSOyQMADsBHxc9frFzVuYrVeqD0/PzCsuPOnJ9gB0AHYDAHaPMgEIQgEIQgEcgkHIODHEICQ7M1q1MtRtDFNumbelUDAl50CYbA8DnyUj+qREl0ni5vJlKU1O2qHOYxlTJdZJH1UoZ+kVxhAWhd4wKqWyGrHkkr7FU+pQH05B/nGNXBxWajz6VN0yUotISc4W1LqdcH1cUU/4YgOEBkN4Xvd13verctw1Cp4OUtuun0kHylsYSn6ARj0IQCEIQCEIQCEIQCPpASVpC1FKSdyBnA+UfMICX/5jKkvVqm2NL11h6VqFNFUaqwlyGxLlCjzlHN+ZPL17gx1kaKVWoVKz5KgVdiom6GX5hlxbJaRLstKAK1nKtiDnbvgbkxn1F1Fo7fDQ5UlKWLvkaa7bDCwg7yzjjZB5sYHK3jG+cpO24ju2dqDbluHSc1GZc+yKoM5TJ9bbSiqXLq2+VWMfFukZxnYnr0gI6uzRunydpVe4LS1BpF1pofIaoxLNFtTIUcBSFcygsdTnbocbjEdyr6BVGj3JXper3HKyFuUNhtyarj8spLalrQlSWm2+bK1/EBgHx3IB/XUTSSztP7QqdRrN3TlUqT60t0JiSlSylZ/Ep/nSrbG+EqHTqc7SnqZf1tX9fNe0suF9CKHNSrL9FqbUsvnlZxDZWVLTjmUDkjoNhj8WQFdbzsE29YNs3e3VhNy9wKmAyyZf01tJaXy5UeYgk9cDp7xhMTRrNMyjOiOnduiaQ7P0p6famkoSrlSfVwCCQMg4/8AkQvAIQhAIQhAf//Z" alt="VICKI">
+  <span class="tag">Investor brief · confidential</span>
+</div></div>
+
+<div class="content">
+
+<header><div class="wrap">
+  <span class="eyebrow">Sport intelligence for tennis</span>
+  <h1 class="hero display">Analytics sees<br>the effect.<br><span class="l2">VICKI® sees the chain.</span></h1>
+  <p class="lede">Vision data is a commodity. VICKI®'s moat is the <b>layered methodological memory</b> on top of it — how a coach decided, on which athlete, why, and what it produced over time. That can't be bought. It's built.</p>
+  <div class="scrollcue"><span class="bar"></span> Scroll</div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">01</span><h2 class="display">The moat</h2></div>
+  <p class="sec-body reveal">The computer-vision components VICKI uses — detection, tracking, pose, shot classification — are scientific commodity. Anyone with the right skills can assemble a comparable pipeline in 6–12 months. Competing there means competing on price and UI polish, where incumbents already have scale.</p>
+  <p class="sec-body reveal">VICKI's advantage sits elsewhere: <b>temporal layering</b>. One shot analyzed today is worth little. Ten thousand shots of an athlete over eighteen months — correlated with the coach's methodological decisions, match outcomes, the athlete's physical response, the corrections that worked and the ones that didn't — is an asset you don't replicate by buying better infrastructure. It only accrues with time. The moat typically matures after 6–12 months of continuous use.</p>
+  <p class="sec-body reveal" style="margin-top:14px"><b style="color:#E07B42">Results are obvious; growth is often hidden — VICKI proves it.</b> Match results are a lagging, noisy signal: an athlete can improve their backhand, movement and tactics and still lose, or get worse on paper while rebuilding a stroke. VICKI sees the real progress the scoreboard hides. Access to academies and clubs is a significant family investment, and it has to feel well spent: that objective proof of growth — even in a flat-results season — is exactly what keeps a family from walking away. It's the difference between a thermometer and a diagnosis.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">02</span><h2 class="display">Why it's defensible</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:8px">Established analytics players record measurable facts on court — shot speed, bounce position, patterns, match stats. Their history is a <b>history of measurements</b>. That's real value. But it's a different layer.</p>
+  <div class="vs reveal">
+    <div class="effect">
+      <span class="k">Analytics players</span>
+      <h4>They see the effect</h4>
+      <p>What happened on court: measurements, patterns, statistics over time. A horizontal layer — data on observed data.</p>
+    </div>
+    <div class="chain">
+      <span class="k">VICKI</span>
+      <h4>VICKI sees the chain</h4>
+      <p>Which methodological choices a coach and academy applied, why, how they acted on the athlete at that stage, the outcomes observed over time — and how often those choices produce those outcomes. A vertical layer that sits on top of analytics and uses it as input.</p>
+    </div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">These layers don't compete — they integrate. And the difference isn't replicable by adding features: even a player who started building a methodological layer today would start from <b>zero memory</b>, and layered memory doesn't synthesize. It accumulates.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">03</span><h2 class="display">A closed platform</h2></div>
+  <p class="sec-body reveal">VICKI continuously analyzes play and builds a longitudinal profile of the athlete — growth over time, not a one-day snapshot — while learning the individual coach's method.</p>
+  <div class="perimeter reveal">
+    <span class="k">It never leaves the academy</span>
+    <p>The academy is the perimeter and the customer. <b>VICKI® team</b> (app.vicki.pro) is the connecting app linking coach, athlete and parent/guardian <i>inside</i> that perimeter — role-based, permissioned, private to the academy. Not a consumer app the athlete uses on their own.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">04</span><h2 class="display">Domains of analysis</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">VICKI doesn't just read the shot. It reads the whole athlete across seven core domains — including the athlete's own voice — which is why the methodological layer can reason about a player completely, not just about their technique.</p>
+  <div class="domains reveal">
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M4 18 L10 10 L14 13 L20 5"/><circle cx="20" cy="5" r="1.4" fill="#E07B42"/></svg></div><div class="dn">Technical</div><div class="dd">Stroke mechanics &amp; execution</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M12 4v16M4 12h16" stroke-dasharray="2 2"/><circle cx="8" cy="9" r="1.4" fill="#E07B42"/></svg></div><div class="dn">Tactical</div><div class="dd">Patterns &amp; match decisions</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M6 20c0-5 3-8 6-8s6 3 6 8"/><circle cx="12" cy="6" r="2.6"/><path d="M9 13l-3-2M15 13l3-2"/></svg></div><div class="dn">Athletic</div><div class="dd">Movement &amp; physical output</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3M6.3 6.3l2 2M15.7 15.7l2 2M17.7 6.3l-2 2M6.3 17.7l2-2"/></svg></div><div class="dn">Biomechanical</div><div class="dd">3D joint &amp; kinematic analysis</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M12 4c-3 0-5 2-5 5 0 2 1 3 1 5 0 1.5 1.5 2 4 2s4-.5 4-2c0-2 1-3 1-5 0-3-2-5-5-5z"/><path d="M10 20h4"/></svg></div><div class="dn">Mental</div><div class="dd">Response &amp; competitive state</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M7 8h10M7 12h7"/><path d="M5 4h14a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4 3V5a1 1 0 0 1 1-1z"/></svg></div><div class="dn">Subjective</div><div class="dd">Coach notes &amp; athlete's own input</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M12 5v14M5 12h14" stroke-width="2.2"/></svg></div><div class="dn">Medical</div><div class="dd">Health status &amp; physical condition</div></div>
+  </div>
+  <p class="dom-future reveal"><span class="tagf">Deepening over time</span> &nbsp; All seven domains grow richer with maturity. The <b>medical</b> domain in particular extends toward external clinical-record integration, injury &amp; recovery tracking, and longitudinal physical-load monitoring — moving the platform toward full athlete management.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">05</span><h2 class="display">What each role gets</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">Value is shared across three actors — that's what makes the academy adopt it and the family stay.</p>
+  <div class="roles">
+    <div class="role reveal coach">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C8612E" stroke-width="1.6"><circle cx="12" cy="6" r="3.2"/><path d="M5 20c0-4 3.2-6.5 7-6.5S19 16 19 20"/><path d="M16.5 4.5l4 1.5-4 1.5"/></svg></div>
+      <h3>Coach</h3><div class="who">The method holder</div>
+      <ul>
+        <li>Their methodology is captured as a structured, growing asset — codified instead of tacit.</li>
+        <li>Continuous vision analyzes every session, not just the ones they watch closely.</li>
+        <li>The method is portable and stays with them if they leave — their professional capital, made tangible.</li>
+      </ul>
+    </div>
+    <div class="role reveal athlete">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5BA88A" stroke-width="1.6"><circle cx="12" cy="5" r="2.6"/><path d="M12 7.6V14l-3.5 6M12 14l3.5 6M7 10.5h10"/></svg></div>
+      <h3>Athlete</h3><div class="who">Followed continuously</div>
+      <ul>
+        <li>Followed at all times through continuous vision — progress is seen, not guessed.</li>
+        <li>A complete competitive memory: their own, portable, theirs forever.</li>
+        <li>Carries to a new coach or academy as a structured dossier, not anecdotes.</li>
+      </ul>
+    </div>
+    <div class="role reveal parent">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C8612E" stroke-width="1.6"><circle cx="8" cy="6" r="2.6"/><circle cx="16" cy="7" r="2.2"/><path d="M3 19c0-3.2 2.2-5 5-5s5 1.8 5 5M13.5 18c.4-2.4 2.2-3.8 4.5-3.8 2 0 3.5 1.3 4 3.3"/></svg></div>
+      <h3>Parent</h3><div class="who">Monitors the path</div>
+      <ul>
+        <li>Transparency on the child's path and the investment behind it, with age-aware visibility.</li>
+        <li>Continuity — the path doesn't break if the coach changes.</li>
+        <li>Traceable evidence of decisions and responsibility.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">06</span><h2 class="display">Why an academy buys it — the ROI</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">An ELITE court runs €240/month on top of the site base — the recurring fee covers cloud analysis, maintenance, software updates and the full methodological layer (hardware is one-off, separate). A modest cost against the value it unlocks. It pays for itself through several compounding levers:</p>
+  <div class="levers reveal">
+    <div class="lever">
+      <h3>Premium pricing</h3>
+      <p>A VICKI®-powered academy — measurable results, tracked method — justifies raising fees by a few points across its existing athletes. That alone covers the subscription.</p>
+    </div>
+    <div class="lever">
+      <h3>Attendance &amp; uniqueness</h3>
+      <p>VICKI® makes the academy unique: the one that proves growth with objective data attracts athletes the others can't intercept. New enrolments the competition doesn't see.</p>
+    </div>
+    <div class="lever">
+      <h3>Retention</h3>
+      <p>The athlete's journey lives inside the academy — leaving means starting from zero memory. Higher switching cost, lower churn, recurring fees secured year over year.</p>
+    </div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:20px">On top of these, every advantage the platform already delivers: the coach's method codified as an asset, the academy's heritage as institutional memory, continuity even when a coach leaves, transparency for families. VICKI® is an investment for the academy, not a cost — and the customer's success compounds VICKI®'s moat: the more the academy grows athletes, the richer the methodological memory it can't take elsewhere.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">07</span><h2 class="display">The IP model</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:6px">VICKI separates the methodological memory into distinct objects, each with defined ownership. This turns VICKI from an analysis tool into <b>infrastructure for managing competitive intellectual property</b> — a real need no competitor addresses.</p>
+  <div class="assets reveal">
+    <div class="asset"><div class="nm">The coach's method<span>decision rules, correction heuristics, intervention patterns</span></div><div class="ds">The coach's operational know-how, structured. Portable when they leave.</div><div class="ow coach">Coach</div></div>
+    <div class="asset"><div class="nm">The academy's method<span>founding principles, development protocols, standards</span></div><div class="ds">Tacit institutional knowledge turned into structured, defensible heritage. Licensable when mature.</div><div class="ow acad">Academy</div></div>
+    <div class="asset"><div class="nm">The athlete's journey<span>biomechanical history, decisions received, outcomes</span></div><div class="ds">The athlete's personal competitive memory. Portable across academies. Theirs for life.</div><div class="ow ath">Athlete</div></div>
+    <div class="asset"><div class="nm">Training traces<span>raw operational record of every session</span></div><div class="ds">The substrate the graphs feed on. Infrastructural, not a sellable object on its own.</div><div class="ow shared">Shared</div></div>
+    <div class="asset"><div class="nm">The academy's heritage<span>anonymized, aggregated method patterns over time</span></div><div class="ds">The institution's long memory — what stays when people change. Empirical proof of a method's validity.</div><div class="ow acad">Academy</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">Ownership is configurable per relationship: when a coach joins an academy, the parties negotiate who owns what, and VICKI implements it technically. The result — a coach can leave with their method, an athlete can carry their journey, an academy keeps its heritage even after people move on.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">08</span><h2 class="display">Three levers of scale</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">Because the value is the methodological layer, not the vision itself, VICKI is agnostic to the analysis source. That opens three complementary go-to-market modes.</p>
+  <div class="levers">
+    <div class="lever reveal"><div class="step">Mode 01</div><h3>Integrated</h3><p>End-to-end: VICKI's own vision pipeline plus the methodological layer. For new academies with no installed analytics.</p><div class="econ"><b>Full margin</b> · linear growth, one sale at a time</div></div>
+    <div class="lever reveal"><div class="step">Mode 02</div><h3>Overlay</h3><p>The academy keeps its existing analytics infrastructure; VICKI sits on top and adds the methodological brain it doesn't have. Additive pitch, low adoption friction.</p><div class="econ"><b>High margin</b> · no hardware cost</div></div>
+    <div class="lever reveal hl"><div class="step">Mode 03</div><h3>White-label</h3><p>VICKI embedded as the methodological layer inside an analytics player's product, reaching their entire installed base through one channel.</p><div class="econ"><b>Distribution at scale</b> · CAC drops by an order of magnitude</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">The structural defense in any white-label deal: the layered memory accumulated stays with VICKI and the end clients, not the partner. A player who replaced VICKI would start from zero memory — losing the methodological continuity their clients built. <b>The moat protects the channel.</b></p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">09</span><h2 class="display">Market</h2></div>
+  <div class="reveal">
+  <p class="sec-body reveal" style="margin-bottom:22px">VICKI sells per court and per academy, so the honest addressable universe is courts and clubs — not the player population. Three concentric levels:</p>
+  <table>
+    <thead><tr><th style="width:24%">Level</th><th style="width:30%">Addressable universe</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td>Italy<br><span class="note">launch beachhead</span></td><td><span class="big">~9,300</span> courts<span class="note">~4,096 clubs (FITP)</span></td><td>1.15M members (Dec 2024, +266% vs 2020); ~440k competitive players. Fastest-growing sports federation in Italy.</td></tr>
+      <tr><td>Europe<br><span class="note">densest region</span></td><td><span class="big">most of</span> the global base<span class="note">50 federations</span></td><td>The leaders alone show the scale — Germany ~40,000 courts / ~5,500 clubs, France ~33,000 / ~7,000. Over 80% of the world's clubs sit in Europe + North America.</td></tr>
+      <tr><td>World<br><span class="note">total</span></td><td><span class="big">~578,000</span> courts<span class="note">~115,000 clubs</span></td><td>The full long-term universe, reachable at scale through the white-label channel.</td></tr>
+    </tbody>
+  </table>
+  <p class="note-internal" style="margin-top:16px">Go-to-market: academies and coaches, with federation partnerships as the primary channel. Italy first, Europe as the dense core, world via white-label.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">10</span><h2 class="display">Market precedents</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">Our adoption curve isn't an abstract hope. Hardware-based analysis systems — a product we treat as commodity next to our methodological layer — have already built a meaningful installed base in Europe from zero. Our trajectory is in line with what's already been shown achievable, on a more defensible product.</p>
+  <div class="reveal"><table>
+    <thead><tr><th style="width:18%">System</th><th style="width:22%">Installed base</th><th style="width:14%">Time</th><th>Note</th></tr></thead>
+    <tbody>
+      <tr><td class="tier" style="color:var(--chalk)">Wingfield (DE)</td><td><span class="big">400+</span> courts<span class="note">250+ facilities, 16 countries</span></td><td>~5 yrs<span class="note">from 2019</span></td><td>National-federation partnership; clients incl. a leading academy and a historic London club. Analysis-only product.</td></tr>
+      <tr><td class="tier" style="color:var(--chalk)">PlaySight</td><td><span class="big">35 → 1,000+</span> courts<span class="note">global</span></td><td>~7 yrs</td><td>Backed by top-tier athlete investors; ITF-approved. Connected-camera analysis.</td></tr>
+      <tr><td class="tier">VICKI · Scale target</td><td><span class="big">~470</span> direct courts<span class="note">Year 5, + white-label reach</span></td><td>5 yrs</td><td>Same order of magnitude — with the methodological layer they lack, plus the white-label accelerator.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:22px">A European analysis-only player reached 400+ courts and a federation partnership in ~5 years. VICKI's Year-5 target sits in the same range — reached with a product that does what they do <b>plus</b> the methodological layer they don't have, and with white-label as an additional channel. The benchmark makes the curve credible, not optimistic.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">11</span><h2 class="display">Pricing &amp; unit economics</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:26px">Recurring software subscription, with hardware billed separately as a one-off so the monthly fee stays software margin — that's how €149/month holds. The methodological layer (the moat) is in every paid tier, not an upsell.</p>
+  <div class="reveal"><table>
+    <thead><tr><th style="width:14%">Tier</th><th style="width:24%">Price / month</th><th>What it is</th></tr></thead>
+    <tbody>
+      <tr><td class="tier">BASE</td><td class="price">€149 <span class="note">per coach</span></td><td>Via iPad — no fixed hardware. The adoption engine, near-pure margin.</td></tr>
+      <tr><td class="tier">PRO</td><td class="price">€390 + €200<span class="note">base + per court</span></td><td>4 cameras/court. Reduced domains (no medical/mental, basic biomechanics) + the methodological layer. E.g. 1 court €590, 2 courts €790.</td></tr>
+      <tr><td class="tier">ELITE</td><td class="price">€490 + €240<span class="note">base + per court</span></td><td>6 cameras/court. Full domain depth + complete methodological layer. E.g. 1 court €730, 2 courts €970, 3 courts €1,210.</td></tr>
+      <tr><td class="tier">OVERLAY</td><td class="price">€690 <span class="note">per court</span></td><td>On third-party cameras — VICKI adds the methodological brain. Edge only, no cameras.</td></tr>
+      <tr><td class="tier">WHITE-LABEL</td><td class="price">per partner</td><td>Embedded in an analytics player's product. ~€75k integration + ~€20/court/month. 8+ courts → enterprise, negotiated.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:22px;font-size:16px"><b style="color:#E07B42">A base fee per site + a fee per court.</b> The base covers the platform, the methodological layer and the shared edge (per-site costs); the per-court fee covers cameras and analysis (per-court costs). So a one-court academy pays for one court, not for three — the price scales with what they use.</p>
+  <p class="sec-body reveal" style="margin-top:14px;font-size:16px"><b style="color:#E07B42">Hardware, two options the customer chooses from.</b> <b>A — One-off setup:</b> €2,500 edge per site (shared across adjacent courts) + €4,118/court PRO / €5,738/court ELITE, then the subscription. E.g. ELITE 1 court: €8,238 + €730/month. <b>B — All-inclusive:</b> no upfront, hardware spread into the monthly fee over 36 months. E.g. ELITE 1 court: €977/month all-in. The edge runs local pre-analysis and sends data — not video — to cloud processing, so one edge serves several courts.</p>
+  <p class="note-internal" style="margin-top:10px">The all-inclusive option shifts revenue from one-off to recurring — it lifts ARR but requires working capital, since VICKI fronts the hardware and recovers it through the fee.</p>
+  <div class="perimeter reveal" style="border-left-color:#E07B42;background:rgba(224,123,66,0.06)">
+    <span class="k" style="color:#E07B42">How €149/month holds</span>
+    <p>Cameras cost €600 each, the edge ~€1,750. Separating a one-off setup from the recurring fee removes hardware amortisation from the monthly price: BASE rides an iPad (no rig), PRO/ELITE recover hardware up front via setup — so the monthly fee covers cloud, maintenance and margin, not the rig.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">12</span><h2 class="display">Revenue — illustrative scenarios</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">Italy is the pilot; European expansion begins in Year 2 across the dense markets. All assumptions stated. <b>Base</b> is a prudent floor. <b>Scale</b> adds multi-court accounts, the European rollout and the white-label channel — the lever that bends the curve. Hardware is half-funded by VICKI in Year 1 only, as a launch incentive.</p>
+  <div class="reveal" style="margin-bottom:30px">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel);margin-bottom:8px">Scenario Base · prudent floor</p>
+    <table>
+      <thead><tr><th>Year</th><th>BASE / PRO / ELITE</th><th>Total revenue</th><th>EU penetration</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>40 / 6 / 3</td><td><span class="big">€290k</span></td><td>0.02%</td></tr>
+        <tr><td>3</td><td>380 / 55 / 26</td><td><span class="big">€2.59M</span></td><td>0.19%</td></tr>
+        <tr><td>5</td><td>1,150 / 160 / 80</td><td><span class="big">€7.44M</span></td><td>0.58%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="reveal">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#E07B42;margin-bottom:8px">Scenario Scale · Europe rollout + white-label</p>
+    <table>
+      <thead><tr><th>Year</th><th>Markets</th><th>White-label</th><th>Total revenue</th><th>EU penetration</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Italy (pilot)</td><td>—</td><td><span class="big">€207k</span></td><td>0.03%</td></tr>
+        <tr><td>2</td><td>Italy + Europe entry</td><td>—</td><td><span class="big">€1.73M</span></td><td>0.11%</td></tr>
+        <tr><td>3</td><td>multi-country Europe</td><td>—</td><td><span class="big">€4.64M</span></td><td>0.30%</td></tr>
+        <tr><td>4</td><td>European scale</td><td>1 partner (~1.75k courts)</td><td><span class="big">€10.0M</span></td><td>0.60%</td></tr>
+        <tr><td>5</td><td>Europe + first export</td><td>3 partners (~5.6k courts)</td><td><span class="big" style="color:#E07B42">€19.8M</span></td><td>1.13%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note-internal" style="margin-top:18px">Illustrative scenarios, not forecasts. Penetration = (PRO+ELITE) ÷ 41,687 European clubs — at Year 5 still only ~1.1%, all headroom ahead. White-label modelled at ~€20/court/month + ~€75k integration per partner. Year-1 hardware half-funded by VICKI (acquisition capex). Churn not modelled. Figures reconcile with the internal 7-sheet model.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">13</span><h2 class="display">Method development partnerships</h2></div>
+  <p class="sec-body reveal">VICKI's positioning on method — not analysis — makes it the natural counterpart for co-development and validation agreements with reference coaches and academies, at international level and across the Italian elite. It's a deliberate go-to-market lever toward the premium segment: codifying a top-level method validates the product and opens the channel to the top academies. <span style="color:var(--steel)">A strategic priority for the post-investment phase.</span></p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">14</span><h2 class="display">Trajectory</h2></div>
+  <div class="reveal">
+  <div class="timeline">
+    <div class="yr"><span class="dotmark"></span><div class="y">Year 1</div><div class="v">Build</div><div class="d">Development only</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Year 3</div><div class="v" style="color:#5BA88A">EBITDA+</div><div class="d">Positive</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Year 4</div><div class="v" style="color:#5BA88A">Break-even</div><div class="d">Self-sustaining</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Year 5</div><div class="v">€30–200M</div><div class="d">Est. valuation</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:26px;margin-bottom:14px"><b>Indicative P&amp;L</b> (Scale scenario, €M):</p>
+  <div class="reveal"><table>
+    <thead><tr><th>€M</th><th>Year 1</th><th>Year 2</th><th>Year 3</th><th>Year 4</th><th>Year 5</th></tr></thead>
+    <tbody>
+      <tr><td>Revenue</td><td>0.2</td><td>1.7</td><td>4.6</td><td>10.0</td><td>19.8</td></tr>
+      <tr><td>Costs</td><td>1.2</td><td>2.3</td><td>4.2</td><td>7.1</td><td>11.3</td></tr>
+      <tr><td><b>EBITDA</b></td><td>−1.0</td><td>−0.6</td><td><span style="color:#6FC09E">+0.5</span></td><td><span style="color:#6FC09E">+2.9</span></td><td><span style="color:#6FC09E">+8.5</span></td></tr>
+      <tr><td>Margin</td><td>—</td><td>−33%</td><td>11%</td><td>29%</td><td><b>43%</b></td></tr>
+      <tr><td>Cumulative cash</td><td>−1.0</td><td><b>−1.5</b></td><td>−1.0</td><td><span style="color:#6FC09E">+1.9</span></td><td><span style="color:#6FC09E">+10.4</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:14px">The <b>peak cash need is ~€1.5M</b> (Year 2): the capital required to take the company to self-sufficiency. EBITDA positive from Year 3, cash positive from Year 4. Costs stay contained because the product is already operational (not to be built) and the channels — federations, white-label — carry a leveraged acquisition cost.</p>
+  <p class="sec-body reveal" style="margin-top:18px">Valuation follows revenue × a growth multiple. <b>Base vision</b> (€7.44M Year-5 revenue, 4–7× SaaS) → <b>€30–50M</b>. <b>Extended vision</b> (€19.8M, 8–10× — prudent for high-growth AI) → <b>€150–200M</b>. The range reflects which scenario plays out, not uncertainty about the method.</p>
+  <p class="note-internal" style="margin-top:12px">Year-5 projections from the internal 7-sheet model, not the current round's pre-money. Revenue figures illustrative; multiples per SaaS/AI market norms. Not a market validation.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">15</span><h2 class="display">Product &amp; technology</h2></div>
+  <p class="sec-body reveal">A multi-role connecting platform, live, on a fully operational and proprietary computer-vision pipeline.</p>
+  <div class="chips reveal">
+    <span class="chip live">Live · app.vicki.pro</span>
+    <span class="chip">Multi-role PWA — coach / athlete / parent</span>
+    <span class="chip">12 CV models in production</span>
+    <span class="chip">Proprietary pipeline — no third-party dependency on the core</span>
+    <span class="chip">Analysis across 7 core domains</span>
+    <span class="chip">Outcome scoring across 3 time horizons</span>
+    <span class="chip">Layered methodological memory</span>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p class="note-internal"><b>Sources.</b> AI Coaching for Tennis market (RealTimeDataStats, 2025); Tennis Coaching Services market (MarketIntelo, 2024); FITP Report Tennis &amp; Padel 2024. <b>Pricing, projections and product metrics are internal VICKI figures;</b> the Year-5 valuation is an internal model output, not a market validation.</p>
+</div></footer>
+
+</div>
+
+
+</div>
+<div id="lang-de" class="langpane">
+
+<svg class="growthline" preserveAspectRatio="none" viewBox="0 0 1440 4200">
+  <defs>
+    <linearGradient id="gl" x1="0" y1="1" x2="1" y2="0">
+      <stop offset="0" stop-color="#C8612E" stop-opacity="0.0"/>
+      <stop offset="0.5" stop-color="#C8612E" stop-opacity="0.5"/>
+      <stop offset="1" stop-color="#5BA88A" stop-opacity="0.65"/>
+    </linearGradient>
+  </defs>
+  <path d="M0,4080 C320,4030 380,3500 540,3250 C720,2970 800,2400 980,2150 C1180,1870 1230,1100 1440,520"
+        fill="none" stroke="url(#gl)" stroke-width="2.5"/>
+</svg>
+
+<div class="topbar"><div class="wrap">
+  <img class="logo-img" src="data:image/png;base64,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" alt="VICKI">
+  <span class="tag">Investoren-Brief · vertraulich</span>
+</div></div>
+
+<div class="content">
+
+<header><div class="wrap">
+  <span class="eyebrow">Sport Intelligence für Tennis</span>
+  <h1 class="hero display">Analytics sieht<br>die Wirkung.<br><span class="l2">VICKI® sieht den Prozess.</span></h1>
+  <p class="lede">Vision-Daten sind Commodity. VICKI®s Burggraben ist das <b>geschichtete methodische Gedächtnis</b> darüber — wie ein Coach entschieden hat, bei welchem Athleten, warum und was es über die Zeit bewirkt hat. Das kann man nicht kaufen. Es wird aufgebaut.</p>
+  <div class="scrollcue"><span class="bar"></span> Scrollen</div>
+</div></header>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">01</span><h2 class="display">Der Burggraben</h2></div>
+  <p class="sec-body reveal">Die Computer-Vision-Komponenten, die VICKI nutzt — Erkennung, Tracking, Pose, Schlagklassifizierung — sind wissenschaftliche Commodity. Mit den richtigen Fähigkeiten lässt sich eine vergleichbare Pipeline in 6–12 Monaten aufbauen. Dort zu konkurrieren bedeutet, über Preis und UI-Politur zu konkurrieren, wo etablierte Anbieter bereits Skalierung haben.</p>
+  <p class="sec-body reveal">VICKIs Vorteil liegt woanders: in der <b>zeitlichen Schichtung</b>. Ein heute analysierter Schlag ist wenig wert. Zehntausend Schläge eines Athleten über achtzehn Monate — korreliert mit den methodischen Entscheidungen des Coachs, den Matchergebnissen, der körperlichen Reaktion des Athleten, den Korrekturen, die funktioniert haben, und denen, die es nicht taten — sind ein Asset, das man nicht durch den Kauf besserer Infrastruktur repliziert. Es wächst nur mit der Zeit. Der Burggraben reift typischerweise nach 6–12 Monaten kontinuierlicher Nutzung.</p>
+  <p class="sec-body reveal" style="margin-top:14px"><b style="color:#E07B42">Ergebnisse sind offensichtlich; Wachstum bleibt oft verborgen — VICKI weist es nach.</b> Matchergebnisse sind ein nachlaufendes, verrauschtes Signal: Ein Athlet kann Rückhand, Bewegung und Taktik verbessern und trotzdem verlieren, oder auf dem Papier schlechter werden, während er einen Schlag neu aufbaut. VICKI sieht den echten Fortschritt, den die Anzeigetafel verbirgt. Für Eltern, die 5.000–40.000 €/Jahr zahlen, ist der Zugang zu Akademien und Clubs eine bedeutende Investition, die sich gut angelegt anfühlen muss: jener objektive Wachstumsnachweis — selbst in einer Saison ohne Ergebnisse — hält eine Familie davon ab, aufzugeben. Es ist der Unterschied zwischen einem Thermometer und einer Diagnose.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">02</span><h2 class="display">Warum es verteidigbar ist</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:8px">Etablierte Analytics-Anbieter erfassen messbare Fakten auf dem Platz — Schlaggeschwindigkeit, Aufprallposition, Muster, Match-Statistiken. Ihre Historie ist eine <b>Historie von Messungen</b>. Das ist echter Wert. Aber es ist eine andere Ebene.</p>
+  <div class="vs reveal">
+    <div class="effect">
+      <span class="k">Analytics players</span>
+      <h4>Sie sehen die Wirkung</h4>
+      <p>Was auf dem Platz geschah: Messungen, Muster, Statistiken über die Zeit. Eine horizontale Ebene — Daten über beobachtete Daten.</p>
+    </div>
+    <div class="chain">
+      <span class="k">VICKI</span>
+      <h4>VICKI sieht den Prozess</h4>
+      <p>Welche methodischen Entscheidungen ein Coach und eine Akademie angewandt haben, warum, wie sie in dieser Phase auf den Athleten eingewirkt haben, die über die Zeit beobachteten Ergebnisse — und wie oft diese Entscheidungen diese Ergebnisse hervorbringen. Eine vertikale Ebene, die über der Analytik liegt und sie als Input nutzt.</p>
+    </div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">Diese Ebenen konkurrieren nicht — sie integrieren sich. Und der Unterschied ist nicht durch zusätzliche Funktionen replizierbar: Selbst ein Anbieter, der heute begänne, eine methodische Ebene aufzubauen, würde bei <b>null Gedächtnis</b> starten, und geschichtetes Gedächtnis lässt sich nicht synthetisieren. Es akkumuliert.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">03</span><h2 class="display">Eine geschlossene Plattform</h2></div>
+  <p class="sec-body reveal">VICKI analysiert das Spiel kontinuierlich und baut ein longitudinales Profil des Athleten auf — Wachstum über die Zeit, keine Momentaufnahme eines Tages — während es die individuelle Methode des Coachs erlernt.</p>
+  <div class="perimeter reveal">
+    <span class="k">Es verlässt nie die Akademie</span>
+    <p>Die Akademie ist der Perimeter und der Kunde. <b>VICKI® team</b> (app.vicki.pro) ist die Verbindungs-App, die Coach, Athlet und Eltern/Erziehungsberechtigte <i>innerhalb</i> dieses Perimeters verbindet — rollenbasiert, berechtigungsgesteuert, privat für die Akademie. Keine Consumer-App, die der Athlet allein nutzt.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">04</span><h2 class="display">Analysedomänen</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">VICKI liest nicht nur den Schlag. Es liest den ganzen Athleten über sieben Kerndomänen — einschließlich der eigenen Stimme des Athleten — weshalb die methodische Ebene ganzheitlich über einen Spieler urteilen kann, nicht nur über seine Technik.</p>
+  <div class="domains reveal">
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M4 18 L10 10 L14 13 L20 5"/><circle cx="20" cy="5" r="1.4" fill="#E07B42"/></svg></div><div class="dn">Technisch</div><div class="dd">Schlagmechanik &amp; Ausführung</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M12 4v16M4 12h16" stroke-dasharray="2 2"/><circle cx="8" cy="9" r="1.4" fill="#E07B42"/></svg></div><div class="dn">Taktisch</div><div class="dd">Muster &amp; Match-Entscheidungen</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M6 20c0-5 3-8 6-8s6 3 6 8"/><circle cx="12" cy="6" r="2.6"/><path d="M9 13l-3-2M15 13l3-2"/></svg></div><div class="dn">Athletisch</div><div class="dd">Bewegung &amp; physische Leistung</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 4v3M12 17v3M4 12h3M17 12h3M6.3 6.3l2 2M15.7 15.7l2 2M17.7 6.3l-2 2M6.3 17.7l2-2"/></svg></div><div class="dn">Biomechanisch</div><div class="dd">3D-Gelenk- &amp; Kinematikanalyse</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M12 4c-3 0-5 2-5 5 0 2 1 3 1 5 0 1.5 1.5 2 4 2s4-.5 4-2c0-2 1-3 1-5 0-3-2-5-5-5z"/><path d="M10 20h4"/></svg></div><div class="dn">Mental</div><div class="dd">Reaktion &amp; Wettkampfzustand</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M7 8h10M7 12h7"/><path d="M5 4h14a1 1 0 0 1 1 1v11a1 1 0 0 1-1 1H9l-4 3V5a1 1 0 0 1 1-1z"/></svg></div><div class="dn">Subjektiv</div><div class="dd">Coach-Notizen &amp; eigener Input des Athleten</div></div>
+    <div class="dom"><div class="di"><svg viewBox="0 0 24 24" fill="none" stroke="#E07B42" stroke-width="1.6"><path d="M12 5v14M5 12h14" stroke-width="2.2"/></svg></div><div class="dn">Medizinisch</div><div class="dd">Gesundheitszustand &amp; körperliche Verfassung</div></div>
+  </div>
+  <p class="dom-future reveal"><span class="tagf">Vertiefung über die Zeit</span> &nbsp; Alle sieben Domänen werden mit der Reife reichhaltiger. Insbesondere die <b>medizinische</b> Domäne erweitert sich in Richtung Integration externer klinischer Akten, Verletzungs- &amp; Genesungs-Tracking und longitudinales Belastungsmonitoring — und bewegt die Plattform hin zum vollständigen Athletenmanagement.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">05</span><h2 class="display">Was jede Rolle erhält</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">Der Wert wird auf drei Akteure verteilt — das bewegt die Akademie zur Einführung und die Familie zum Bleiben.</p>
+  <div class="roles">
+    <div class="role reveal coach">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C8612E" stroke-width="1.6"><circle cx="12" cy="6" r="3.2"/><path d="M5 20c0-4 3.2-6.5 7-6.5S19 16 19 20"/><path d="M16.5 4.5l4 1.5-4 1.5"/></svg></div>
+      <h3>Coach</h3><div class="who">Der Methodenträger</div>
+      <ul>
+        <li>Ihre Methodik wird als strukturiertes, wachsendes Asset erfasst — kodifiziert statt implizit.</li>
+        <li>Kontinuierliche Vision analysiert jede Session, nicht nur die, die sie genau beobachten.</li>
+        <li>Die Methode ist portabel und bleibt bei ihnen, wenn sie gehen — ihr Berufskapital, greifbar gemacht.</li>
+      </ul>
+    </div>
+    <div class="role reveal athlete">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#5BA88A" stroke-width="1.6"><circle cx="12" cy="5" r="2.6"/><path d="M12 7.6V14l-3.5 6M12 14l3.5 6M7 10.5h10"/></svg></div>
+      <h3>Athlet</h3><div class="who">Kontinuierlich begleitet</div>
+      <ul>
+        <li>Jederzeit durch kontinuierliche Vision begleitet — Fortschritt wird gesehen, nicht vermutet.</li>
+        <li>Ein vollständiges Wettkampfgedächtnis: das eigene, portabel, für immer ihres.</li>
+        <li>Wechselt zu einem neuen Coach oder einer neuen Akademie als strukturiertes Dossier, nicht als Anekdoten.</li>
+      </ul>
+    </div>
+    <div class="role reveal parent">
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#C8612E" stroke-width="1.6"><circle cx="8" cy="6" r="2.6"/><circle cx="16" cy="7" r="2.2"/><path d="M3 19c0-3.2 2.2-5 5-5s5 1.8 5 5M13.5 18c.4-2.4 2.2-3.8 4.5-3.8 2 0 3.5 1.3 4 3.3"/></svg></div>
+      <h3>Eltern</h3><div class="who">Begleitet den Weg</div>
+      <ul>
+        <li>Transparenz über den Weg des Kindes und die dahinterstehende Investition, mit altersgerechter Sichtbarkeit.</li>
+        <li>Kontinuität — der Weg bricht nicht ab, wenn der Coach wechselt.</li>
+        <li>Nachvollziehbarer Nachweis von Entscheidungen und Verantwortung.</li>
+      </ul>
+    </div>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">06</span><h2 class="display">Warum eine Akademie es kauft — der ROI</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">Ein ELITE-Platz kostet 240 €/Monat zusätzlich zur Standort-Basis — die wiederkehrende Gebühr deckt Cloud-Analyse, Wartung, Software-Updates und die vollständige methodische Ebene (Hardware ist einmalig, separat). Geringe Kosten gegenüber dem Wert, den sie freisetzt. Es amortisiert sich über mehrere sich verstärkende Hebel:</p>
+  <div class="levers reveal">
+    <div class="lever">
+      <h3>Premium-Pricing</h3>
+      <p>Eine VICKI®-gestützte Akademie — messbare Ergebnisse, getrackte Methode — rechtfertigt eine Gebührenerhöhung um wenige Punkte über ihre bestehenden Athleten. Das allein deckt das Abonnement.</p>
+    </div>
+    <div class="lever">
+      <h3>Zulauf &amp; Einzigartigkeit</h3>
+      <p>VICKI® macht die Akademie einzigartig: Diejenige, die Wachstum mit objektiven Daten nachweist, zieht Athleten an, die die anderen nicht erreichen. Neue Anmeldungen, die die Konkurrenz nicht sieht.</p>
+    </div>
+    <div class="lever">
+      <h3>Bindung</h3>
+      <p>Der Werdegang des Athleten lebt in der Akademie — ein Weggang bedeutet, bei null Gedächtnis zu beginnen. Höhere Wechselkosten, geringere Abwanderung, wiederkehrende Gebühren Jahr für Jahr gesichert.</p>
+    </div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:20px">Hinzu kommt jeder Vorteil, den die Plattform bereits liefert: die Methode des Coachs als Asset kodifiziert, das Erbe der Akademie als institutionelles Gedächtnis, Kontinuität auch wenn ein Coach geht, Transparenz für Familien. VICKI® ist eine Investition für die Akademie, kein Kostenfaktor — und der Erfolg des Kunden verstärkt VICKI®s Burggraben: Je mehr die Akademie Athleten entwickelt, desto reichhaltiger das methodische Gedächtnis, das sie nicht anderswohin mitnehmen kann.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">07</span><h2 class="display">Das IP-Modell</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:6px">VICKI trennt das methodische Gedächtnis in eigenständige Objekte, jedes mit definierter Eigentümerschaft. Das macht VICKI von einem Analysewerkzeug zu einer <b>Infrastruktur für die Verwaltung von wettbewerbsrelevantem geistigem Eigentum</b> — ein realer Bedarf, den kein Wettbewerber adressiert.</p>
+  <div class="assets reveal">
+    <div class="asset"><div class="nm">Die Methode des Coachs<span>Entscheidungsregeln, Korrektur-Heuristiken, Interventionsmuster</span></div><div class="ds">Das operative Know-how des Coachs, strukturiert. Portabel beim Weggang.</div><div class="ow coach">Coach</div></div>
+    <div class="asset"><div class="nm">Die Methode der Akademie<span>Gründungsprinzipien, Entwicklungsprotokolle, Standards</span></div><div class="ds">Implizites institutionelles Wissen, in strukturiertes, verteidigbares Erbe verwandelt. Lizenzierbar bei Reife.</div><div class="ow acad">Akademie</div></div>
+    <div class="asset"><div class="nm">Der Werdegang des Athleten<span>biomechanische Historie, erhaltene Entscheidungen, Ergebnisse</span></div><div class="ds">Das persönliche Wettkampfgedächtnis des Athleten. Portabel über Akademien hinweg. Lebenslang seines.</div><div class="ow ath">Athlet</div></div>
+    <div class="asset"><div class="nm">Trainingsspuren<span>operative Rohaufzeichnung jeder Session</span></div><div class="ds">Das Substrat, von dem sich die Graphen nähren. Infrastrukturell, kein eigenständig verkaufbares Objekt.</div><div class="ow shared">Geteilt</div></div>
+    <div class="asset"><div class="nm">Das Erbe der Akademie<span>anonymisierte, aggregierte Methodenmuster über die Zeit</span></div><div class="ds">Das Langzeitgedächtnis der Institution — was bleibt, wenn Menschen wechseln. Empirischer Nachweis der Validität einer Methode.</div><div class="ow acad">Akademie</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">Die Eigentümerschaft ist pro Beziehung konfigurierbar: Wenn ein Coach einer Akademie beitritt, verhandeln die Parteien, wem was gehört, und VICKI setzt es technisch um. Das Ergebnis — ein Coach kann mit seiner Methode gehen, ein Athlet kann seinen Werdegang mitnehmen, eine Akademie behält ihr Erbe, auch wenn Menschen weiterziehen.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">08</span><h2 class="display">Drei Hebel zur Skalierung</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:28px">Da der Wert die methodische Ebene ist, nicht die Vision selbst, ist VICKI gegenüber der Analysequelle agnostisch. Das eröffnet drei komplementäre Go-to-Market-Modi.</p>
+  <div class="levers">
+    <div class="lever reveal"><div class="step">Mode 01</div><h3>Integriert</h3><p>End-to-End: VICKIs eigene Vision-Pipeline plus die methodische Ebene. Für neue Akademien ohne installierte Analytik.</p><div class="econ"><b>Volle Marge</b> · lineares Wachstum, ein Verkauf nach dem anderen</div></div>
+    <div class="lever reveal"><div class="step">Mode 02</div><h3>Overlay</h3><p>Die Akademie behält ihre bestehende Analytik-Infrastruktur; VICKI liegt darüber und ergänzt das methodische Gehirn, das sie nicht hat. Additiver Pitch, geringe Einführungshürde.</p><div class="econ"><b>Hohe Marge</b> · keine Hardwarekosten</div></div>
+    <div class="lever reveal hl"><div class="step">Mode 03</div><h3>White-label</h3><p>VICKI eingebettet als methodische Ebene im Produkt eines Analytics-Anbieters, erreicht dessen gesamte installierte Basis über einen Kanal.</p><div class="econ"><b>Distribution im großen Maßstab</b> · CAC sinkt um eine Größenordnung</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:24px">Die strukturelle Verteidigung in jedem White-Label-Deal: Das angesammelte geschichtete Gedächtnis bleibt bei VICKI und den Endkunden, nicht beim Partner. Ein Anbieter, der VICKI ersetzte, begänne bei null Gedächtnis — und verlöre die methodische Kontinuität, die seine Kunden aufgebaut haben. <b>Der Burggraben schützt den Kanal.</b></p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">09</span><h2 class="display">Markt</h2></div>
+  <div class="reveal">
+  <p class="sec-body reveal" style="margin-bottom:22px">VICKI verkauft pro Platz und pro Akademie, daher ist das ehrliche adressierbare Universum Plätze und Clubs — nicht die Spielerpopulation. Drei konzentrische Ebenen:</p>
+  <table>
+    <thead><tr><th style="width:24%">Ebene</th><th style="width:30%">Adressierbares Universum</th><th>Anmerkung</th></tr></thead>
+    <tbody>
+      <tr><td>Italien<br><span class="note">Markteinstieg</span></td><td><span class="big">~9.300</span> Plätze<span class="note">~4.096 Clubs (FITP)</span></td><td>1,15 Mio. Mitglieder (Dez 2024, +266 % vs 2020); ~440 Tsd. Wettkampfspieler. Am schnellsten wachsender Sportverband Italiens.</td></tr>
+      <tr><td>Europa<br><span class="note">dichteste Region</span></td><td><span class="big">Großteil</span> der globalen Basis<span class="note">50 Verbände</span></td><td>Allein die führenden Länder zeigen die Größenordnung — Deutschland ~40.000 Plätze / ~5.500 Clubs, Frankreich ~33.000 / ~7.000. Über 80 % der Clubs weltweit liegen in Europa + Nordamerika.</td></tr>
+      <tr><td>Welt<br><span class="note">gesamt</span></td><td><span class="big">~578.000</span> Plätze<span class="note">~115.000 Clubs</span></td><td>Das vollständige langfristige Universum, im großen Maßstab über den White-Label-Kanal erreichbar.</td></tr>
+    </tbody>
+  </table>
+  <p class="note-internal" style="margin-top:16px">Go-to-Market: Akademien und Coaches, mit Verbandspartnerschaften als primärem Kanal. Zuerst Italien, Europa als dichter Kern, die Welt über White-Label.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">10</span><h2 class="display">Marktpräzedenzfälle</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">Unsere Adoptionskurve ist keine abstrakte Hoffnung. Hardwarebasierte Analysesysteme — ein Produkt, das wir neben unserer methodischen Ebene als Commodity betrachten — haben in Europa bereits eine bedeutende installierte Basis von null aufgebaut. Unser Entwicklungspfad entspricht dem, was sich bereits als erreichbar erwiesen hat, bei einem besser verteidigbaren Produkt.</p>
+  <div class="reveal"><table>
+    <thead><tr><th style="width:18%">System</th><th style="width:22%">Installierte Basis</th><th style="width:14%">Zeit</th><th>Anmerkung</th></tr></thead>
+    <tbody>
+      <tr><td class="tier" style="color:var(--chalk)">Wingfield (DE)</td><td><span class="big">400+</span> Plätze<span class="note">250+ Anlagen, 16 Länder</span></td><td>~5 J.<span class="note">seit 2019</span></td><td>Partnerschaft mit nationalem Verband; Kunden u. a. eine führende Akademie und ein historischer Londoner Club. Reines Analyseprodukt.</td></tr>
+      <tr><td class="tier" style="color:var(--chalk)">PlaySight</td><td><span class="big">35 → 1.000+</span> Plätze<span class="note">global</span></td><td>~7 J.</td><td>Unterstützt von hochkarätigen Athleten-Investoren; ITF-zertifiziert. Connected-Camera-Analyse.</td></tr>
+      <tr><td class="tier">VICKI · Scale target</td><td><span class="big">~470</span> direkte Plätze<span class="note">Jahr 5, + White-Label-Reichweite</span></td><td>5 J.</td><td>Gleiche Größenordnung — mit der methodischen Ebene, die ihnen fehlt, plus dem White-Label-Beschleuniger.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:22px">Ein europäischer reiner Analyseanbieter erreichte 400+ Plätze und eine Verbandspartnerschaft in ~5 Jahren. VICKIs Ziel im Jahr 5 liegt im selben Bereich — erreicht mit einem Produkt, das tut, was sie tun, <b>plus</b> die methodische Ebene, die ihnen fehlt, und mit White-Label als zusätzlichem Kanal. Der Benchmark macht die Kurve glaubwürdig, nicht optimistisch.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">11</span><h2 class="display">Preise &amp; Unit Economics</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:26px">Wiederkehrendes Software-Abonnement, Hardware separat als Einmalzahlung, damit die Monatsgebühr Software-Marge bleibt — so halten die 149 €/Monat. Die methodische Ebene (der Burggraben) ist in jedem kostenpflichtigen Tier enthalten, kein Upsell.</p>
+  <div class="reveal"><table>
+    <thead><tr><th style="width:14%">Tier</th><th style="width:24%">Preis / Monat</th><th>Was es ist</th></tr></thead>
+    <tbody>
+      <tr><td class="tier">BASE</td><td class="price">€149 <span class="note">pro Coach</span></td><td>Via iPad — keine feste Hardware. Der Adoptionsmotor, nahezu reine Marge.</td></tr>
+      <tr><td class="tier">PRO</td><td class="price">€390 + €200<span class="note">Basis + pro Platz</span></td><td>4 Kameras/Platz. Reduzierte Domänen (kein Medizinisch/Mental, Basis-Biomechanik) + die methodische Ebene. Z. B. 1 Platz 590 €, 2 Plätze 790 €.</td></tr>
+      <tr><td class="tier">ELITE</td><td class="price">€490 + €240<span class="note">Basis + pro Platz</span></td><td>6 Kameras/Platz. Volle Domänentiefe + vollständige methodische Ebene. Z. B. 1 Platz 730 €, 2 Plätze 970 €, 3 Plätze 1.210 €.</td></tr>
+      <tr><td class="tier">OVERLAY</td><td class="price">€690 <span class="note">pro Platz</span></td><td>Auf Drittanbieter-Kameras — VICKI ergänzt das methodische Gehirn. Nur Edge, keine Kameras.</td></tr>
+      <tr><td class="tier">WHITE-LABEL</td><td class="price">per partner</td><td>Eingebettet im Produkt eines Analytics-Anbieters. ~75 Tsd. € Integration + ~20 €/Platz/Monat. 8+ Plätze → Enterprise, verhandelt.</td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:22px;font-size:16px"><b style="color:#E07B42">Eine Basisgebühr pro Standort + eine Gebühr pro Platz.</b> Die Basis deckt die Plattform, die methodische Ebene und den geteilten Edge (Standortkosten); die Platzgebühr deckt Kameras und Analyse (Platzkosten). So zahlt eine Akademie mit einem Platz für einen Platz, nicht für drei — der Preis skaliert mit der Nutzung.</p>
+  <p class="sec-body reveal" style="margin-top:14px;font-size:16px"><b style="color:#E07B42">Hardware, zwei Optionen zur Wahl des Kunden.</b> <b>A — Einmalige Einrichtung:</b> 2.500 € Edge pro Standort (geteilt über benachbarte Plätze) + 4.118 €/Platz PRO / 5.738 €/Platz ELITE, dann das Abonnement. Z. B. ELITE 1 Platz: 8.238 € + 730 €/Monat. <b>B — All-inclusive:</b> keine Vorauszahlung, Hardware über 36 Monate in die Monatsgebühr verteilt. Z. B. ELITE 1 Platz: 977 €/Monat alles inklusive. Der Edge führt lokale Voranalyse durch und sendet Daten — kein Video — an die Cloud-Verarbeitung, sodass ein Edge mehrere Plätze bedient.</p>
+  <p class="note-internal" style="margin-top:10px">Die All-inclusive-Option verlagert Umsatz von einmalig zu wiederkehrend — sie erhöht den ARR, erfordert aber Betriebskapital, da VICKI die Hardware vorfinanziert und über die Gebühr zurückgewinnt.</p>
+  <div class="perimeter reveal" style="border-left-color:#E07B42;background:rgba(224,123,66,0.06)">
+    <span class="k" style="color:#E07B42">Wie die 149 €/Monat halten</span>
+    <p>Kameras kosten je 600 €, der Edge ~1.750 €. Die Trennung der einmaligen Einrichtung von der wiederkehrenden Gebühr entfernt die Hardware-Amortisation aus dem Monatspreis: BASE läuft auf einem iPad (kein Rig), PRO/ELITE amortisieren die Hardware vorab über die Einrichtung — so deckt die Monatsgebühr Cloud, Wartung und Marge, nicht das Rig.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">12</span><h2 class="display">Umsatz — illustrative Szenarien</h2></div>
+  <p class="sec-body reveal" style="margin-bottom:24px">Italien ist der Pilot; die europäische Expansion beginnt in Jahr 2 über die dichten Märkte. Alle Annahmen offengelegt. <b>Base</b> ist ein vorsichtiger Boden. <b>Scale</b> ergänzt Multi-Platz-Kunden, den Europa-Rollout und den White-Label-Kanal — der Hebel, der die Kurve biegt. Die Hardware wird nur in Jahr 1 zur Hälfte von VICKI finanziert, als Markteinführungsanreiz.</p>
+  <div class="reveal" style="margin-bottom:30px">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:var(--steel);margin-bottom:8px">Szenario Base · vorsichtiger Boden</p>
+    <table>
+      <thead><tr><th>Jahr</th><th>BASE / PRO / ELITE</th><th>Gesamtumsatz</th><th>EU-Durchdringung</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>40 / 6 / 3</td><td><span class="big">€290k</span></td><td>0.02%</td></tr>
+        <tr><td>3</td><td>380 / 55 / 26</td><td><span class="big">€2.59M</span></td><td>0.19%</td></tr>
+        <tr><td>5</td><td>1,150 / 160 / 80</td><td><span class="big">€7.44M</span></td><td>0.58%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="reveal">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:14px;letter-spacing:0.1em;text-transform:uppercase;color:#E07B42;margin-bottom:8px">Szenario Scale · Europa-Rollout + White-Label</p>
+    <table>
+      <thead><tr><th>Jahr</th><th>Märkte</th><th>White-Label</th><th>Gesamtumsatz</th><th>EU-Durchdringung</th></tr></thead>
+      <tbody>
+        <tr><td>1</td><td>Italien (Pilot)</td><td>—</td><td><span class="big">€207k</span></td><td>0.03%</td></tr>
+        <tr><td>2</td><td>Italien + Europa-Eintritt</td><td>—</td><td><span class="big">€1.73M</span></td><td>0.11%</td></tr>
+        <tr><td>3</td><td>Europa, mehrere Länder</td><td>—</td><td><span class="big">€4.64M</span></td><td>0.30%</td></tr>
+        <tr><td>4</td><td>Europäische Skalierung</td><td>1 Partner (~1,75k Plätze)</td><td><span class="big">€10.0M</span></td><td>0.60%</td></tr>
+        <tr><td>5</td><td>Europa + erster Export</td><td>3 Partner (~5,6k Plätze)</td><td><span class="big" style="color:#E07B42">€19.8M</span></td><td>1.13%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="note-internal" style="margin-top:18px">Illustrative Szenarien, keine Prognosen. Durchdringung = (PRO+ELITE) ÷ 41.687 europäische Clubs — in Jahr 5 erst ~1,1 %, viel Spielraum nach oben. White-Label modelliert mit ~20 €/Platz/Monat + ~75 Tsd. € Integration pro Partner. Hardware in Jahr 1 zur Hälfte von VICKI finanziert (Akquisitions-Capex). Churn nicht modelliert. Zahlen stimmen mit dem internen 7-Blatt-Modell überein.</p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">13</span><h2 class="display">Partnerschaften zur Methodenentwicklung</h2></div>
+  <p class="sec-body reveal">VICKIs Positionierung auf der Methode — nicht der Analyse — macht es zum natürlichen Partner für Co-Entwicklungs- und Validierungsvereinbarungen mit Referenz-Coaches und -Akademien, auf internationaler Ebene und in der italienischen Elite. Es ist ein bewusster Go-to-Market-Hebel zum Premium-Segment: Die Kodifizierung einer Spitzenmethode validiert das Produkt und öffnet den Kanal zu den Top-Akademien. <span style="color:var(--steel)">Eine strategische Priorität für die Phase nach der Investition.</span></p>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">14</span><h2 class="display">Entwicklungspfad</h2></div>
+  <div class="reveal">
+  <div class="timeline">
+    <div class="yr"><span class="dotmark"></span><div class="y">Jahr 1</div><div class="v">Aufbau</div><div class="d">Nur Entwicklung</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Jahr 3</div><div class="v" style="color:#5BA88A">EBITDA+</div><div class="d">Positiv</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Jahr 4</div><div class="v" style="color:#5BA88A">Break-even</div><div class="d">Selbsttragend</div></div>
+    <div class="yr"><span class="dotmark"></span><div class="y">Jahr 5</div><div class="v">30–200 Mio. €</div><div class="d">Gesch. Bewertung</div></div>
+  </div>
+  <p class="sec-body reveal" style="margin-top:26px;margin-bottom:14px"><b>Indikative GuV</b> (Szenario Scale, Mio. €):</p>
+  <div class="reveal"><table>
+    <thead><tr><th>Mio. €</th><th>Jahr 1</th><th>Jahr 2</th><th>Jahr 3</th><th>Jahr 4</th><th>Jahr 5</th></tr></thead>
+    <tbody>
+      <tr><td>Umsatz</td><td>0,2</td><td>1,7</td><td>4,6</td><td>10,0</td><td>19,8</td></tr>
+      <tr><td>Kosten</td><td>1,2</td><td>2,3</td><td>4,2</td><td>7,1</td><td>11,3</td></tr>
+      <tr><td><b>EBITDA</b></td><td>−1,0</td><td>−0,6</td><td><span style="color:#6FC09E">+0,5</span></td><td><span style="color:#6FC09E">+2,9</span></td><td><span style="color:#6FC09E">+8,5</span></td></tr>
+      <tr><td>Marge</td><td>—</td><td>−33%</td><td>11%</td><td>29%</td><td><b>43%</b></td></tr>
+      <tr><td>Kumulierte Liquidität</td><td>−1,0</td><td><b>−1,5</b></td><td>−1,0</td><td><span style="color:#6FC09E">+1,9</span></td><td><span style="color:#6FC09E">+10,4</span></td></tr>
+    </tbody>
+  </table></div>
+  <p class="sec-body reveal" style="margin-top:14px">Der <b>maximale Kapitalbedarf liegt bei ~1,5 Mio. €</b> (Jahr 2): das Kapital, um das Unternehmen zur Selbsttragfähigkeit zu führen. EBITDA positiv ab Jahr 3, Liquidität positiv ab Jahr 4. Die Kosten bleiben moderat, weil das Produkt bereits betriebsbereit ist (nicht erst zu bauen) und die Kanäle — Verbände, White-Label — gehebelte Akquisitionskosten haben.</p>
+  <p class="sec-body reveal" style="margin-top:18px">Die Bewertung folgt Umsatz × Wachstumsmultiplikator. <b>Basis-Vision</b> (7,44 Mio. € Umsatz Jahr 5, 4–7× SaaS) → <b>30–50 Mio. €</b>. <b>Erweiterte Vision</b> (19,8 Mio. €, 8–10× — vorsichtig für wachstumsstarke KI) → <b>150–200 Mio. €</b>. Die Spanne spiegelt wider, welches Szenario eintritt, nicht Unsicherheit über die Methode.</p>
+  <p class="note-internal" style="margin-top:12px">Projektionen für Jahr 5 aus dem internen 7-Blatt-Modell, nicht die Pre-Money des aktuellen Rounds. Umsatzzahlen illustrativ; Multiplikatoren nach SaaS/KI-Marktnormen. Keine Marktvalidierung.</p>
+  </div>
+</div></section>
+
+<section><div class="wrap">
+  <div class="sec-head reveal"><span class="sec-num">15</span><h2 class="display">Produkt &amp; Technologie</h2></div>
+  <p class="sec-body reveal">Eine Multi-Rollen-Verbindungsplattform, live, auf einer voll funktionsfähigen und proprietären Computer-Vision-Pipeline.</p>
+  <div class="chips reveal">
+    <span class="chip live">Live · app.vicki.pro</span>
+    <span class="chip">Multi-Rollen-PWA — Coach / Athlet / Eltern</span>
+    <span class="chip">12 CV-Modelle in Produktion</span>
+    <span class="chip">Proprietäre Pipeline — keine Drittabhängigkeit im Kern</span>
+    <span class="chip">Analyse über 7 Kerndomänen</span>
+    <span class="chip">Ergebnis-Scoring über 3 Zeithorizonte</span>
+    <span class="chip">Geschichtetes methodisches Gedächtnis</span>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <p class="note-internal"><b>Quellen.</b> Markt AI Coaching for Tennis (RealTimeDataStats, 2025); Markt Tennis Coaching Services (MarketIntelo, 2024); FITP-Bericht Tennis &amp; Padel 2024. <b>Preise, Projektionen und Produktmetriken sind interne VICKI-Zahlen;</b> die Bewertung für Jahr 5 ist ein internes Modellergebnis, keine Marktvalidierung.</p>
+</div></footer>
+
+</div>
+
+
+</div>
+
+<script>
+  function setLang(l){
+    document.querySelectorAll('.langpane').forEach(p=>p.classList.toggle('show', p.id==='lang-'+l));
+    document.querySelectorAll('#langbar button').forEach(b=>b.classList.toggle('active', b.dataset.l===l));
+    document.documentElement.lang = l;
+    try{ localStorage.setItem('vicki_lang', l); }catch(e){}
+    // riattiva reveal nella lingua mostrata
+    document.querySelectorAll('#lang-'+l+' .reveal').forEach(el=>el.classList.add('in'));
+    window.scrollTo(0,0);
+  }
+  // animazioni reveal globali
+  const obs = new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target);}});},{threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+  // lingua iniziale: salvata, o da browser, default IT
+  (function(){
+    let l='it';
+    try{ l = localStorage.getItem('vicki_lang') || ''; }catch(e){}
+    if(!l){ const n=(navigator.language||'it').slice(0,2); l = ['it','en','de'].includes(n)?n:'it'; }
+    setLang(l);
+  })();
+</script>
+
+
+<script>
+  // ====== PASSWORD (cambiala qui) ======
+  const VICKI_PW = "vicki2026";
+  // =====================================
+  document.body.classList.add('locked');
+  function pwCheck(){
+    const v = document.getElementById('pwinput').value;
+    if(v === VICKI_PW){
+      document.getElementById('pwgate').style.display='none';
+      document.body.classList.remove('locked');
+      try{ sessionStorage.setItem('vicki_unlocked','1'); }catch(e){}
+    } else {
+      document.getElementById('pwerr').textContent = 'Password errata';
+      document.getElementById('pwinput').value='';
+    }
+  }
+  // se già sbloccato in questa sessione, salta
+  try{ if(sessionStorage.getItem('vicki_unlocked')==='1'){
+    document.getElementById('pwgate').style.display='none';
+    document.body.classList.remove('locked');
+  }}catch(e){}
+</script>
+
+</body>
+</html>
