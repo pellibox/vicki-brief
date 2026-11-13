@@ -335,7 +335,7 @@ body.answer.min #ansLeft{display:none}
 #ansRight .ahead{display:flex;justify-content:space-between;font-size:10.5px;color:var(--t3);margin-top:8px}#ansRight .ahead .mono{font-family:inherit;font-weight:600}
 #ansRow{display:none;flex-direction:column;gap:10px;align-items:stretch}
 body.answer #ansRow{display:flex}body.answer #edRow,body.answer #trackRow{display:none!important}
-#ansLayer{overflow-x:auto;scrollbar-width:none;justify-content:space-between}#ansLayer::-webkit-scrollbar{display:none}#ansLayer button{white-space:nowrap}
+#ansLayer{overflow-x:auto;scrollbar-width:none;justify-content:space-between}#ansLayer::-webkit-scrollbar{display:none}#ansLayer button{white-space:nowrap}body #ansLayer button{flex:none}body #ansLayer{flex-wrap:wrap;overflow:visible;justify-content:flex-start;row-gap:4px;border-radius:20px;height:auto}
 .ansRow2{display:flex;align-items:center;gap:8px;flex-wrap:nowrap}
 #ansGroups{display:flex;gap:6px;flex:none}#ansGroups button{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px;border-radius:999px;border:1px solid #2F343E;background:#16181D;color:#9AA1B0;font:600 11.5px/1 Manrope,system-ui,sans-serif;cursor:pointer;transition:background .15s,color .15s,border-color .15s}#ansGroups button:hover{background:#242833;color:#E9ECF2}#ansGroups button[aria-pressed="true"]{border-color:#B9A7E8;color:#E9ECF2}#ansGroups button:focus-visible{outline:2px solid #B9A7E8;outline-offset:2px}#ansGroups .sw{width:8px;height:8px;border-radius:50%;flex:none}.ansRow2 .note{margin:0 0 0 6px;flex:1;min-width:0;font-size:11.5px;line-height:15px}
 .acardh{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}.acardh button{background:none;border:0;color:var(--t2);font-size:15px;cursor:pointer;padding:2px 4px;border-radius:999px}.acardh button:hover{color:#fff;background:rgba(255,255,255,.08)}
@@ -32340,7 +32340,7 @@ void main() {
     const root = new Group();
     root.visible = false;
     scene.add(root);
-    const LAYERS = [["traj", "Traiettorie"], ["dots", "Rimbalzi"], ["colpi", "Mappa dei colpi"], ["sequenze", "Sequenze"], ["spostamenti", "Spostamenti"], ["tempo", "Tempo di rientro"], ["punto", "Punto"]];
+    const LAYERS = [["punto", "Punto per punto"], ["traj", "Traiettorie"], ["dots", "Rimbalzi"], ["colpi", "Mappa dei colpi"], ["sequenze", "Sequenze"], ["spostamenti", "Spostamenti"], ["tempo", "Tempo di rientro"]];
     const NOTE = {
       traj: "Il volo della palla, dal colpo al rimbalzo. Tocca una traiettoria per i suoi numeri.",
       dots: "Dove cade la palla nel campo avversario: pi\xF9 chiaro = pi\xF9 vicino alla riga di fondo, cio\xE8 pi\xF9 profondo.",
@@ -32770,13 +32770,13 @@ void main() {
       const nomeOf = (id) => (p.schemi.find((x) => x.id === id) || {}).nome;
       const occTxt = (o) => o.map((c) => c.length > 1 ? c[0] + 1 + "\u2013" + (c[c.length - 1] + 1) : String(c[0] + 1)).join(", ");
       $("ansPt").innerHTML = `<h1>Punto ${i + 1} di ${L2.length}</h1><div class="sub">${p.titolo}</div>
+      <div class="sec">Schemi in questo punto</div>
+      ${grp.map((g2) => `<div class="row go" data-ps="${g2.occ.flat().join(",")}" role="button" tabindex="0"><span>${g2.nome}<span class="asub">colpi ${occTxt(g2.occ)}${g2.padre && nomeOf(g2.padre) ? " \xB7 dentro \xAB" + nomeOf(g2.padre) + "\xBB" : ""}</span></span><span class="pair"><span class="mono av">${g2.occ.length > 1 ? g2.occ.length + " volte" : ""}</span></span></div>`).join("") || '<div class="note">Nessuno schema del catalogo in questo punto.</div>'}
+      <div class="note" style="margin-top:6px">Un punto mostra esempi, non quanto spesso succede. Tocca uno schema per vedere i suoi colpi sul campo.</div>
       <div class="sec">Punteggio</div>${row("Set e game", sets, "", "game: Tommaso P. \u2013 avversario")}${rowW("Nel game", s.testo_esteso || s.testo)}
       ${row("Al servizio", who(s.servizio), "", (s.lato === "deuce" ? "da destra" : "da sinistra") + " \xB7 " + s.prima_o_seconda)}${row("Tipo di punto", s.tipo.map((x) => TIPO[x] || x).join(" \xB7 "), "", "")}${p.partita ? row("Partita", "del " + p.partita.id, "", s.superficie ? "su " + s.superficie : "") : ""}
       <div class="sec">Come finisce</div>${rowW(ESITO[p.esito.tipo] || p.esito.tipo, who(p.esito.vince), p.esito.come)}${rowW("Dopo il punto", p.dopo)}
-      ${row("Colpi nel punto", String(p.colpi.length), "", "durata " + it(p.colpi[p.colpi.length - 1].t_fine, 1) + " s")}
-      <div class="sec">Schemi in questo punto</div>
-      ${grp.map((g2) => `<div class="row go" data-ps="${g2.occ.flat().join(",")}" role="button" tabindex="0"><span>${g2.nome}<span class="asub">colpi ${occTxt(g2.occ)}${g2.padre && nomeOf(g2.padre) ? " \xB7 dentro \xAB" + nomeOf(g2.padre) + "\xBB" : ""}</span></span><span class="pair"><span class="mono av">${g2.occ.length > 1 ? g2.occ.length + " volte" : ""}</span></span></div>`).join("") || '<div class="note">Nessuno schema del catalogo in questo punto.</div>'}
-      <div class="note" style="margin-top:6px">Un punto mostra esempi, non quanto spesso succede. Tocca uno schema per vedere i suoi colpi sul campo.</div>`;
+      ${row("Colpi nel punto", String(p.colpi.length), "", "durata " + it(p.colpi[p.colpi.length - 1].t_fine, 1) + " s")}`;
     }
     const fondoTxt = (x) => {
       const d = HL - Math.abs(x);
