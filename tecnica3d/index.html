@@ -389,7 +389,11 @@ body.answer #ansRow{display:flex}body.answer #edRow,body.answer #trackRow{displa
 .adrill .asay{font-size:12px;color:#B9A7E8;margin:4px 0 6px;font-style:italic}
 .agate{font:inherit;font-size:12px;font-weight:700;color:#0F1115;background:#E9ECF2;border:0;border-radius:999px;padding:6px 12px;cursor:pointer}.agate[aria-pressed=true]{background:#E8EF62}
 body.ansEmpty #ansLayer,body.ansEmpty #ansTrackRow{display:none!important}
-.ansTag.zone{color:#E8EF62;background:rgba(20,22,28,.7);border-color:rgba(232,239,98,.5);font-weight:600}
+.ansTag.num{font-size:10.5px;padding:2px 6px;font-weight:700}.ansTag.zone{color:#E8EF62;background:rgba(20,22,28,.7);border-color:rgba(232,239,98,.5);font-weight:600}
+/* zoom: tre tasti rotondi sotto il menu della telecamera, stesso stile del «?» */
+#zoomRow{display:flex;justify-content:flex-end;gap:6px;margin-top:8px}
+#zoomRow button{flex:none;width:32px;height:32px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(15,17,21,.55);color:#E9ECF2;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;transition:background .15s}
+#zoomRow button:hover{background:rgba(255,255,255,.12)}#zoomRow button:focus-visible{outline:2px solid #fff;outline-offset:2px}
 /* spettro della voce: piccolo, in fondo allo schermo, sotto la barra dello scorrimento (non copre niente) */
 #vSpec{height:20px;bottom:1px;transform:translateY(8px)}#vSpec.on{transform:none}
 #vSpecA,#vSpecB{bottom:0;height:20px;width:min(640px,70%)}#vSpecA{filter:blur(3px)}#vSpecB{-webkit-mask-image:none;mask-image:none}
@@ -31390,11 +31394,13 @@ void main() {
     const shots = () => {
       const p0 = camera.position.clone(), t0 = controls.target.clone();
       const out = {};
+      window.__instantView = window.__thumb = true;
       for (const [v] of CAMS) {
         setView0(v);
         renderer.render(scene, camera);
         out[v] = renderer.domElement.toDataURL("image/jpeg", 0.55);
       }
+      window.__instantView = window.__thumb = false;
       camera.position.copy(p0);
       controls.target.copy(t0);
       controls.update();
@@ -31694,15 +31700,44 @@ void main() {
   new ResizeObserver(layoutFix).observe($("vDock"));
   addEventListener("resize", layoutFix);
   setTimeout(layoutFix, 0);
+  var camFly = null;
+  function flyCam(p, t, dur = 0.9) {
+    const P = new Vector3(...p), T = new Vector3(...t);
+    if (window.__instantView || dur <= 0) {
+      camFly = null;
+      camera.position.copy(P);
+      controls.target.copy(T);
+      controls.update();
+      return;
+    }
+    camFly = { p0: camera.position.clone(), t0: controls.target.clone(), p1: P, t1: T, a: performance.now(), dur: dur * 1e3 };
+  }
+  window.__cam = flyCam;
+  renderer.domElement.addEventListener("pointerdown", () => {
+    camFly = null;
+  });
+  renderer.domElement.addEventListener("wheel", () => {
+    camFly = null;
+  }, { passive: true });
+  (function camLoop(now) {
+    requestAnimationFrame(camLoop);
+    if (!camFly) return;
+    const f = Math.min(1, (now - camFly.a) / camFly.dur), k = f < 0.5 ? 4 * f * f * f : 1 - Math.pow(-2 * f + 2, 3) / 2;
+    controls.target.lerpVectors(camFly.t0, camFly.t1, k);
+    const o0 = camFly.p0.clone().sub(camFly.t0), o1 = camFly.p1.clone().sub(camFly.t1), r = MathUtils.lerp(o0.length(), o1.length(), k);
+    const d = o0.clone().normalize().lerp(o1.clone().normalize(), k);
+    if (d.lengthSq() < 1e-6) d.copy(o1).normalize();
+    d.normalize();
+    camera.position.copy(controls.target).addScaledVector(d, r);
+    controls.update();
+    if (f >= 1) camFly = null;
+  })(performance.now());
   function setView(v) {
     if (window.__ansView && window.__ansView(v)) return;
     const d = 5.6;
-    controls.target.set(0, 0.78, 0);
-    if (v === "side") camera.position.set(-d, 1.25, 0.6);
-    if (v === "back") camera.position.set(-0.4, 1.5, -d);
-    if (v === "front") camera.position.set(0, 1.3, d);
-    if (v === "top") camera.position.set(-0.5, 5.8, 0.01);
-    controls.update();
+    const T = [0, 0.78, 0];
+    const P = v === "side" ? [-d, 1.25, 0.6] : v === "back" ? [-0.4, 1.5, -d] : v === "front" ? [0, 1.3, d] : v === "top" ? [-0.5, 5.8, 0.01] : null;
+    if (P) flyCam(P, T);
   }
   function resize() {
     const r = stage.getBoundingClientRect();
@@ -31712,7 +31747,9 @@ void main() {
   }
   window.addEventListener("resize", resize);
   resize();
+  window.__instantView = true;
   setView("front");
+  window.__instantView = false;
   render();
   var tmpV = new Vector3();
   function followLight() {
@@ -31765,7 +31802,9 @@ void main() {
     S.t = t;
     chainGroup.userData.sd = null;
     render();
+    window.__instantView = true;
     setView(view);
+    window.__instantView = false;
     followLight();
     renderer.render(scene, camera);
   };
@@ -32244,14 +32283,14 @@ void main() {
     const root = new Group();
     root.visible = false;
     scene.add(root);
-    const LAYERS = [["traj", "Traiettorie"], ["dots", "Rimbalzi"], ["colpi", "Mappa dei colpi"], ["sequenze", "Sequenze"], ["spostamenti", "Spostamenti"], ["tempo", "Rientro"]];
+    const LAYERS = [["traj", "Traiettorie"], ["dots", "Rimbalzi"], ["colpi", "Mappa dei colpi"], ["sequenze", "Sequenze"], ["spostamenti", "Spostamenti"], ["tempo", "Tempo di rientro"]];
     const NOTE = {
-      traj: "Dal punto d\u2019impatto al rimbalzo e oltre \xB7 tocca un colpo per i suoi numeri",
-      dots: "Rimbalzi \xB7 pi\xF9 chiaro = pi\xF9 profondo \xB7 tocca un rimbalzo per i suoi numeri",
-      colpi: "Rombi: punto d\u2019impatto, alla sua altezza \xB7 cerchi: rimbalzo",
-      sequenze: "Direzione di ogni colpo, dal punto d\u2019impatto al rimbalzo",
-      spostamenti: "Dove si trova Tommaso P. dal colpo al rientro: pi\xF9 chiaro = pi\xF9 spesso",
-      tempo: "Barra sul punto d\u2019impatto, alta quanto il tempo di rientro (1 m = 1 s)"
+      traj: "Il volo della palla, dal colpo al rimbalzo. Tocca una traiettoria per i suoi numeri.",
+      dots: "Dove cade la palla nel campo avversario: pi\xF9 chiaro = pi\xF9 vicino alla riga di fondo, cio\xE8 pi\xF9 profondo.",
+      colpi: "Dove colpisce la palla: il rombo \xE8 il punto d\u2019impatto, alla sua altezza da terra; il cerchio \xE8 dove rimbalza.",
+      sequenze: "La direzione di ogni colpo, in ordine: la freccia va dal punto d\u2019impatto al rimbalzo.",
+      spostamenti: "Dove si trova Tommaso P. fra il colpo e il ritorno in posizione: pi\xF9 chiaro = ci passa pi\xF9 tempo.",
+      tempo: "Quanto ci mette a tornare in posizione dopo il colpo: la barra parte dal punto d\u2019impatto, pi\xF9 \xE8 alta pi\xF9 \xE8 lento (1 m = 1 s)."
     };
     const LG = {};
     for (const [k] of LAYERS) {
@@ -32311,7 +32350,7 @@ void main() {
         const dot = flat(new CircleGeometry(0.16, 32), col, lime ? 0.95 : 0.75, b, 0.01);
         add("dots", s, dot, lime ? 0.95 : 0.75, dot, "bounce");
         const c = toS(s.contact);
-        const dia = new Mesh(new OctahedronGeometry(0.09), mat(col, lime ? 1 : 0.85));
+        const dia = new Mesh(new OctahedronGeometry(0.13), mat(col, lime ? 1 : 0.85));
         dia.position.copy(c);
         add("colpi", s, dia, lime ? 1 : 0.85, dia);
         add("colpi", s, new Line(new BufferGeometry().setFromPoints([c, new Vector3(c.x, 0.01, c.z)]), new LineBasicMaterial({ color: col, transparent: true, opacity: 0.5 })), 0.5);
@@ -32371,7 +32410,8 @@ void main() {
           if (i >= 0 && i < NX && j >= 0 && j < NY) grid[i * NY + j] += 1;
         }
       }
-      const mx = Math.max(...grid) || 1;
+      const mx = Math.max(...grid) || 1, im = grid.indexOf(mx);
+      if (heatTag) heatTag.at.copy(toS([X0 + (Math.floor(im / NY) + 0.5) * cell, Y0h + (im % NY + 0.5) * cell, 0]));
       for (let i = 0; i < NX; i++) for (let j = 0; j < NY; j++) {
         const v = grid[i * NY + j] / mx;
         if (v < 0.04) continue;
@@ -32382,7 +32422,7 @@ void main() {
         LG.spostamenti.add(q);
       }
     }
-    let tags = [], selTags = [];
+    let tags = [], selTags = [], heatTag = null;
     const tag = (layer, grp, cls, at, dx, dy, txt) => {
       const e = document.createElement("div");
       e.className = "ansTag " + cls;
@@ -32402,6 +32442,23 @@ void main() {
         tag("traj", gr.id, cls, netPt(gr.id), -70, 18 * up2, it(avg(gr.id, (s) => s.clear), 1) + " m sopra la rete");
         for (const ly of ["traj", "dots"]) tag(ly, gr.id, cls, bncPt(gr.id), 70, 18 * up2, it(avg(gr.id, (s) => s.depth), 1) + " m dal fondo");
       });
+      GROUPS.forEach((gr, k) => {
+        const up2 = k === 0 ? -1 : 1, cls = gr.lime ? "lime" : "white", L2 = SHOTS.filter((x) => x.g === gr.id);
+        if (!L2.length) return;
+        const cx = avg(gr.id, (s) => s.contact[0]), cy = avg(gr.id, (s) => s.contact[1]);
+        tag("colpi", gr.id, cls, toS([cx, cy, avg(gr.id, (s) => s.contact[2]) + 0.3]), 0, 16 * up2, "impatto a " + it(avg(gr.id, (s) => s.contact[2]), 2) + " m da terra");
+        tag("tempo", gr.id, cls, toS([cx, cy, Math.max(...L2.map((s) => s.rientro)) + 0.35]), 130 * up2, 0, "rientro " + it(avg(gr.id, (s) => s.rientro), 1) + " s in media");
+        tag("sequenze", gr.id, cls, bncPt(gr.id), 70, 18 * up2, Math.round(100 * L2.filter((s) => s.bounce[1] > 0.6).length / L2.length) + "% in diagonale");
+      });
+      if (SHOTS.length <= 16) for (const s of SHOTS) {
+        const cls = "num " + (GR[s.g].lime ? "lime" : "white");
+        Object.assign(tag("tempo", s.g, cls, toS([s.contact[0], s.contact[1], s.rientro + 0.12])), { s, txt: it(s.rientro, 1) + " s", each: true });
+        Object.assign(tag("sequenze", s.g, cls, toS([s.bounce[0] + 0.5, s.bounce[1], 0])), { s, txt: String(s.k + 1), each: true });
+      }
+      tags.forEach((t) => {
+        if (t.txt) t.e.textContent = t.txt;
+      });
+      heatTag = tag("spostamenti", null, "white", new Vector3(), 0, -20, "qui passa pi\xF9 tempo");
       for (const [a, b2, , , txt] of BANDS) tag("dots", null, "band", new Vector3(CX + 5.485 + 0.35, 0, zn + HL - (a + b2) / 2), 0, 0, txt);
       for (const z of SC[st.scene].zones || []) tag("*all", null, "zone", toS([(z.x[0] + z.x[1]) / 2, z.y[0] - 0.5, 0]), 0, 0, z.label);
       selTags = [0, 1, 2, 3, 4, 5].map(() => tag("*", null, "sel", new Vector3()));
@@ -32423,16 +32480,62 @@ void main() {
     let restoring = false;
     window.__ansView = (v) => {
       if (!st.on || !VIEWS2[v]) return false;
+      if (window.__thumb) {
+        const f2 = /^eye/.test(v) ? VIEWS2[v] : frameFor(dirOf(v));
+        camera.position.set(...f2[0]);
+        controls.target.set(...f2[1]);
+        controls.update();
+        return true;
+      }
       if (st.view && st.view !== v && !restoring) pushHist();
       st.view = v;
       camera.near = /^eye/.test(v) ? 2.5 : 0.05;
       camera.updateProjectionMatrix();
-      camera.position.set(...VIEWS2[v][0]);
-      controls.target.set(...VIEWS2[v][1]);
-      controls.update();
+      const f = /^eye/.test(v) ? VIEWS2[v] : frameFor(dirOf(v));
+      window.__cam(f[0], f[1]);
       render();
       return true;
     };
+    const dirOf = (v) => {
+      const P = VIEWS2[v] || VIEWS2.back;
+      return new Vector3(...P[0]).sub(new Vector3(...P[1])).normalize();
+    };
+    function pointsOf() {
+      const L2 = st.sels.length ? st.sels.map((i) => SHOTS[i]).filter(Boolean) : SHOTS.filter((s) => st.vis[s.g]), out = [];
+      if (!L2.length) {
+        for (const x of [-HL, HL]) for (const y of [-5.485, 5.485]) out.push(toS([x, y, 0]));
+        return out;
+      }
+      for (const s of L2) {
+        const c = toS(s.contact), b = toS(s.bounce);
+        if (st.layer === "traj" || st.sels.length) {
+          s.p.forEach((q, k) => {
+            if (k % 3 === 0 && (k <= s.nb || q[0] <= HL + 1)) out.push(toS(q));
+          });
+        } else if (st.layer === "dots") out.push(b);
+        else if (st.layer === "colpi" || st.layer === "sequenze") out.push(c, b, new Vector3(c.x, 0, c.z));
+        else if (st.layer === "tempo") out.push(new Vector3(c.x, 0, c.z), new Vector3(c.x, s.rientro, c.z));
+        else if (st.layer === "spostamenti") out.push(new Vector3(c.x, 0, c.z), toS([-12.6, Y0, 0]));
+      }
+      for (const z of st.layer === "dots" ? SC[st.scene].zones || [] : []) for (const x of z.x) for (const y of z.y) out.push(toS([x, y, 0]));
+      return out;
+    }
+    function frameFor(dir) {
+      const P = pointsOf(), box = new Box3().setFromPoints(P), c = box.getCenter(new Vector3());
+      const r2 = Math.max(2.2, box.getSize(new Vector3()).length() / 2) * 0.92;
+      const tv = Math.tan(MathUtils.degToRad(camera.fov) / 2), hV = Math.atan(tv * 0.62), hH = Math.atan(tv * camera.aspect * 0.52);
+      const dist = MathUtils.clamp(r2 / Math.sin(Math.min(hV, hH)), 3, 55);
+      const pos = c.clone().addScaledVector(dir, dist);
+      if (pos.y < 0.6) pos.y = 0.6;
+      const up2 = new Vector3(0, 1, 0).sub(dir.clone().multiplyScalar(dir.y)).normalize(), aim = c.clone().addScaledVector(up2, -dist * tv * 0.1);
+      return [pos.toArray(), aim.toArray()];
+    }
+    const curDir = () => camera.position.clone().sub(controls.target).normalize();
+    function reframe() {
+      if (!st.on || /^eye/.test(st.view)) return;
+      const f = frameFor(curDir());
+      window.__cam(f[0], f[1]);
+    }
     {
       const render0 = render;
       render = () => {
@@ -32537,6 +32640,7 @@ void main() {
           st.sels = [];
           st.compare = false;
           apply();
+          reframe();
         }
         return;
       }
@@ -32545,6 +32649,7 @@ void main() {
         st.compare = false;
       } else st.sels = st.sels.length === 1 && st.sels[0] === i ? [] : [i];
       apply();
+      reframe();
     }
     const F = [
       ["Altezza sulla rete", (s) => it(s.clear, 2) + " m"],
@@ -32595,7 +32700,7 @@ void main() {
       }
       for (; k < selTags.length; k++) selTags[k].on = false;
       for (const t of tags) {
-        const show = t.layer === "*" ? t.on : t.layer === "*all" ? true : t.layer === "me" ? st.view !== "eyeT" : t.layer === st.layer && (!t.grp || st.vis[t.grp]) && !st.sels.length && st.t >= N;
+        const show = t.layer === "*" ? t.on : t.layer === "*all" ? true : t.layer === "me" ? st.view !== "eyeT" : t.each ? t.layer === st.layer && st.vis[t.grp] && fOf(t.s) >= 1 && (!st.sels.length || st.sels.includes(t.s.i)) : t.layer === st.layer && (!t.grp || st.vis[t.grp]) && !st.sels.length && st.t >= N;
         v3.copy(t.at).project(camera);
         if (!show || v3.z > 1) {
           t.e.hidden = true;
@@ -32633,6 +32738,7 @@ void main() {
       if (st.layer !== k && !restoring) pushHist();
       st.layer = k;
       apply();
+      if (!restoring) reframe();
     }
     $("ansLayer").addEventListener("click", (e) => {
       const b = e.target.closest("button");
@@ -32697,6 +32803,7 @@ void main() {
       st.sels = [L2[(k + d + L2.length) % L2.length]];
       st.compare = false;
       apply();
+      reframe();
     };
     $("ansPrev").addEventListener("click", () => stepSel(-1));
     $("ansNext").addEventListener("click", () => stepSel(1));
@@ -32816,9 +32923,7 @@ void main() {
           apply();
           camera.near = /^eye/.test(h.view) ? 2.5 : 0.05;
           camera.updateProjectionMatrix();
-          camera.position.fromArray(h.cam);
-          controls.target.fromArray(h.tgt);
-          controls.update();
+          window.__cam(h.cam, h.tgt);
           const c = CAMS.find((x) => x[0] === h.view);
           if (c) $("camLab").textContent = c[1];
         }
@@ -32918,7 +33023,7 @@ void main() {
       restoring = r0;
       $("qLab").textContent = "Domande";
     }
-    return { open: () => openScene(1), openScene, close, back: back2, get on() {
+    return { reframe, frameFor: () => frameFor(curDir()), open: () => openScene(1), openScene, close, back: back2, get on() {
       return st.on;
     }, setLayer, pick, get st() {
       return st;
@@ -32951,6 +33056,18 @@ void main() {
     vAsk = (raw) => {
       const s = norm(raw || "");
       if (window.__guide && window.__guide.open()) return vAsk0(raw);
+      if (/^(avvicina|zoom|ingrandisci|piu vicino)$/.test(s)) {
+        $("zIn").click();
+        return;
+      }
+      if (/^(allontana|rimpicciolisci|piu lontano)$/.test(s)) {
+        $("zOut").click();
+        return;
+      }
+      if (/^(inquadra|inquadra tutto|centra)$/.test(s)) {
+        $("zFit").click();
+        return;
+      }
       if (/^(torna indietro|indietro|vista precedente|torna alla vista di prima)$/.test(s)) {
         vOpen(true);
         vOut(ANS.back() ? "Fatto." : "Sei gi\xE0 all'inizio.");
@@ -33008,6 +33125,29 @@ void main() {
   {
     const q = new URLSearchParams(location.search).get("scena");
     if (q && /^[1-7]$/.test(q)) ANS.openScene(Number(q));
+  }
+  {
+    const ico = { in: '<path d="M12 5v14M5 12h14"/>', out: '<path d="M5 12h14"/>', fit: '<path d="M8 4H4v16h4M16 4h4v16h-4"/>' };
+    const B = (id, lab, d) => `<button type="button" id="${id}" aria-label="${lab}" title="${lab}"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg></button>`;
+    $("camRow").insertAdjacentHTML("afterend", `<div id="zoomRow" role="group" aria-label="Zoom">${B("zIn", "Avvicina", ico.in)}${B("zFit", "Inquadra", ico.fit)}${B("zOut", "Allontana", ico.out)}</div>`);
+    const dolly = (k) => {
+      const o = camera.position.clone().sub(controls.target), d = MathUtils.clamp(o.length() * k, controls.minDistance, controls.maxDistance);
+      window.__cam(controls.target.clone().addScaledVector(o.normalize(), d).toArray(), controls.target.toArray(), 0.35);
+    };
+    $("zIn").addEventListener("click", () => dolly(0.75));
+    $("zOut").addEventListener("click", () => dolly(1.33));
+    $("zFit").addEventListener("click", () => {
+      if (ANS.on) return ANS.reframe();
+      const sd = S.edit || activeSide(), b = new Box3().setFromObject(sd.av.mesh, true).union(new Box3().setFromObject(sd.av.racket, true)), c = b.getCenter(new Vector3());
+      const r = b.getSize(new Vector3()).length() / 2 * 1.02, tv = Math.tan(MathUtils.degToRad(camera.fov) / 2), h = Math.min(Math.atan(tv * 0.7), Math.atan(tv * camera.aspect * 0.5));
+      const dir = camera.position.clone().sub(controls.target).normalize(), d = MathUtils.clamp(r / Math.sin(h), controls.minDistance, controls.maxDistance);
+      window.__cam(c.clone().addScaledVector(dir, d).toArray(), c.toArray());
+    });
+    addEventListener("keydown", (e) => {
+      if (e.target.closest && e.target.closest("input,textarea")) return;
+      if (e.key === "+" || e.key === "=") $("zIn").click();
+      else if (e.key === "-") $("zOut").click();
+    });
   }
 })();
 /*! Bundled license information:
