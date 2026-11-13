@@ -302,6 +302,21 @@ body.editing #vPanel #cmdIn:focus{border-color:#40C8E0}
 #cmdMic{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:none}
 body.voice #kbBtn,#vDock.open #kbBtn{display:inline-flex}
 #kbBtn[aria-pressed=true]{background:#E9ECF2;color:#0F1115;border-color:#E9ECF2}
+/* i pannelli non cambiano dimensione per le scritte che compaiono (owner 13/11): lo stato del peso sta nel titolo, le differenze in un riquadro fisso che scorre */
+.sec .secst{margin-left:auto;margin-right:10px;font-size:10.5px;letter-spacing:.4px;text-transform:none;font-weight:600;color:#B9A7E8}.sec .secst.warn{color:#FFB15C;background:none;border:0;padding:0;margin-top:0}
+#refRows{height:196px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+#refRows.more,#mods.more{-webkit-mask-image:linear-gradient(to bottom,#000 calc(100% - 26px),transparent);mask-image:linear-gradient(to bottom,#000 calc(100% - 26px),transparent)}
+/* modifica: riquadri a misura fissa, il pannello non cresce con le scritte (owner 13/11) */
+#jCard{height:88px;overflow:hidden}
+#jCard .jslot{position:relative;height:36px;margin-top:4px}
+#jCard .jslot>*{position:absolute;inset:0;margin:0!important;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+#jCard .jslot #jWarn:not([hidden])~#jHow,#jCard .jslot #jWarn[hidden]{display:none}
+#jCard .jslot #jWarn{padding:0;background:none;border:0}
+#mods{height:132px;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:rgba(255,255,255,.18) transparent}
+#mods .row{display:block;padding:5px 0;line-height:16px}#mods .row>span{display:block}#mods .row>span.mono{font-family:inherit;color:var(--t3);font-size:12px!important}
+#mods:empty::before{content:'Nessuna modifica in questa fase.';display:block;font-size:12px;color:var(--t4,#9AA1B0);padding-top:4px}
+#edStatus{height:36px;margin-top:6px;overflow:hidden}#edStatus>*{margin:0!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+#edStatus #jWarn2:not([hidden])~#savedNote,#edStatus #jWarn2[hidden]{display:none}
 /* spettro della voce: piccolo, in fondo allo schermo, sotto la barra dello scorrimento (non copre niente) */
 #vSpec{height:20px;bottom:1px;transform:translateY(8px)}#vSpec.on{transform:none}
 #vSpecA,#vSpecB{bottom:0;height:20px;width:min(640px,70%)}#vSpecA{filter:blur(3px)}#vSpecB{-webkit-mask-image:none;mask-image:none}
@@ -343,15 +358,15 @@ body.voice #kbBtn,#vDock.open #kbBtn{display:inline-flex}
   <div class="sec">Posizione dei giunti</div>
   <button class="btn" id="edit">Modifica posizione</button>
   <div id="editBox">
-    <div class="note" id="editHint">Fase <b id="editPhase" style="color:#fff"></b></div>
-    <div id="jointBox" hidden>
-      <div class="row"><span id="jName" style="font-weight:700;color:#fff">—</span><span class="mono" id="jVal" style="font-size:12px;text-align:right">—</span></div>
-      <div class="note" id="jHow" style="margin-top:2px"></div>
-      <div class="warn" id="jWarn" hidden></div>
+    <div id="jCard">
+      <div id="editHint"><div class="row"><span style="font-weight:700;color:#fff">Fase <b id="editPhase"></b></span></div><div class="note">Tocca un pallino sull'avatar per spostare quella parte del corpo.</div></div>
+      <div id="jointBox" hidden>
+        <div class="row"><span id="jName" style="font-weight:700;color:#fff">—</span><span class="mono" id="jVal" style="font-size:12px;text-align:right">—</span></div>
+        <div class="jslot"><div class="warn" id="jWarn" hidden></div><div class="note" id="jHow"></div></div>
+      </div>
     </div>
-    <div id="modsBox" hidden><div class="sec" style="margin-top:10px">Modifiche in questa fase</div><div id="mods"></div></div>
-    <div class="warn" id="jWarn2" hidden></div>
-    <div class="note" id="savedNote" style="margin-top:6px"></div>
+    <div id="modsBox"><div class="sec" style="margin-top:10px">Modifiche in questa fase</div><div id="mods"></div></div>
+    <div id="edStatus"><div class="warn" id="jWarn2" hidden></div><div class="note" id="savedNote"></div></div>
   </div>
   <button id="layoutReset" hidden></button>
 <dialog id="faq" aria-labelledby="faqTitle" style="max-width:640px;width:calc(100vw - 40px);max-height:calc(100vh - 60px);overflow:auto;background:rgba(20,22,28,.97);color:var(--t2);border:1px solid rgba(255,255,255,.14);border-radius:16px;padding:20px 24px;font-size:13px;line-height:19px">
@@ -362,11 +377,9 @@ body.voice #kbBtn,#vDock.open #kbBtn{display:inline-flex}
 </section>
 <section class="panel" id="right" data-title="Questa fase">
   <h1 id="phaseName">Apertura</h1><div class="sub" id="phaseNext">&nbsp;</div>
-    <div class="sec">Peso sui piedi</div>
+    <div class="sec">Peso sui piedi<span class="secst" id="wState" aria-live="polite"></span></div>
   <div class="row"><span>Destro</span><span class="pair"><span class="mono" id="wRA">—</span><span class="mono" id="wRB">—</span></span></div>
   <div class="row"><span>Sinistro</span><span class="pair"><span class="mono" id="wLA">—</span><span class="mono" id="wLB">—</span></span></div>
-  <div class="warn" id="balwarn" hidden>Il baricentro esce dall'appoggio: posizione possibile solo in movimento.</div>
-  <div class="note" id="airNote" hidden>In volo: nessun piede a terra, il peso sui piedi non si calcola.</div>
   <div class="sec">Angoli</div>
   <div class="row"><span>Ginocchio destro</span><span class="pair"><span class="mono" id="kRA">—</span><span class="mono" id="kRB">—</span></span></div>
   <div class="row"><span>Ginocchio sinistro</span><span class="pair"><span class="mono" id="kLA">—</span><span class="mono" id="kLB">—</span></span></div>
@@ -23999,8 +24012,12 @@ void main() {
     put("leanS", A && A.a.leanS, B && B.a.leanS, sagF);
     put("leanL", A && A.a.leanL, B && B.a.leanL, latF);
     const air = [A, B].some((m) => m && m.b.air), warn = !air && [A, B].some((m) => m && m.b.offLine > 0.12);
-    $("balwarn").hidden = !warn;
-    $("airNote").hidden = !air;
+    {
+      const w = $("wState");
+      w.textContent = air ? "in volo" : warn ? "fuori appoggio" : "";
+      w.classList.toggle("warn", warn);
+      w.title = air ? "Nessun piede a terra: il peso sui piedi non si calcola." : warn ? "Il baricentro esce dall'appoggio: posizione possibile solo in movimento." : "";
+    }
     const sd = activeSide();
     const mv = sd.moved || [];
     const anyMod = Object.keys(sd.keys).some((k) => sd.keys[k] !== sd.orig[k]);
@@ -25172,7 +25189,6 @@ void main() {
     $("jWarn").hidden = !msg;
     $("jWarn").textContent = msg || "";
     const L2 = phaseOps(sd).filter((o) => o.state !== "undone");
-    $("modsBox").hidden = !L2.length;
     $("mods").innerHTML = L2.map((o) => `<div class="row jump" data-k="${o.key}" role="button" tabindex="0"><span>${o.label}</span><span class="mono" style="font-size:12px">${o.desc}${o.state === "trial" ? " \xB7 da salvare" : ""}</span></div>`).join("");
     $("mods").querySelectorAll("[data-k]").forEach((e) => e.addEventListener("click", () => {
       const k = e.dataset.k === "rf" ? "rk" : e.dataset.k;
@@ -26478,6 +26494,11 @@ void main() {
     $("goalOff").addEventListener("click", () => {
       clearGoal(S.edit || activeSide(), say);
     });
+    for (const R of [$("refRows"), $("mods")]) {
+      const more = () => R.classList.toggle("more", R.scrollHeight - R.scrollTop - R.clientHeight > 4);
+      R.addEventListener("scroll", more);
+      new MutationObserver(more).observe(R, { childList: true, subtree: true });
+    }
     $("refRows").addEventListener("click", (e) => {
       if (e.target.closest("#goPeak")) {
         const sd = S.edit || activeSide();
@@ -29031,7 +29052,7 @@ void main() {
     vOff();
     if (t.length > 2) {
       vPhrase(t);
-      VX.hideAt = Date.now() + 1800;
+      VX.hideAt = Date.now() + 4e3;
     } else if (!VX.noVoice) VX.hideAt = Date.now() + 300;
   }
   function vSetListen(v) {
@@ -29065,6 +29086,7 @@ void main() {
     if (VX.listen) return;
     VX.on = true;
     VX.hideAt = 0;
+    VX.noSend = false;
     VX.acc = "";
     VX.txt = "";
     vEl("cmdIn").value = "";
@@ -29108,6 +29130,25 @@ void main() {
   }, 200);
   vEl("cmdIn").addEventListener("input", () => {
     VX.act = Date.now();
+  });
+  vEl("cmdIn").addEventListener("pointerdown", () => {
+    VX.hideAt = 0;
+    VX.act = Date.now();
+    if (!VX.listen && !VX.rec) return;
+    VX.held = false;
+    VX.acc = "";
+    VX.noSend = true;
+    if (VX.rec) {
+      const r = VX.rec;
+      VX.rec = null;
+      try {
+        r.abort();
+      } catch (e) {
+      }
+    } else if (VX.dict) VX.dict.stop().catch(() => {
+    });
+    vOff();
+    vEl("cmdIn").placeholder = "Correggi e premi Invio";
   });
   $("kbBtn").addEventListener("click", () => {
     if (!$("vPanel").hidden) return vEnd();
@@ -29172,9 +29213,16 @@ void main() {
     d.onFinal(({ text }) => {
       const t = String(text || "").trim();
       VX.acc = "";
+      if (VX.noSend) {
+        VX.noSend = false;
+        vOff();
+        vSaid(t);
+        return;
+      }
       if (t) {
         vOff();
         vPhrase(t);
+        VX.hideAt = Date.now() + 4e3;
       }
     });
     d.onState(({ state }) => {
