@@ -32682,10 +32682,13 @@ void main() {
       $("ansPrev").hidden = $("ansNext").hidden = SHOTS.length < 3;
     }
     const v3 = new Vector3();
+    const COVER = ["left", "right", "bottom", "vPanel", "qPop", "camPop", "helpFan"];
+    const covered = (x, y, R) => R.some((r2) => x > r2.left - 6 && x < r2.right + 6 && y > r2.top - 6 && y < r2.bottom + 6);
     (function tagLoop() {
       requestAnimationFrame(tagLoop);
       if (!st.on) return;
       const rc = renderer.domElement.getBoundingClientRect();
+      const R = COVER.map((id) => $(id)).filter((e) => e && !e.hidden && getComputedStyle(e).display !== "none").map((e) => e.getBoundingClientRect()).filter((r2) => r2.width && r2.height);
       const S2 = st.sels.map((i) => SHOTS[i]).filter(Boolean);
       let k = 0;
       for (const s of S2) {
@@ -32706,9 +32709,14 @@ void main() {
           t.e.hidden = true;
           continue;
         }
+        const x = rc.left + (v3.x + 1) / 2 * rc.width + t.dx, y = Math.max(112, rc.top + (1 - v3.y) / 2 * rc.height + t.dy);
+        if (covered(x, y, R)) {
+          t.e.hidden = true;
+          continue;
+        }
         t.e.hidden = false;
-        t.e.style.left = rc.left + (v3.x + 1) / 2 * rc.width + t.dx + "px";
-        t.e.style.top = Math.max(112, rc.top + (1 - v3.y) / 2 * rc.height + t.dy) + "px";
+        t.e.style.left = x + "px";
+        t.e.style.top = y + "px";
       }
     })();
     $("left").insertAdjacentHTML("beforeend", '<div id="ansLeft" class="ans"></div>');
