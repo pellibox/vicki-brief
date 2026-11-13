@@ -284,6 +284,27 @@ body.editing #edRow{display:flex}
 .lab3d.warn3d{color:#16181D;background:var(--warn);border-color:var(--warn)}
 .jump{cursor:pointer;text-decoration:underline dotted rgba(255,255,255,.35);text-underline-offset:3px}
 @media (max-width:900px){#right{display:none}#left{width:260px}}
+
+/* barra dei comandi sopra la barra dello scorrimento, larga come lei, staccata di poco; stessi colori dei pannelli (owner 13/11) */
+#vPanel{position:fixed;right:auto;margin:0;width:360px;padding:10px 14px 12px;border-radius:16px;background:rgba(20,22,28,.82);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px rgba(255,255,255,.10),0 18px 48px rgba(0,0,0,.45);backdrop-filter:blur(28px) saturate(1.6);-webkit-backdrop-filter:blur(28px) saturate(1.6)}
+body.editing #vPanel{border-color:rgba(64,200,224,.55)}
+#vPanel .cmdrow{display:block}
+#vPanel #cmdIn{display:block;width:100%;box-sizing:border-box;height:36px;padding:0 14px;font-size:14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);color:#E9ECF2}
+#vPanel #cmdIn:focus{outline:none;border-color:#B9A7E8}
+body.editing #vPanel #cmdIn:focus{border-color:#40C8E0}
+#vChips{flex-wrap:nowrap;overflow-x:auto;overflow-y:hidden;justify-content:flex-start;padding:0 0 2px;margin:0 -14px 10px;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;-webkit-mask-image:linear-gradient(to right,transparent,#000 18px,#000 calc(100% - 24px),transparent);mask-image:linear-gradient(to right,transparent,#000 18px,#000 calc(100% - 24px),transparent)}
+#vChips::-webkit-scrollbar{display:none}
+#vChips button{flex:none;white-space:nowrap;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12)}
+#vChips button:first-child{margin-left:14px}#vChips button:last-child{margin-right:22px}
+#vPanel #cmdOut{text-align:center;margin-top:6px!important;min-height:0!important}#vPanel #cmdOut:empty{display:none}
+#cmdMic .ms{display:none}#cmdMic[aria-pressed=true] .ms{display:block}#cmdMic[aria-pressed=true] .mi{display:none}
+.ptt #cmdMic[aria-pressed=true] .ms{display:none}.ptt #cmdMic[aria-pressed=true] .mi{display:block}
+#cmdMic{-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;touch-action:none}
+body.voice #kbBtn,#vDock.open #kbBtn{display:inline-flex}
+#kbBtn[aria-pressed=true]{background:#E9ECF2;color:#0F1115;border-color:#E9ECF2}
+/* spettro della voce: piccolo, in fondo allo schermo, sotto la barra dello scorrimento (non copre niente) */
+#vSpec{height:20px;bottom:1px;transform:translateY(8px)}#vSpec.on{transform:none}
+#vSpecA,#vSpecB{bottom:0;height:20px;width:min(640px,70%)}#vSpecA{filter:blur(3px)}#vSpecB{-webkit-mask-image:none;mask-image:none}
 </style>
 </head>
 <body>
@@ -395,15 +416,13 @@ body.editing #edRow{display:flex}
 </section>
 <div id="vDock">
   <div id="vPanel" hidden role="dialog" aria-label="Comandi">
-    <button id="vClose" type="button" aria-label="Chiudi">✕</button>
     <div id="vChips"></div>
     <div id="vAskBox" hidden><div class="note" id="vAskTxt"></div><div class="act"><button id="vYes" class="btn">Sì</button><button id="vNo" class="btn" style="background:transparent;color:var(--t2);border:1px solid rgba(255,255,255,.22)">No</button></div></div>
-    <div class="cmdrow"><input id="cmdIn" type="text" autocomplete="off" placeholder="oppure scrivi qui" aria-describedby="cmdOut"></div>
+    <div class="cmdrow"><input id="cmdIn" type="text" autocomplete="off" placeholder="Tocca il microfono e parla, oppure scrivi" aria-describedby="cmdOut"></div>
     <div class="note" id="cmdOut" aria-live="polite" style="margin-top:6px;min-height:1em"></div>
   </div>
-  <div id="vRow"><div id="vPill" hidden><b id="vPillHead">Ti ascolto</b> <span id="vLive">· un colpo, un riferimento, una vista</span></div>
-  <div id="vMicWrap"><button id="kbBtn" type="button" aria-label="Scrivi un comando" title="Scrivi un comando"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></button><svg id="vRing" viewBox="0 0 74 74" aria-hidden="true"><circle cx="37" cy="37" r="34"/></svg>
-<button id="cmdMic" type="button" aria-label="Parla con VICKI" title="Parla con VICKI"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div></div>
+  <div id="vRow">
+  <div id="vMicWrap"><button id="kbBtn" type="button" aria-label="Scrivi un comando" title="Scrivi un comando"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="6" width="20" height="12" rx="2"/><path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10"/></svg></button><button id="cmdMic" type="button" aria-label="Parla con VICKI" title="Parla con VICKI"><svg class="ms" width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><rect x="5" y="5" width="14" height="14" rx="3" fill="currentColor"/></svg><svg class="mi" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></button></div></div>
 </div>
 <div id="vAura" aria-hidden="true"></div><div id="vSpec" aria-hidden="true"><canvas id="vSpecA"></canvas><canvas id="vSpecB"></canvas></div><div id="camBar"><div id="camRow"><button id="helpBtn" type="button" aria-label="Aiuto" aria-haspopup="menu" aria-expanded="false" title="Aiuto">?</button><div class="seg" id="placeSeg" role="group" aria-label="Video o 3D"><button data-v="campo" aria-pressed="false">In campo</button><button data-v="studio" aria-pressed="true">Studio</button></div><button id="camBtn" type="button" aria-haspopup="true" aria-expanded="false" aria-label="Cambia vista"><svg width="30" height="22" viewBox="0 0 30 22" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"><rect x="2" y="3" width="18" height="16" rx="4"/><path d="M20 9l7-4v12l-7-4z"/></svg><span id="camLab">Davanti</span></button></div><div id="camPop" hidden role="menu" aria-label="Vista"></div><div id="helpFan" hidden role="menu" aria-label="Aiuto"><button type="button" role="menuitem" data-h="guida"><span class="hl">Guida</span><span class="hi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4l7 17 2.5-7.5L21 11z"/></svg></span></button><button type="button" role="menuitem" data-h="voce"><span class="hl">Cosa posso dire</span><span class="hi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/><path d="M9 10h6M9 14h4"/></svg></span></button><button type="button" role="menuitem" data-h="faq"><span class="hl">FAQ</span><span class="hi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5a2 2 0 0 1 2-2h5a2 2 0 0 1 2 2v15a2 2 0 0 0-2-2H3z"/><path d="M21 5a2 2 0 0 0-2-2h-5a2 2 0 0 0-2 2v15a2 2 0 0 1 2-2h5z"/></svg></span></button><button type="button" role="menuitem" data-h="privacy"><span class="hl">Privacy</span><span class="hi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 4.5-3.4 8.3-8 9-4.6-.7-8-4.5-8-9V6z"/></svg></span></button><button type="button" role="menuitem" data-h="pannelli"><span class="hl">Pannelli</span><span class="hi"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg></span></button></div></div>
 <div id="campo" hidden><div class="cbox"><svg width="44" height="32" viewBox="0 0 30 22" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="2" y="3" width="18" height="16" rx="4"/><path d="M20 9l7-4v12l-7-4z"/></svg><b>Nessun video di questo colpo</b><span>Quando le riprese saranno pubblicate, qui vedi il video nello stesso istante del 3D.</span></div></div>
@@ -28524,6 +28543,7 @@ void main() {
   var vOpen = (v) => {
     $("vPanel").hidden = !v;
     $("vDock").classList.toggle("open", !!v);
+    $("kbBtn").setAttribute("aria-pressed", String(!!v));
     if (v) {
       vChips();
       if (typeof VX !== "undefined" && VX) VX.act = Date.now();
@@ -28773,7 +28793,7 @@ void main() {
   });
   new MutationObserver(() => {
     if (!$("vPanel").hidden) vChips();
-    if (typeof vHead === "function" && !$("vPill").hidden) vHead();
+    if (typeof vHead === "function") vHead();
   }).observe(document.body, { attributes: true, attributeFilter: ["class"] });
   try {
     if (sessionStorage.getItem("vicki-voce-aperta")) {
@@ -28831,21 +28851,20 @@ void main() {
   var IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1;
   var vEl = (id) => document.getElementById(id);
   function vHead() {
-    const h = vEl("vPillHead"), l = vEl("vLive");
-    if (VX.txt) return;
-    h.textContent = VX.noVoice ? "Scrivi a VICKI" : VX.listen ? "Ti ascolto" : "Tocca e parla";
-    l.className = "";
-    l.textContent = S.edit ? " \xB7 parti del corpo, salva, annulla, esci" : " \xB7 un colpo, un riferimento, una vista";
+    const inp = vEl("cmdIn");
+    if (!inp) return;
+    document.documentElement.classList.toggle("ptt", PTT());
+    inp.placeholder = VX.listen ? PTT() ? "Ti ascolto: lascia il microfono per mandare" : "Ti ascolto: tocca il microfono per mandare" : VX.noVoice ? "Scrivi a VICKI" : PTT() ? "Tieni premuto il microfono e parla, oppure scrivi" : "Tocca il microfono e parla, oppure scrivi";
   }
+  var PTT = () => IOS && !VX.dict;
   function vSaid(t) {
     const words = String(t || "").split(/\s+/).filter(Boolean);
     const before = VX.txt.split(/\s+/).filter(Boolean).length;
     VX.txt = String(t || "");
     if (words.length !== before) vBeat();
-    const h = vEl("vPillHead"), l = vEl("vLive");
-    h.textContent = "";
-    l.className = "said";
-    l.innerHTML = words.map((w, i) => `<span class="${i >= before ? "w new" : "w"}">${w.replace(/[&<>]/g, "")}</span>`).join(" ");
+    const inp = vEl("cmdIn");
+    inp.value = VX.txt;
+    inp.scrollLeft = inp.scrollWidth;
   }
   var vBeat = (x = 0.7) => {
     VX.level = Math.max(VX.level, x);
@@ -28923,16 +28942,13 @@ void main() {
     if (!VX.audio) VX.level *= 0.94;
     vSpecDraw(vEl("vSpecA"), 0.9, SB1, now);
     vSpecDraw(vEl("vSpecB"), 0.9, SB2, now);
-    const L2 = VX.level, m = vEl("cmdMic");
-    m.style.setProperty("--lv", L2.toFixed(3));
+    const L2 = VX.level;
+    vEl("cmdMic").style.setProperty("--lv", L2.toFixed(3));
     vEl("vAura").style.opacity = (0.32 + L2 * 0.68).toFixed(3);
-    const ring = vEl("vRing").querySelector("circle"), rest = Math.max(0, VX.follow - Date.now()) / 9e3;
-    ring.style.strokeDashoffset = (213.6 * (1 - rest)).toFixed(1);
-    ring.style.opacity = rest > 0 ? 0.8 : 0;
     requestAnimationFrame(vLoop);
   }
   function vListen() {
-    if (VX.listen) return;
+    if (VX.listen && !VX.held) return;
     if (VX.dict) {
       VX.dict.start().catch((e) => {
         const r2 = String(e && (e.code || e.message) || e);
@@ -28940,14 +28956,15 @@ void main() {
           VX.noVoice = true;
           vEl("cmdIn").focus();
         }
-        vOut(/not_granted/.test(r2) ? "Microfono non consentito: scrivi qui sotto." : "Dettatura non disponibile: riprova o scrivi.", false);
-        vHead();
+        vOut(/not_granted/.test(r2) ? "Microfono non consentito: scrivi nel campo." : "Dettatura non disponibile: riprova o scrivi.", false);
+        vOff();
       });
       return;
     }
     if (!SRc) {
       VX.noVoice = true;
-      vHead();
+      vOut(IOS ? "Su iPad e iPhone la dettatura c'\xE8 solo in Safari: apri la pagina l\xEC, oppure scrivi nel campo." : "Questo browser non ha la dettatura: apri la pagina in Chrome o Safari, oppure scrivi nel campo.", false);
+      vOff();
       vEl("cmdIn").focus();
       return;
     }
@@ -28956,54 +28973,78 @@ void main() {
     r.interimResults = true;
     r.continuous = !IOS;
     let last2 = "", err = "", tm = 0;
-    VX.txt = "";
     r.onresult = (ev) => {
       if (VX.rec !== r) return;
-      const t = [...ev.results].map((x) => x[0].transcript).join(" ").replace(/\s+/g, " ").trim();
-      last2 = t;
-      vSaid(t);
-      vEl("cmdIn").value = t;
+      last2 = [...ev.results].map((x) => x[0].transcript).join(" ").replace(/\s+/g, " ").trim();
+      vSaid((VX.acc ? VX.acc + " " : "") + last2);
       clearTimeout(tm);
+      if (VX.held) return;
       const fin = ev.results[ev.results.length - 1] && ev.results[ev.results.length - 1].isFinal;
       tm = setTimeout(() => {
         if (VX.rec === r) r.stop();
-      }, fin ? 600 : 1500);
+      }, fin ? 400 : 900);
     };
     r.onerror = (ev) => {
       err = ev && ev.error || "errore";
       if (err === "not-allowed" || err === "service-not-allowed") {
         VX.noVoice = true;
-        vOut("Microfono non consentito: scrivi qui sotto.", false);
-      }
+        VX.held = false;
+        vOut(IOS ? "Dettatura non consentita: attiva Siri e il microfono per Safari, oppure scrivi nel campo." : "Microfono non consentito: scrivi nel campo.", false);
+        vEl("cmdIn").focus();
+      } else if (err === "network") {
+        VX.noVoice = true;
+        VX.held = false;
+        vOut("Il riconoscimento vocale di questo browser non risponde: apri la pagina in Chrome o Safari, oppure scrivi nel campo.", false);
+        vEl("cmdIn").focus();
+      } else if (err === "audio-capture") {
+        VX.held = false;
+        vOut("Il microfono non \xE8 disponibile: chiudi le altre app che lo usano, oppure scrivi nel campo.", false);
+      } else if (err !== "no-speech" && err !== "aborted") vOut("La voce non \xE8 arrivata: riprova o scrivi nel campo.", false);
     };
     r.onend = () => {
       clearTimeout(tm);
       if (VX.rec !== r) return;
       VX.rec = null;
-      vSetListen(false);
-      if (last2.trim().length > 2) {
-        vPhrase(last2);
+      if (last2) VX.acc = (VX.acc ? VX.acc + " " : "") + last2;
+      if (VX.held && !VX.noVoice) {
+        setTimeout(() => {
+          if (VX.held && !VX.rec) vListen();
+        }, 60);
         return;
       }
-      if ((!err || err === "no-speech") && VX.on && Date.now() < VX.follow) setTimeout(() => {
-        if (VX.on && !VX.rec && Date.now() < VX.follow) vListen();
-      }, 150);
+      vSend();
     };
     VX.rec = r;
     try {
       r.start();
       vSetListen(true);
-      vAudioOn();
+      if (!IOS) vAudioOn();
     } catch (e) {
-      vSetListen(false);
+      VX.rec = null;
+      vOff();
+      vOut("La voce non \xE8 partita: riprova o scrivi nel campo.", false);
     }
+  }
+  function vSend() {
+    const t = String(VX.acc || "").trim();
+    VX.acc = "";
+    vOff();
+    if (t.length > 2) {
+      vPhrase(t);
+      VX.hideAt = Date.now() + 1800;
+    } else if (!VX.noVoice) VX.hideAt = Date.now() + 300;
   }
   function vSetListen(v) {
     VX.listen = v;
     vEl("cmdMic").setAttribute("aria-pressed", String(v));
     vEl("vSpec").classList.toggle("on", v);
+    document.body.classList.toggle("voice", v);
     if (!v) vAudioOff();
     vHead();
+  }
+  function vOff() {
+    VX.on = false;
+    vSetListen(false);
   }
   function vPhrase(t) {
     const tt = String(t || "").trim();
@@ -29011,31 +29052,41 @@ void main() {
     vEl("cmdIn").value = tt;
     vAsk(tt);
     VX.txt = "";
-    VX.follow = Date.now() + 9e3;
-    setTimeout(() => {
-      if (VX.on && !VX.dict && !VX.rec && Date.now() < VX.follow) vListen();
-      else vHead();
-    }, 700);
+    VX.act = Date.now();
+    vHead();
   }
   function vOut(t, ok = true) {
     const o = vEl("cmdOut");
     o.textContent = t;
     o.className = "note " + (ok ? "ok" : "err");
+    if (t && !ok) VX.hideAt = Date.now() + 6e3;
   }
   function vStart() {
-    VX.follow = Date.now() + 9e3;
+    if (VX.listen) return;
     VX.on = true;
-    document.body.classList.add("voice");
-    vEl("vPill").hidden = false;
-    vOpen(true);
+    VX.hideAt = 0;
+    VX.acc = "";
     VX.txt = "";
-    vHead();
+    vEl("cmdIn").value = "";
+    vOut("");
+    vOpen(true);
     requestAnimationFrame(vLoop);
     vListen();
   }
+  function vStopSend() {
+    if (VX.rec) {
+      try {
+        VX.rec.stop();
+      } catch (e) {
+        vSend();
+      }
+    } else if (VX.dict && VX.listen) VX.dict.stop().catch(() => {
+    });
+    else vSend();
+  }
   function vEnd() {
-    VX.on = false;
-    VX.follow = 0;
+    VX.held = false;
+    VX.acc = "";
     if (VX.rec) {
       const r = VX.rec;
       VX.rec = null;
@@ -29046,58 +29097,111 @@ void main() {
     }
     if (VX.dict && VX.listen) VX.dict.stop().catch(() => {
     });
-    vSetListen(false);
-    document.body.classList.remove("voice");
-    vEl("vPill").hidden = true;
+    vOff();
     vOpen(false);
   }
   setInterval(() => {
     if ($("vPanel").hidden) return;
-    if (VX.listen || VX.rec || vPending || document.activeElement === vEl("cmdIn") || VX.follow && Date.now() < VX.follow) return;
-    if (Date.now() - (VX.act || 0) < 9e3) return;
-    VX.on ? vEnd() : vOpen(false);
-  }, 500);
+    if (VX.listen || VX.rec || VX.held || vPending || document.activeElement === vEl("cmdIn")) return;
+    if (VX.hideAt ? Date.now() < VX.hideAt : Date.now() - (VX.act || 0) < 9e3) return;
+    vEnd();
+  }, 200);
   vEl("cmdIn").addEventListener("input", () => {
     VX.act = Date.now();
   });
-  $("vClose").addEventListener("click", () => {
-    VX.on ? vEnd() : vOpen(false);
-  });
   $("kbBtn").addEventListener("click", () => {
+    if (!$("vPanel").hidden) return vEnd();
+    VX.hideAt = 0;
     vOpen(true);
     vEl("cmdIn").focus();
   });
-  vEl("cmdMic").addEventListener("click", () => {
-    if (!VX.on) return vStart();
-    if (VX.listen) {
-      if (VX.rec) VX.rec.stop();
-      else if (VX.dict) VX.dict.stop().catch(() => {
-      });
-      return;
-    }
-    if (Date.now() < VX.follow || VX.dict) {
-      if (VX.dict && Date.now() < VX.follow) return vListen();
-      return vEnd();
-    }
+  document.addEventListener("pointerdown", (e) => {
+    const P = $("vPanel");
+    if (P.hidden || VX.listen || VX.held || vPending) return;
+    if (P.contains(e.target) || $("cmdMic").contains(e.target) || $("kbBtn").contains(e.target)) return;
     vEnd();
-  });
+  }, true);
+  {
+    const mic = vEl("cmdMic");
+    let t0 = 0;
+    mic.addEventListener("click", (e) => {
+      if (PTT() && e.detail > 0) return;
+      VX.listen ? vStopSend() : vStart();
+    });
+    mic.addEventListener("pointerdown", (e) => {
+      if (!PTT()) return;
+      e.preventDefault();
+      try {
+        mic.setPointerCapture(e.pointerId);
+      } catch (x) {
+      }
+      t0 = Date.now();
+      VX.held = true;
+      vStart();
+    });
+    const up2 = () => {
+      if (!PTT() || !VX.held) return;
+      VX.held = false;
+      if (Date.now() - t0 < 350 && !String(VX.acc || VX.txt || "").trim()) {
+        if (VX.rec) {
+          const r = VX.rec;
+          VX.rec = null;
+          try {
+            r.abort();
+          } catch (x) {
+          }
+        }
+        vOff();
+        vOut("Tieni premuto il microfono mentre parli, poi lascialo.", true);
+        return;
+      }
+      vStopSend();
+    };
+    for (const ev of ["pointerup", "pointercancel", "lostpointercapture"]) mic.addEventListener(ev, up2);
+    mic.addEventListener("contextmenu", (e) => e.preventDefault());
+  }
   addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && VX.on && !document.querySelector("dialog[open]")) vEnd();
+    if (e.key === "Escape" && !$("vPanel").hidden && !document.querySelector("dialog[open]")) vEnd();
   });
   if (window.claude && typeof window.claude.use === "function") window.claude.use("dictation").then((d) => {
     if (!d) return;
     VX.dict = d;
     d.onPartial(({ text }) => {
       vSaid(text);
-      vEl("cmdIn").value = text;
     });
     d.onFinal(({ text }) => {
       const t = String(text || "").trim();
-      if (t) vPhrase(t);
+      VX.acc = "";
+      if (t) {
+        vOff();
+        vPhrase(t);
+      }
     });
-    d.onState(({ state }) => vSetListen(state === "listening"));
+    d.onState(({ state }) => {
+      vSetListen(state === "listening");
+      if (state !== "listening") VX.on = false;
+    });
+    vHead();
   }).catch(() => {
   });
+  function placeV() {
+    const P = $("vPanel"), B = $("bottom");
+    if (!P || !B || P.hidden) return;
+    const r = B.getBoundingClientRect(), W = innerWidth;
+    if (!r.width) {
+      P.style.cssText = "";
+      return;
+    }
+    const w = Math.min(W - 24, Math.max(r.width, 360)), l = Math.max(12, Math.min(W - w - 12, r.left + r.width / 2 - w / 2));
+    P.style.left = l + "px";
+    P.style.width = w + "px";
+    P.style.bottom = innerHeight - r.top + 10 + "px";
+  }
+  addEventListener("resize", placeV);
+  new ResizeObserver(placeV).observe($("bottom"));
+  new MutationObserver(placeV).observe($("bottom"), { attributes: true, attributeFilter: ["style", "class", "hidden"] });
+  new MutationObserver(placeV).observe($("vPanel"), { attributes: true, attributeFilter: ["hidden"] });
+  vHead();
   var CAMS = [["side", "Lato"], ["back", "Dietro"], ["front", "Davanti"], ["top", "Alto"]];
   var setView0 = setView;
   S.view = "front";
