@@ -14744,7 +14744,7 @@ body.editing #edRow{display:flex}
     let useOffscreenCanvas = false;
     try {
       useOffscreenCanvas = typeof OffscreenCanvas !== "undefined" && new OffscreenCanvas(1, 1).getContext("2d") !== null;
-    } catch (err2) {
+    } catch (err) {
     }
     function createCanvas(width, height) {
       return useOffscreenCanvas ? (
@@ -28955,10 +28955,12 @@ void main() {
     r.lang = "it-IT";
     r.interimResults = true;
     r.continuous = !IOS;
+    let last2 = "", err = "", tm = 0;
+    VX.txt = "";
     r.onresult = (ev) => {
       if (VX.rec !== r) return;
       const t = [...ev.results].map((x) => x[0].transcript).join(" ").replace(/\s+/g, " ").trim();
-      last = t;
+      last2 = t;
       vSaid(t);
       vEl("cmdIn").value = t;
       clearTimeout(tm);
@@ -28979,8 +28981,8 @@ void main() {
       if (VX.rec !== r) return;
       VX.rec = null;
       vSetListen(false);
-      if (last.trim().length > 2) {
-        vPhrase(last);
+      if (last2.trim().length > 2) {
+        vPhrase(last2);
         return;
       }
       if ((!err || err === "no-speech") && VX.on && Date.now() < VX.follow) setTimeout(() => {
