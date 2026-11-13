@@ -369,6 +369,27 @@ body.answer #ansRow{display:flex}body.answer #edRow,body.answer #trackRow{displa
 #ansTrack .sg i{transition:none}
 #ansRight .row.go{cursor:pointer;border-radius:8px;transition:background .15s}#ansRight .row.go:hover{background:rgba(255,255,255,.05)}#ansRight .row.go:focus-visible{outline:2px solid #B9A7E8;outline-offset:2px}
 .ansTag.me{background:none;border:0;color:#B9A7E8;font-weight:700}
+/* «Domande» e «‹» in alto a destra: stesso componente della telecamera e del «?» (owner 13/11) */
+#qBtn{display:flex;flex-direction:column;align-items:center;gap:3px;background:transparent;border:0;color:#fff;cursor:pointer;padding:4px 6px;font:inherit;font-size:11px;font-weight:700;letter-spacing:.6px;text-transform:uppercase}
+#qBtn:focus-visible{outline:2px solid #fff;outline-offset:2px;border-radius:8px}
+#backBtn{flex:none;width:34px;height:34px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:rgba(15,17,21,.55);color:#E9ECF2;font:700 20px/1 inherit;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0 2px 3px 0;transition:background .15s}
+#backBtn[hidden]{display:none}#backBtn:hover{background:rgba(255,255,255,.12)}#backBtn:focus-visible{outline:2px solid #fff;outline-offset:2px}
+#qPop{margin-top:8px;display:flex;flex-direction:column;gap:2px;padding:6px;border-radius:14px;background:rgba(25,28,34,.94);border:1px solid #2F343E;box-shadow:0 18px 48px rgba(0,0,0,.45);min-width:250px;max-height:calc(100vh - 140px);overflow:auto}
+#qPop[hidden]{display:none}
+#qPop .chead{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);font-weight:700;padding:4px 8px 4px}
+#qPop button{display:flex;align-items:center;gap:10px;height:38px;padding:0 12px;border-radius:999px;border:0;background:transparent;color:rgba(255,255,255,.75);font:700 13.5px/1 inherit;cursor:pointer;text-align:left;white-space:nowrap}
+#qPop button:hover{background:rgba(255,255,255,.08);color:#fff}#qPop button[aria-checked=true]{background:#fff;color:#16181D}#qPop button:focus-visible{outline:2px solid #B9A7E8}
+#qPop .qn{font-size:11.5px;opacity:.7;min-width:10px}#qPop .qsep{height:1px;background:rgba(255,255,255,.12);margin:4px 8px}
+/* scene: pulsanti, drill, campi vuoti */
+.achips button:disabled{opacity:.45;cursor:default}.achips button:disabled:hover{border-color:rgba(255,255,255,.12)}
+.aacts{margin-top:10px}
+.adrill{margin:8px 0;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.03)}.adrill b{color:#fff;font-size:13.5px}
+.adrill.go{cursor:pointer}.adrill.go:hover{border-color:rgba(185,167,232,.6)}
+.adrill .akind{font-size:10px;letter-spacing:1px;text-transform:uppercase;color:var(--t3);font-weight:700;margin-bottom:2px}
+.adrill .asay{font-size:12px;color:#B9A7E8;margin:4px 0 6px;font-style:italic}
+.agate{font:inherit;font-size:12px;font-weight:700;color:#0F1115;background:#E9ECF2;border:0;border-radius:999px;padding:6px 12px;cursor:pointer}.agate[aria-pressed=true]{background:#E8EF62}
+body.ansEmpty #ansLayer,body.ansEmpty #ansTrackRow{display:none!important}
+.ansTag.zone{color:#E8EF62;background:rgba(20,22,28,.7);border-color:rgba(232,239,98,.5);font-weight:600}
 /* spettro della voce: piccolo, in fondo allo schermo, sotto la barra dello scorrimento (non copre niente) */
 #vSpec{height:20px;bottom:1px;transform:translateY(8px)}#vSpec.on{transform:none}
 #vSpecA,#vSpecB{bottom:0;height:20px;width:min(640px,70%)}#vSpecA{filter:blur(3px)}#vSpecB{-webkit-mask-image:none;mask-image:none}
@@ -20806,6 +20827,92 @@ void main() {
       return new _PolyhedronGeometry(data.vertices, data.indices, data.radius, data.details);
     }
   };
+  var _v0 = /* @__PURE__ */ new Vector3();
+  var _v1$1 = /* @__PURE__ */ new Vector3();
+  var _normal = /* @__PURE__ */ new Vector3();
+  var _triangle = /* @__PURE__ */ new Triangle();
+  var EdgesGeometry = class extends BufferGeometry {
+    constructor(geometry = null, thresholdAngle = 1) {
+      super();
+      this.type = "EdgesGeometry";
+      this.parameters = {
+        geometry,
+        thresholdAngle
+      };
+      if (geometry !== null) {
+        const precisionPoints = 4;
+        const precision = Math.pow(10, precisionPoints);
+        const thresholdDot = Math.cos(DEG2RAD * thresholdAngle);
+        const indexAttr = geometry.getIndex();
+        const positionAttr = geometry.getAttribute("position");
+        const indexCount = indexAttr ? indexAttr.count : positionAttr.count;
+        const indexArr = [0, 0, 0];
+        const vertKeys = ["a", "b", "c"];
+        const hashes = new Array(3);
+        const edgeData = {};
+        const vertices = [];
+        for (let i = 0; i < indexCount; i += 3) {
+          if (indexAttr) {
+            indexArr[0] = indexAttr.getX(i);
+            indexArr[1] = indexAttr.getX(i + 1);
+            indexArr[2] = indexAttr.getX(i + 2);
+          } else {
+            indexArr[0] = i;
+            indexArr[1] = i + 1;
+            indexArr[2] = i + 2;
+          }
+          const { a, b, c } = _triangle;
+          a.fromBufferAttribute(positionAttr, indexArr[0]);
+          b.fromBufferAttribute(positionAttr, indexArr[1]);
+          c.fromBufferAttribute(positionAttr, indexArr[2]);
+          _triangle.getNormal(_normal);
+          hashes[0] = `${Math.round(a.x * precision)},${Math.round(a.y * precision)},${Math.round(a.z * precision)}`;
+          hashes[1] = `${Math.round(b.x * precision)},${Math.round(b.y * precision)},${Math.round(b.z * precision)}`;
+          hashes[2] = `${Math.round(c.x * precision)},${Math.round(c.y * precision)},${Math.round(c.z * precision)}`;
+          if (hashes[0] === hashes[1] || hashes[1] === hashes[2] || hashes[2] === hashes[0]) {
+            continue;
+          }
+          for (let j = 0; j < 3; j++) {
+            const jNext = (j + 1) % 3;
+            const vecHash0 = hashes[j];
+            const vecHash1 = hashes[jNext];
+            const v0 = _triangle[vertKeys[j]];
+            const v1 = _triangle[vertKeys[jNext]];
+            const hash = `${vecHash0}_${vecHash1}`;
+            const reverseHash = `${vecHash1}_${vecHash0}`;
+            if (reverseHash in edgeData && edgeData[reverseHash]) {
+              if (_normal.dot(edgeData[reverseHash].normal) <= thresholdDot) {
+                vertices.push(v0.x, v0.y, v0.z);
+                vertices.push(v1.x, v1.y, v1.z);
+              }
+              edgeData[reverseHash] = null;
+            } else if (!(hash in edgeData)) {
+              edgeData[hash] = {
+                index0: indexArr[j],
+                index1: indexArr[jNext],
+                normal: _normal.clone()
+              };
+            }
+          }
+        }
+        for (const key2 in edgeData) {
+          if (edgeData[key2]) {
+            const { index0, index1 } = edgeData[key2];
+            _v0.fromBufferAttribute(positionAttr, index0);
+            _v1$1.fromBufferAttribute(positionAttr, index1);
+            vertices.push(_v0.x, _v0.y, _v0.z);
+            vertices.push(_v1$1.x, _v1$1.y, _v1$1.z);
+          }
+        }
+        this.setAttribute("position", new Float32BufferAttribute(vertices, 3));
+      }
+    }
+    copy(source) {
+      super.copy(source);
+      this.parameters = Object.assign({}, source.parameters);
+      return this;
+    }
+  };
   var Shape = class extends Path {
     constructor(points) {
       super(points);
@@ -31891,77 +31998,256 @@ void main() {
         contact: [x0, y0, z0]
       };
     };
-    let seed = 7 + 101;
-    const R = () => {
-      seed |= 0;
-      seed = seed + 1831565813 | 0;
-      let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
-      t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
-      return ((t ^ t >>> 14) >>> 0) / 4294967296;
-    };
-    const gauss = () => {
-      let u = 0, v = 0;
-      while (!u) u = R();
-      while (!v) v = R();
-      return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
-    };
-    const zn0 = (n, sd) => {
-      if (n < 2) return [0];
-      const a = Array.from({ length: n }, gauss), mu = a.reduce((s, x) => s + x, 0) / n, s0 = Math.sqrt(a.reduce((s, x) => s + (x - mu) ** 2, 0) / n) || 1;
-      return a.map((x) => (x - mu) * sd / s0);
-    };
     const CROSS = [2.6, 1.6, 3.2, 0.6, 2.2, -1.2], Y0 = -1.2;
-    const GROUPS = [
-      { id: "long", label: "oltre l'8\xB0 colpo", col: "#E8EF62", n: 6, kmh: 92, rpm: 2800, clear: 1.5, depth: 3.2, rientro: 1.4 },
-      { id: "std", label: "dal 3\xB0 all'8\xB0", col: "#FFFFFF", n: 6, kmh: 104, rpm: 2400, clear: 1.1, depth: 1.8, rientro: 1.1 }
+    const LIME = "#E8EF62", WHITE = "#FFFFFF";
+    const tagA = (a) => `<span class="atag">${a}</span>`;
+    const src = (t, ...a) => `<div class="asrc">${t} ${a.map(tagA).join("")}</div>`;
+    const row = (k, v, std, sub, ly) => `<div class="row${ly ? " go" : ""}"${ly ? ` data-ly="${ly}" role="button" tabindex="0"` : ""}><span>${k}${sub ? `<span class="asub">${sub}</span>` : ""}</span><span class="pair"><span class="mono av">${v}</span><span class="mono as">${std}</span></span></div>`;
+    const head = (a, b) => `<div class="ahead"><span></span><span class="pair"><span class="mono av">${a}</span><span class="mono as">${b}</span></span></div>`;
+    const acts = (...b) => `<div class="achips aacts">${b.map(([t, act]) => `<button type="button" data-act="${act}">${t}</button>`).join("")}</div>`;
+    const SC = [
+      null,
+      {
+        short: "Oltre gli 8 colpi",
+        q: "Cosa succede a Tommaso P. quando lo scambio va oltre gli otto colpi?",
+        pills: { sel: "all", dots: ["Tecnica", "Tattica", "Atletica"] },
+        layer: "traj",
+        groups: [
+          { id: "long", label: "oltre l'8\xB0 colpo", lime: true, n: 6, kmh: 92, rpm: 2800, clear: 1.5, depth: 3.2, rientro: 1.4, y: CROSS },
+          { id: "std", label: "dal 3\xB0 all'8\xB0", n: 6, kmh: 104, rpm: 2400, clear: 1.1, depth: 1.8, rientro: 1.1, y: CROSS }
+        ],
+        steps: [
+          "<b>Capita la condizione:</b> scambi oltre 8 colpi",
+          "<b>Trovati 70 scambi</b> nelle ultime 5 partite" + src("Punteggio delle 5 partite", "Tattica", "Mentale"),
+          "<b>Confrontato ogni elemento</b> del gioco con il suo standard, in tutte le aree" + src("Traiettorie della palla", "Tecnica", "Tattica") + src("Posizioni in campo", "Atletica", "Tattica") + src("Note di medico e nutrizionista", "Medico", "Nutrizione"),
+          "<b>Tenuto solo ci\xF2 che cambia</b> oltre il margine di misura"
+        ],
+        chips: [["Cosa \xE8 pi\xF9 a rischio?", null], ["Prepara un allenamento su questo", 4]],
+        right: `<h1>Cosa cambia</h1><div class="sub">Oltre l'8\xB0 colpo, rispetto al suo standard</div>${head("oltre 8\xB0", "standard")}
+        <div class="sec">Tecnica</div>${row("Profondit\xE0 del dritto", "\u22121,4 m", "", "", "dots")}${row("Errori di dritto", "12%", "7%", "15 su 126")}${row("Rovescio", "uguale", "", "nessuna differenza oltre il margine")}
+        <div class="sec">Atletica</div>${row("Rientro dopo la palla larga", "+0,3 s", "", "\xB10,1 \xB7 38 casi", "tempo")}
+        <div class="sec">Tattica</div>${row("Smorzate da fondo", "7%", "2%", "9 su 126")}${row("Punti vinti, scambi lunghi", "41%", "52%", "29 su 70")}
+        <div class="sec">Nella norma</div>${row("Mentale, medico, nutrizione", "\u2014", "", "nessuna differenza o indicazione")}
+        <div class="sec">Il dritto, oltre l'8\xB0 colpo</div><div class="note" style="margin-bottom:6px">Passa pi\xF9 alto, gira di pi\xF9, esce pi\xF9 lento e cade 1,4 m pi\xF9 corto. Il rovescio resta nel suo standard.</div>
+        ${row("Sopra la rete", "1,5 m", "1,1 m", "", "traj")}${row("Rotazione", "2.800", "2.400", "giri/min", "traj")}${row("Velocit\xE0", "92", "104", "km/h", "traj")}${row("Dal fondo", "3,2 m", "1,8 m", "", "dots")}
+        <div class="note" style="margin-top:6px">Standard = settembre \xB7 rotazione stimata dalla curvatura della traiettoria 3D, \xB1300 giri/min</div>
+        ${acts(["Salva la vista", "save"], ["Guarda tre scambi", "play"])}`
+      },
+      {
+        short: "Profondit\xE0 del dritto",
+        q: "Fammi capire meglio la profondit\xE0 del dritto.",
+        pills: { sel: ["Tecnica", "Atletica"], dots: ["Tecnica", "Atletica"] },
+        layer: "dots",
+        groups: [
+          { id: "g5", label: "dal suo 5\xB0 colpo", lime: true, n: 18, kmh: 92, rpm: 2700, clear: 1.5, depth: 3.1, rientro: 1.4 },
+          { id: "g24", label: "dal 2\xB0 al 4\xB0", n: 18, kmh: 104, rpm: 2400, clear: 1.1, depth: 1.8, rientro: 1.1 }
+        ],
+        steps: [
+          "<b>Tenuta la condizione di prima:</b> oltre 8 colpi",
+          "<b>Presi i 126 dritti</b> dal suo 5\xB0 colpo" + src("Traiettorie della palla", "Tecnica"),
+          "<b>Ordinati</b> per suo colpo nello scambio e per partita",
+          "<b>Cercato cosa cambia insieme</b>, solo nelle 2 aree scelte" + src("Posizioni in campo", "Atletica")
+        ],
+        chips: [["Dividi per set e super tie-break", null], ["Contro chi gioca scambi lunghi?", null], ["Torna alla risposta", 1]],
+        right: `<h1>Profondit\xE0 del dritto</h1><div class="sub">Scambi oltre 8 colpi \u203A un dato</div>
+        <div class="sec">Dove cade \xB7 suo colpo nello scambio</div>
+        ${[["2\xB0", 140], ["3\xB0", 110], ["4\xB0", 80], ["5\xB0", 46], ["6\xB0", 40], ["7\xB0", 22], ["8\xB0", 12], ["9\xB0", 6]].map(([k, n]) => row(k + " colpo", "", n + " dritti", "", "dots")).join("")}
+        <div class="note">Standard 1,5\u20132,1 m dalla riga di fondo \xB7 1\xB0 = servizio o risposta \xB7 sotto 10 dritti il dato \xE8 indicativo</div>
+        <div class="sec">Partita per partita \xB7 m vs standard</div>
+        ${row("12/10", "\u22120,9 m", "21 dritti")}${row("19/10", "\u22121,1 m", "24 dritti")}${row("26/10", "\u22121,3 m", "25 dritti")}${row("02/11", "\u22121,6 m", "28 dritti")}${row("08/11", "\u22121,8 m", "28 dritti")}
+        <div class="note" style="margin:6px 0">Dal suo quinto colpo nello scambio il dritto cade pi\xF9 corto e continua ad accorciarsi. Nelle ultime partite la differenza \xE8 pi\xF9 ampia.</div>
+        ${head("vs standard", "")}${row("Sopra la rete", "+0,4 m", "", "", "traj")}${row("Velocit\xE0", "\u221212 km/h", "", "", "traj")}${row("Rientro", "+0,3 s", "", "", "tempo")}${row("Metri tra i colpi", "+18%", "", "", "spostamenti")}
+        <div class="note" style="margin-top:6px">Standard = settembre \xB7 la linea \xABdal 5\xB0 colpo\xBB \xE8 un'anteprima finch\xE9 non passa la verifica statistica</div>
+        ${acts(["Torna alla risposta", "go1"], ["Guarda i colpi", "play"])}`
+      },
+      {
+        short: "Cosa pesa sul gioco",
+        q: "Nelle ultime cinque partite, cosa ha influenzato di pi\xF9 il suo gioco?",
+        pills: { sel: "all", dots: ["Tecnica", "Tattica", "Atletica", "Mentale", "Medico"] },
+        layer: "traj",
+        groups: [],
+        steps: [
+          "<b>Lette 5 partite</b>, 612 punti" + src("Punteggio delle 5 partite", "Tattica", "Mentale"),
+          "<b>Per ogni situazione</b>, punti vinti rispetto al suo standard" + src("Traiettorie della palla", "Tecnica", "Tattica") + src("Posizioni e tempi tra i punti", "Atletica", "Mentale"),
+          "<b>Ordinato</b> per quanti punti sposta",
+          "<b>Aggiunta l'indicazione attiva</b> del medico" + src("Indicazioni del medico", "Medico")
+        ],
+        chips: [["Prepara l'allenamento di domani", 4], ["Confronta con settembre", null]],
+        right: `<h1>Dove perde pi\xF9 punti</h1><div class="sub">rispetto al suo standard \xB7 ultime 5 partite \xB7 612 punti</div>
+        <div class="sec">Partite</div>${row("12/10", "6-4 6-3", "vinta")}${row("19/10", "4-6 6-7", "persa")}${row("26/10", "7-5 6-2", "vinta")}${row("02/11", "6-3 3-6 [6-10]", "persa")}${row("08/11", "5-7 4-6", "persa")}
+        <div class="sec">Classifica</div>
+        ${row("1 \xB7 Scambi oltre gli 8 colpi", "\u22127 punti", "", "ne vince 29 su 70 \xB7 41% \xB7 standard 52%", "go1")}${row("2 \xB7 Seconda di servizio sui punti pesanti", "\u22123 punti", "", "ne vince 8 su 21 \xB7 38% \xB7 standard 54% \xB7 9 km/h pi\xF9 lenta, pi\xF9 spesso al corpo", "go5")}
+        ${row("3 \xB7 Punti al servizio nei primi due game", "\u22123 punti", "", "ne vince 34 su 62 \xB7 55% \xB7 standard 60%")}${row("+ \xB7 Risposta giocata di rovescio", "+5 punti", "", "su seconda 23 su 44 \xB7 52% \xB7 standard 48%")}
+        <div class="sec">Da sapere</div>${row("Medico \xB7 carico ridotto dal 28/10", "", "", "le ultime 2 partite cadono qui")}
+        ${head("senza quelle 2", "standard")}${row("Scambi lunghi", "45%", "52%", "17 su 38")}${row("Seconda, punti pesanti", "45%", "54%", "5 su 11")}
+        ${row("Atletica \xB7 scambi lunghi per partita", "+30%", "", "rispetto al suo standard")}${row("Mentale \xB7 tempo tra i punti pesanti", "17 s", "22 s")}${row("Nutrizione", "\u2014", "", "nessuna indicazione")}
+        <div class="note" style="margin-top:6px">Tre situazioni in cui perde pi\xF9 punti rispetto al suo standard: scambi oltre gli 8 colpi, seconda di servizio sui punti pesanti, primi due game di ogni set. Standard = settembre \xB7 dice dove perde punti, non la causa.</div>
+        ${acts(["Invia il riepilogo", "send"], ["Guarda i punti chiave", "go1"])}`
+      },
+      {
+        short: "L'allenamento di domani",
+        q: "Prepara l'allenamento di domani su questo.",
+        pills: { sel: "all", dots: ["Tecnica", "Tattica", "Atletica", "Medico"] },
+        layer: "dots",
+        groups: [{ id: "p5", label: "dritti dal 5\xB0 colpo, in partita", lime: true, n: 16, kmh: 92, rpm: 2700, clear: 1.5, depth: 3.1, rientro: 1.4 }],
+        zones: [{ label: "obiettivo del drill: ultimi 2,5 m", x: [HL - 2.5, HL], y: [-4.115, 4.115] }],
+        steps: [
+          "<b>Ripreso ci\xF2 che cambia</b> oltre 8 colpi e dove perde pi\xF9 punti" + src("Risposte precedenti", "Tecnica", "Tattica", "Atletica"),
+          "<b>Cercato tra i tuoi 14 drill</b> quelli che lo allenano" + src("I tuoi 14 drill", "Tecnica", "Tattica", "Atletica"),
+          "<b>Tradotto ogni drill</b> in un obiettivo che il Gate misura",
+          "<b>Controllata l'indicazione del medico:</b> massimo 30 servizi al giorno" + src("Indicazioni del medico", "Medico")
+        ],
+        chips: [["Crea un drill nuovo a voce", null], ["Invia il programma a Tommaso P.", "send"]],
+        right: `<h1>Dai tuoi drill</h1><div class="sub">3 dei tuoi 14 \xB7 1 proposta</div>
+        ${[
+          ["Diagonale lunga a 12 colpi", "In partita, oltre l'ottavo colpo, cade 1,4 m pi\xF9 corto.", "6 dritti su 10 entro 2,5 m dal fondo, dal suo 5\xB0 colpo", "Vicki, diagonale lunga", "Tuo drill", "dots"],
+          ["Otto pi\xF9 due", "Rientro in partita 0,3 s pi\xF9 lento del suo standard.", "rientro in posizione entro 1,1 s (suo standard, \xB10,1)", "Vicki, otto pi\xF9 due", "Tuo drill", "tempo"],
+          ["Semaforo", "Smorzate da fondo: 3 volte il suo standard (9 su 126).", "colpi d'attacco solo dalla zona verde (zone tue)", "Vicki, semaforo", "Tuo drill", ""],
+          ["Seconda da palla break contro", "Da 30-40 e vantaggio esterno ne vince 8 su 21.", "7 seconde su 10 nella zona scelta da te; la velocit\xE0 si registra soltanto", "Vicki, seconda da palla break", "Proposta di VICKI \xB7 non \xE8 nel tuo elenco", ""]
+        ].map(([t, why, gate, say, kind, ly]) => `<div class="adrill${ly ? " go" : ""}"${ly ? ` data-ly="${ly}"` : ""}><div class="akind">${kind}</div><b>${t}</b><div class="note">${why}</div><div class="note"><span style="color:#E9ECF2">Al Gate:</span> ${gate}</div><div class="asay">\xAB${say}\xBB</div><button type="button" class="agate" data-act="gate" aria-pressed="false">Attiva al Gate</button></div>`).join("")}
+        <div class="note" style="margin:6px 0">Tre esercizi del tuo elenco lavorano su ci\xF2 che cambia oltre l'ottavo colpo. Il Gate conta da solo i colpi nella zona e te lo dice a fine serie.</div>
+        ${head("oggi", "standard")}${row("Nella zona \xB7 su 10", "3", "5", "", "dots")}${row("Rientro", "1,4 s", "1,1 s", "", "tempo")}${row("Servizi proposti", "20", "limite 30", "limite del medico")}
+        <div class="note" style="margin-top:6px">I drill sono tuoi: VICKI li collega ai dati e non ne cambia le regole. Nessun drill parte da solo \xB7 Standard = settembre</div>
+        ${acts(["Invia il programma a Tommaso P.", "send"])}`
+      },
+      {
+        short: "Punti che contano",
+        q: "Sui punti che contano, Tommaso P. cambia?",
+        pills: { sel: "all", dots: ["Tecnica", "Mentale"] },
+        layer: "traj",
+        groups: [
+          { id: "pes", label: "punto pesante", lime: true, n: 1, kmh: 93, rpm: 2700, clear: 1.6, depth: 3, rientro: 1.3, y: [2.2] },
+          { id: "neu", label: "il suo gemello sul punto neutro", n: 1, kmh: 104, rpm: 2400, clear: 1.1, depth: 1.8, rientro: 1.1, y: [2.2] }
+        ],
+        sel: [0, 1],
+        steps: [
+          "<b>Presi i dritti</b> sui punti pesanti" + src("Punteggio", "Mentale") + src("Traiettorie della palla", "Tecnica"),
+          "<b>Per ognuno il gemello</b> su un punto neutro: stessa palla, posizione, momento, carico" + src("Posizioni e carico", "Atletica", "Tattica"),
+          "<b>Confrontate le 46 coppie</b>, servizio e risposta separati",
+          "<b>Fatto lo stesso</b> sui punti giocati in allenamento" + src("Tempi tra i punti, dal video", "Mentale")
+        ],
+        chips: [["Fammi vedere tre coppie", "play"], ["Prepara un allenamento sotto punteggio", 4]],
+        right: `<h1>Colpi gemelli</h1><div class="sub">46 coppie di dritti in 5 partite</div>${head("pesante", "neutro")}
+        <div class="sec">Uguali per costruzione</div>${row("Palla in arrivo", "77 km/h", "78 km/h")}${row("Posizione", "1,2 m", "1,2 m")}${row("Colpo nello scambio", "2\xB0\u20134\xB0", "2\xB0\u20134\xB0")}${row("Servizio / risposta", "23 / 23", "23 / 23")}${row("Set e minuto", "abbinati", "abbinati")}${row("Colpi, ultimi 3 punti", "15", "14")}
+        <div class="sec">Cosa cambia</div>${row("Velocit\xE0", "93", "104", "km/h", "traj")}${row("Sopra la rete", "1,6 m", "1,1 m", "", "traj")}${row("Tra i punti", "17 s", "22 s")}${row("Margine righe", "2,4 m", "1,6 m", "", "dots")}
+        <div class="note">Pi\xF9 margine pu\xF2 essere voluto: lo decidi tu.</div>
+        <div class="sec">Dove succede</div>${row("Palle break contro", "\u221213 km/h", "", "14 coppie \xB7 ultime 4 partite \u22126 \u22128 \u22129 \u221211")}
+        <div class="note" style="margin:6px 0">S\xEC. A parit\xE0 di palla, posizione, momento dello scambio e carico, sui punti pesanti il suo dritto esce pi\xF9 lento e pi\xF9 alto.</div>
+        <ol class="asteps"><li><b>Il carico \xE8 lo stesso:</b> stessi colpi, set e minuto; rientro uguale entro il margine</li><li><b>Anche la situazione:</b> per costruzione \u2014 palla, posizione, servizio o risposta</li><li><b>Cambia gi\xE0 prima del punto:</b> tempo tra i punti 22 \u2192 17 s; in allenamento 21 \u2192 21 s</li></ol>
+        <div class="note">VICKI isola l'effetto del punteggio; come chiamarlo lo decidi tu \xB7 Standard = settembre</div>
+        ${acts(["Manda al mental coach", "send"], ["Guarda le coppie", "play"])}`
+      },
+      {
+        short: "Sotto pressione",
+        q: "Sotto pressione Tommaso P. cambia il suo gioco?",
+        pills: { sel: ["Tattica", "Mentale"], dots: ["Tattica", "Mentale"] },
+        layer: "dots",
+        groups: [
+          { id: "pes", label: "punti pesanti", lime: true, n: 22, kmh: 100, rpm: 2500, clear: 1.2, depth: 2.2, rientro: 1.2, line: 0.1 },
+          { id: "neu", label: "punti neutri", n: 32, kmh: 104, rpm: 2400, clear: 1.1, depth: 1.9, rientro: 1.1, line: 0.62 }
+        ],
+        zones: [{ label: "lungolinea", x: [6.4, HL], y: [-4.115, -1.6] }],
+        steps: [
+          "<b>Presi i punti pesanti</b> e quelli neutri delle ultime 5 partite" + src("Punteggio", "Mentale", "Tattica"),
+          "<b>Confrontate le scelte:</b> direzione, schemi, discese a rete; prima e seconda separate" + src("Direzioni dei colpi", "Tattica"),
+          "<b>A parte le 40 situazioni</b> con il lungolinea aperto (avversario lontano, palla lenta, lui dentro il campo)" + src("Posizione dell'avversario", "Tattica"),
+          "<b>Aggiunto cosa succede</b> prima del punto" + src("Tempi tra i punti, dal video", "Mentale")
+        ],
+        chips: [["Fammi vedere i punti in cui era aperto", "play"], ["Prepara un allenamento sotto punteggio", 4]],
+        right: `<h1>Le sue scelte</h1><div class="sub">Punto neutro \u2192 punto pesante</div>${head("pesante", "neutro")}
+        ${row("Dritto lungolinea", "8%", "34%", "102 su 300 \u2192 5 su 62", "dots")}${row("Dritto al centro", "47%", "15%", "45 su 300 \u2192 29 su 62", "sequenze")}${row("Discese a rete", "3%", "12%", "61 su 508 \u2192 3 su 104 punti")}
+        ${row("\xABApri e chiudi\xBB \xB7 prima di servizio", "14%", "30%", "servizio a uscire da destra + dritto lungolinea \xB7 19 su 64 \u2192 2 su 14 \xB7 tendenza")}
+        <div class="sec">Dato insufficiente</div>${row("\xABApri e chiudi\xBB \xB7 seconda", "1 su 6", "", "troppo pochi")}${row("Il lungolinea entra ancora?", "5 colpi", "", "troppo pochi per dirlo")}
+        <div class="sec">Controllato</div>${row("Posizione dell'avversario", "uguale", "", "nelle 40 situazioni confrontate")}
+        <div class="note" style="margin:6px 0">S\xEC: sui punti pesanti gioca molto meno il tuo schema \xABapri e chiudi\xBB, anche quando il lungolinea \xE8 aperto.</div>
+        ${row("Lungolinea aperto, pesanti", "18%", "62%", "2 su 11 \xB7 neutri 18 su 29", "dots")}${row("Tempo tra i punti", "17 s", "22 s")}
+        <div class="note" style="margin-top:6px">Non confrontiamo i punti vinti tra le due scelte: lo schema si gioca quando la palla lo permette, il centro spesso in difesa. Cambia la scelta, e cambia anche il colpo (vedi colpi gemelli); il perch\xE9 lo leggi tu.</div>
+        ${acts(["Manda al mental coach", "send"], ["Guarda le scelte", "play"])}`
+      },
+      {
+        short: "Allenamento e partita",
+        q: "Il dritto che lavoriamo in allenamento, in partita \xE8 lo stesso? Cosa cambia?",
+        pills: { sel: "all", dots: ["Tecnica"] },
+        layer: "dots",
+        groups: [
+          { id: "par", label: "in partita", lime: true, n: 24, kmh: 104, rpm: 2500, clear: 1.1, depth: 1.8, rientro: 1.2 },
+          { id: "all", label: "in allenamento", n: 24, kmh: 109, rpm: 2500, clear: 0.9, depth: 1.5, rientro: 1.1 }
+        ],
+        steps: [
+          "<b>Presi i dritti</b> di 9 allenamenti e delle ultime 5 partite" + src("Allenamenti e partite", "Tecnica"),
+          "<b>Esclusi</b> punti pesanti e scambi oltre 8 colpi (gi\xE0 visti)",
+          "<b>Tenuti solo quelli con palla simile:</b> velocit\xE0, rimbalzo e altezza all'impatto" + src("Traiettorie della palla", "Tecnica", "Tattica"),
+          "<b>Confrontati palla, gesto e preparazione</b>, per tuo formato di allenamento" + src("Gesto 3D dal video", "Tecnica")
+        ],
+        chips: [["Fammi vedere un colpo e il suo gemello", "avatar"], ["Prepara un allenamento pi\xF9 vicino alla partita", 4]],
+        right: `<h1>Il gesto</h1><div class="sub">Fine caricamento, visto dall'alto</div>${head("partita", "allenamento")}
+        ${row("Angolo anche\u2013spalle", "24\xB0", "31\xB0", "riferimento 15\u201335\xB0: cambia rispetto al suo allenamento, non rispetto a una norma", "avatar")}
+        <div class="sec">A parit\xE0 di appoggio</div>${row("Appoggio aperto", "23\xB0", "29\xB0")}${row("Semiaperto o chiuso", "30\xB0", "33\xB0")}${row("Preparazione finita al rimbalzo", "52%", "78%")}
+        <div class="sec">Quale tuo allenamento somiglia alla partita</div>${row("Punti giocati \xB7 tie-break a 7", "1 su 6", "", "58 dritti nel filtro su 62")}${row("Palleggio in diagonale", "3 su 6", "", "128 su 164")}${row("Cesto", "4 su 6", "", "41 su 186 \xB7 la palla del cesto passa poco il filtro")}
+        <div class="note" style="margin:6px 0">In partita la preparazione \xE8 finita al rimbalzo meno spesso (52% contro 78%) e la separazione anche\u2013spalle \xE8 minore; la palla esce pi\xF9 lenta e cade pi\xF9 corta. Nei punti giocati in allenamento cambia 1 misura su 6.</div>
+        ${row("Velocit\xE0", "104 km/h", "109 km/h", "", "traj")}${row("Dal fondo", "1,8 m", "1,5 m", "", "dots")}${row("Sopra la rete", "1,1 m", "0,9 m", "", "traj")}${row("Appoggio aperto", "61%", "38%")}
+        <div class="note" style="margin-top:6px">Allenamento: 227 dritti nel filtro, partita: 286 \xB7 \xABdiversa\xBB = oltre il margine di misura \xB7 gesto dal video a 120 fps, in 3D</div>
+        ${acts(["Salva la vista", "save"], ["Guarda i colpi affiancati", "avatar"])}`
+      }
     ];
-    const GR = Object.fromEntries(GROUPS.map((x) => [x.id, x]));
-    const SHOTS = [];
-    for (const gr of GROUPS) {
-      const n = gr.n, nk = zn0(n, 4), nr = zn0(n, 180), nc = zn0(n, 0.12), nx = zn0(n, 0.35);
-      const ys = Array.from({ length: n }, (_, i) => CROSS[i % CROSS.length] + gauss() * 0.3);
-      const y0 = Array.from({ length: n }, () => Y0 + gauss() * 0.4), z0 = Array.from({ length: n }, () => 0.95 + gauss() * 0.08);
-      const make = (x0) => Array.from({ length: n }, (_, i) => shot(x0 + nx[i], y0[i], z0[i], gr.kmh + nk[i], gr.rpm + nr[i], gr.clear + nc[i], Math.max(-3.6, Math.min(3.8, ys[i]))));
-      let xa = -12, sa = make(xa), da = sa.reduce((s, x) => s + x.depth, 0) / n, xb = xa + 0.8, sb = make(xb), db = sb.reduce((s, x) => s + x.depth, 0) / n;
-      for (let k = 0; k < 2 && Math.abs(db - gr.depth) > 0.05 && Math.abs(db - da) > 1e-3; k++) {
-        const xc = xb + (gr.depth - db) * (xb - xa) / (db - da);
-        xa = xb;
-        da = db;
-        xb = Math.max(-15, Math.min(-9.5, xc));
-        sb = make(xb);
-        db = sb.reduce((s, x) => s + x.depth, 0) / n;
+    function makeShots(n0, cfg) {
+      let seed = 7 + n0 * 101;
+      const R = () => {
+        seed |= 0;
+        seed = seed + 1831565813 | 0;
+        let t = Math.imul(seed ^ seed >>> 15, 1 | seed);
+        t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t;
+        return ((t ^ t >>> 14) >>> 0) / 4294967296;
+      };
+      const gauss = () => {
+        let u = 0, v = 0;
+        while (!u) u = R();
+        while (!v) v = R();
+        return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+      };
+      const zn0 = (n, sd) => {
+        if (n < 2) return [0];
+        const a = Array.from({ length: n }, gauss), mu = a.reduce((s, x) => s + x, 0) / n, s0 = Math.sqrt(a.reduce((s, x) => s + (x - mu) ** 2, 0) / n) || 1;
+        return a.map((x) => (x - mu) * sd / s0);
+      };
+      const out = [];
+      for (const gr of cfg.groups) {
+        const n = gr.n, nk = zn0(n, n > 1 ? 4 : 0), nr = zn0(n, n > 1 ? 180 : 0), nc = zn0(n, n > 1 ? 0.12 : 0), nx = zn0(n, n > 1 ? 0.35 : 0);
+        const ys = Array.from({ length: n }, (_, i) => gr.y ? gr.y[i % gr.y.length] + (n > 1 ? gauss() * 0.3 : 0) : R() < (gr.line || 0) ? -2.7 + gauss() * 0.5 : 2.2 + gauss() * 0.9);
+        const y0 = Array.from({ length: n }, () => Y0 + (n > 1 ? gauss() * 0.4 : 0)), z0 = Array.from({ length: n }, () => 0.95 + (n > 1 ? gauss() * 0.08 : 0));
+        const make = (x0) => Array.from({ length: n }, (_, i) => shot(x0 + nx[i], y0[i], z0[i], gr.kmh + nk[i], gr.rpm + nr[i], gr.clear + nc[i], Math.max(-3.6, Math.min(3.8, ys[i]))));
+        let xa = -12, sa = make(xa), da = sa.reduce((s, x) => s + x.depth, 0) / n, xb = xa + 0.8, sb = make(xb), db = sb.reduce((s, x) => s + x.depth, 0) / n;
+        for (let k = 0; k < 2 && Math.abs(db - gr.depth) > 0.05 && Math.abs(db - da) > 1e-3; k++) {
+          const xc = xb + (gr.depth - db) * (xb - xa) / (db - da);
+          xa = xb;
+          da = db;
+          xb = Math.max(-15, Math.min(-9.5, xc));
+          sb = make(xb);
+          db = sb.reduce((s, x) => s + x.depth, 0) / n;
+        }
+        const rz = zn0(n, n > 1 ? 0.12 : 0);
+        sb.forEach((s, i) => out.push(Object.assign(s, { g: gr.id, rientro: Math.round((gr.rientro + rz[i]) * 10) / 10 })));
       }
-      const rz = zn0(n, 0.12);
-      sb.forEach((s, i) => SHOTS.push(Object.assign(s, { g: gr.id, rientro: Math.round((gr.rientro + rz[i]) * 10) / 10 })));
+      out.forEach((s, i) => {
+        s.i = i;
+        s.num = out.filter((x, k) => k <= i && x.g === s.g).length;
+      });
+      return out;
     }
-    SHOTS.forEach((s, i) => {
-      s.i = i;
-      s.num = SHOTS.filter((x, k) => k <= i && x.g === s.g).length;
-    });
-    const ORDER = [];
-    {
-      const a = SHOTS.filter((x) => x.g === "std"), b = SHOTS.filter((x) => x.g === "long");
-      for (let k = 0; k < Math.max(a.length, b.length); k++) {
-        if (a[k]) ORDER.push(a[k]);
-        if (b[k]) ORDER.push(b[k]);
-      }
-    }
-    ORDER.forEach((s, k) => {
-      s.k = k;
-    });
-    const N = ORDER.length;
+    const st = { on: false, scene: 1, layer: "traj", vis: {}, sels: [], compare: false, view: "back", t: 0, playing: false };
+    let SHOTS = [], GROUPS = [], GR = {}, ORDER = [], N = 0;
+    const colOf = (id) => GR[id] && GR[id].lime ? LIME : WHITE;
     const avg = (id, f) => {
       const L2 = SHOTS.filter((s) => s.g === id);
-      return L2.reduce((a, s) => a + f(s), 0) / L2.length;
+      return L2.length ? L2.reduce((a, s) => a + f(s), 0) / L2.length : 0;
     };
-    const st = { on: false, layer: "traj", vis: { long: true, std: true }, sels: [], compare: false, view: "back", t: 0, playing: false };
     const root = new Group();
     root.visible = false;
     scene.add(root);
     const LAYERS = [["traj", "Traiettorie"], ["dots", "Rimbalzi"], ["colpi", "Mappa dei colpi"], ["sequenze", "Sequenze"], ["spostamenti", "Spostamenti"], ["tempo", "Rientro"]];
     const NOTE = {
       traj: "Dal punto d\u2019impatto al rimbalzo e oltre \xB7 tocca un colpo per i suoi numeri",
-      dots: "Rimbalzi \xB7 pi\xF9 chiaro = pi\xF9 profondo",
+      dots: "Rimbalzi \xB7 pi\xF9 chiaro = pi\xF9 profondo \xB7 tocca un rimbalzo per i suoi numeri",
       colpi: "Rombi: punto d\u2019impatto, alla sua altezza \xB7 cerchi: rimbalzo",
       sequenze: "Direzione di ogni colpo, dal punto d\u2019impatto al rimbalzo",
       spostamenti: "Dove si trova Tommaso P. dal colpo al rientro: pi\xF9 chiaro = pi\xF9 spesso",
@@ -31972,6 +32258,8 @@ void main() {
       LG[k] = new Group();
       root.add(LG[k]);
     }
+    const fixedG = new Group();
+    root.add(fixedG);
     const mat = (col, op) => new MeshBasicMaterial({ color: col, transparent: true, opacity: op, toneMapped: false, depthWrite: op >= 1, side: DoubleSide });
     const flat = (geo, col, op, p, y) => {
       const o = new Mesh(geo, mat(col, op));
@@ -31980,7 +32268,8 @@ void main() {
       o.position.y = y;
       return o;
     };
-    const per = SHOTS.map(() => ({ objs: [], hit: [] }));
+    const inv = new MeshBasicMaterial({ visible: false });
+    let per = [];
     const add = (layer, s, o, base, hit, at) => {
       LG[layer].add(o);
       o.userData = { s: s.i, layer, base, at: at || "start" };
@@ -31991,63 +32280,82 @@ void main() {
         per[s.i].hit.push(hit);
       }
     };
-    const inv = new MeshBasicMaterial({ visible: false });
-    for (const s of SHOTS) {
-      const gr = GR[s.g], lime = s.g === "long", col = gr.col;
-      const pts = s.p.filter((q, k) => k <= s.nb || q[0] <= HL + 1).map(toS), curve = new CatmullRomCurve3(pts);
-      const tube = new Mesh(new TubeGeometry(curve, pts.length * 3, lime ? 0.022 : 0.017, 8, false), mat(col, lime ? 1 : 0.6));
-      const hitT = new Mesh(new TubeGeometry(curve, pts.length, 0.16, 6, false), inv);
-      LG.traj.add(hitT);
-      add("traj", s, tube, lime ? 1 : 0.6, hitT, "tube");
-      s.tube = tube;
-      s.curve = curve;
-      s.fb = s.nb / (pts.length - 1);
-      const sh = new Line(new BufferGeometry().setFromPoints(s.p.slice(0, s.nb + 1).map((q) => new Vector3(CX + q[1], 6e-3, zn + q[0]))), new LineBasicMaterial({ color: "#0B1430", transparent: true, opacity: 0.45 }));
-      add("traj", s, sh, 0.45, null, "shadow");
-      const b = toS(s.bounce);
-      add("traj", s, flat(new RingGeometry(0.11, 0.15, 32), col, 0.9, b, 8e-3), 0.9, null, "bounce");
-      const dot = flat(new CircleGeometry(0.16, 32), col, lime ? 0.95 : 0.75, b, 0.01);
-      add("dots", s, dot, lime ? 0.95 : 0.75, dot, "bounce");
-      const c = toS(s.contact);
-      const dia = new Mesh(new OctahedronGeometry(0.09), mat(col, lime ? 1 : 0.85));
-      dia.position.copy(c);
-      add("colpi", s, dia, lime ? 1 : 0.85, dia);
-      const stem = new Line(new BufferGeometry().setFromPoints([c, new Vector3(c.x, 0.01, c.z)]), new LineBasicMaterial({ color: col, transparent: true, opacity: 0.5 }));
-      add("colpi", s, stem, 0.5);
-      add("colpi", s, flat(new RingGeometry(0.12, 0.155, 32), col, 0.85, b, 0.01), 0.85, null, "bounce");
-      {
-        const a = new Vector3(c.x, 0.012, c.z), d = b.clone().setY(0.012).sub(a), len = d.length(), u = d.clone().normalize();
-        const q = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), Math.atan2(-u.x, -u.z)).multiply(new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Math.PI / 2));
-        const body = new Mesh(new PlaneGeometry(0.07, len - 0.55), mat(col, 0.85));
-        body.quaternion.copy(q);
-        body.position.copy(a).addScaledVector(u, (len - 0.55) / 2);
-        add("sequenze", s, body, 0.85, body, "bounce");
-        const head = new Mesh(new ShapeGeometry(new Shape([new Vector2(0, 0.55), new Vector2(-0.24, 0), new Vector2(0.24, 0)])), mat(col, 0.95));
-        head.quaternion.copy(q);
-        head.position.copy(a).addScaledVector(u, len - 0.55);
-        head.position.y = 0.013;
-        add("sequenze", s, head, 0.95, null, "bounce");
-      }
-      {
+    const fball = new Mesh(new SphereGeometry(0.045, 20, 14), mat(LIME, 1));
+    fball.visible = false;
+    root.add(fball);
+    const disposeAll = (grp) => {
+      grp.traverse((o) => {
+        if (o.geometry) o.geometry.dispose();
+        if (o.material && o.material !== inv) o.material.dispose();
+      });
+      grp.clear();
+    };
+    const BANDS = [[0, 1.5, "#F2EEFF", 0.16, "0\u20131,5 m"], [1.5, 3, "#B9A7E8", 0.13, "1,5\u20133 m"], [3, 4.5, "#6B5FA0", 0.15, "3\u20134,5 m"], [4.5, HL - 6.4, "#3B3560", 0.18, "4,5 m\u2013servizio"]];
+    let meC = new Vector3();
+    function build() {
+      for (const [k] of LAYERS) disposeAll(LG[k]);
+      disposeAll(fixedG);
+      per = SHOTS.map(() => ({ objs: [], hit: [] }));
+      for (const s of SHOTS) {
+        const lime = GR[s.g].lime, col = colOf(s.g);
+        const pts = s.p.filter((q, k) => k <= s.nb || q[0] <= HL + 1).map(toS), curve = new CatmullRomCurve3(pts);
+        const tube = new Mesh(new TubeGeometry(curve, pts.length * 3, lime ? 0.022 : 0.017, 8, false), mat(col, lime ? 1 : 0.6));
+        const hitT = new Mesh(new TubeGeometry(curve, pts.length, 0.16, 6, false), inv);
+        LG.traj.add(hitT);
+        add("traj", s, tube, lime ? 1 : 0.6, hitT, "tube");
+        s.curve = curve;
+        s.fb = s.nb / (pts.length - 1);
+        add("traj", s, new Line(new BufferGeometry().setFromPoints(s.p.slice(0, s.nb + 1).map((q) => new Vector3(CX + q[1], 6e-3, zn + q[0]))), new LineBasicMaterial({ color: "#0B1430", transparent: true, opacity: 0.45 })), 0.45, null, "shadow");
+        const b = toS(s.bounce);
+        add("traj", s, flat(new RingGeometry(0.11, 0.15, 32), col, 0.9, b, 8e-3), 0.9, null, "bounce");
+        const dot = flat(new CircleGeometry(0.16, 32), col, lime ? 0.95 : 0.75, b, 0.01);
+        add("dots", s, dot, lime ? 0.95 : 0.75, dot, "bounce");
+        const c = toS(s.contact);
+        const dia = new Mesh(new OctahedronGeometry(0.09), mat(col, lime ? 1 : 0.85));
+        dia.position.copy(c);
+        add("colpi", s, dia, lime ? 1 : 0.85, dia);
+        add("colpi", s, new Line(new BufferGeometry().setFromPoints([c, new Vector3(c.x, 0.01, c.z)]), new LineBasicMaterial({ color: col, transparent: true, opacity: 0.5 })), 0.5);
+        add("colpi", s, flat(new RingGeometry(0.12, 0.155, 32), col, 0.85, b, 0.01), 0.85, null, "bounce");
+        {
+          const a = new Vector3(c.x, 0.012, c.z), d = b.clone().setY(0.012).sub(a), len = d.length(), u = d.clone().normalize();
+          const q = new Quaternion().setFromAxisAngle(new Vector3(0, 1, 0), Math.atan2(-u.x, -u.z)).multiply(new Quaternion().setFromAxisAngle(new Vector3(1, 0, 0), -Math.PI / 2));
+          const body = new Mesh(new PlaneGeometry(0.07, len - 0.55), mat(col, 0.85));
+          body.quaternion.copy(q);
+          body.position.copy(a).addScaledVector(u, (len - 0.55) / 2);
+          add("sequenze", s, body, 0.85, body, "bounce");
+          const hd = new Mesh(new ShapeGeometry(new Shape([new Vector2(0, 0.55), new Vector2(-0.24, 0), new Vector2(0.24, 0)])), mat(col, 0.95));
+          hd.quaternion.copy(q);
+          hd.position.copy(a).addScaledVector(u, len - 0.55);
+          hd.position.y = 0.013;
+          add("sequenze", s, hd, 0.95, null, "bounce");
+        }
         const bar = new Mesh(new BoxGeometry(0.07, s.rientro, 0.07), mat(col, lime ? 1 : 0.8));
         bar.position.set(c.x, s.rientro / 2, c.z);
         add("tempo", s, bar, lime ? 1 : 0.8, bar, "end");
       }
-    }
-    const fball = new Mesh(new SphereGeometry(0.045, 20, 14), mat("#E8EF62", 1));
-    fball.visible = false;
-    root.add(fball);
-    const meC = toS([SHOTS.reduce((a, x) => a + x.contact[0], 0) / SHOTS.length, SHOTS.reduce((a, x) => a + x.contact[1], 0) / SHOTS.length, 0]);
-    root.add(flat(new RingGeometry(0.42, 0.47, 48), "#B9A7E8", 0.85, meC, 7e-3), flat(new CircleGeometry(0.42, 48), "#B9A7E8", 0.12, meC, 6e-3));
-    const BANDS = [[0, 1.5, "#F2EEFF", 0.16, "0\u20131,5 m"], [1.5, 3, "#B9A7E8", 0.13, "1,5\u20133 m"], [3, 4.5, "#6B5FA0", 0.15, "3\u20134,5 m"], [4.5, HL - 6.4, "#3B3560", 0.18, "4,5 m\u2013servizio"]];
-    for (const [a, b2, c, op] of BANDS) {
-      const q = new Mesh(new PlaneGeometry(2 * 5.485, b2 - a), new MeshBasicMaterial({ color: c, transparent: true, opacity: op, toneMapped: false, depthWrite: false }));
-      q.rotation.x = -Math.PI / 2;
-      q.position.set(CX, 4e-3, zn + HL - (a + b2) / 2);
-      LG.dots.add(q);
+      for (const [a, b2, c, op] of BANDS) {
+        const q = new Mesh(new PlaneGeometry(2 * 5.485, b2 - a), new MeshBasicMaterial({ color: c, transparent: true, opacity: op, toneMapped: false, depthWrite: false }));
+        q.rotation.x = -Math.PI / 2;
+        q.position.set(CX, 4e-3, zn + HL - (a + b2) / 2);
+        LG.dots.add(q);
+      }
+      for (const z of SC[st.scene].zones || []) {
+        const w = z.y[1] - z.y[0], l = z.x[1] - z.x[0], p = toS([(z.x[0] + z.x[1]) / 2, (z.y[0] + z.y[1]) / 2, 0]);
+        const q = new Mesh(new PlaneGeometry(w, l), new MeshBasicMaterial({ color: LIME, transparent: true, opacity: 0.12, toneMapped: false, depthWrite: false }));
+        q.rotation.x = -Math.PI / 2;
+        q.position.set(p.x, 5e-3, p.z);
+        fixedG.add(q);
+        const e = new LineSegments(new EdgesGeometry(new PlaneGeometry(w, l)), new LineBasicMaterial({ color: LIME, transparent: true, opacity: 0.7 }));
+        e.rotation.x = -Math.PI / 2;
+        e.position.set(p.x, 7e-3, p.z);
+        fixedG.add(e);
+      }
+      meC = SHOTS.length ? toS([SHOTS.reduce((a, x) => a + x.contact[0], 0) / SHOTS.length, SHOTS.reduce((a, x) => a + x.contact[1], 0) / SHOTS.length, 0]) : toS([-12.6, Y0, 0]);
+      fixedG.add(flat(new RingGeometry(0.42, 0.47, 48), "#B9A7E8", 0.85, meC, 7e-3), flat(new CircleGeometry(0.42, 48), "#B9A7E8", 0.12, meC, 6e-3));
+      buildTags();
     }
     function buildHeat() {
-      LG.spostamenti.clear();
+      disposeAll(LG.spostamenti);
       const cell = 0.75, X0 = -16, Y0h = -6.5, NX = 14, NY = 18, grid = new Float32Array(NX * NY);
       let sd2 = 3;
       const Rh = () => {
@@ -32055,7 +32363,7 @@ void main() {
         return sd2 / 2147483647;
       };
       for (const s of SHOTS) {
-        if (!st.vis[s.g]) continue;
+        if (!st.vis[s.g] || fOf(s) <= 0) continue;
         const c = s.contact;
         for (let k = 0; k < 24; k++) {
           const u = k / 23, x = c[0] + (-12.6 - c[0]) * u + (Rh() - 0.5) * 0.9, y = c[1] + (Y0 - c[1]) * u * 0.8 + (Rh() - 0.5) * 0.9;
@@ -32074,7 +32382,7 @@ void main() {
         LG.spostamenti.add(q);
       }
     }
-    const tags = [];
+    let tags = [], selTags = [];
     const tag = (layer, grp, cls, at, dx, dy, txt) => {
       const e = document.createElement("div");
       e.className = "ansTag " + cls;
@@ -32085,30 +32393,37 @@ void main() {
       tags.push(t);
       return t;
     };
-    const netPt = (id) => toS([0, avg(id, (s) => s.net[1]), avg(id, (s) => s.net[2])]), bncPt = (id) => toS([avg(id, (s) => s.bounce[0]), avg(id, (s) => s.bounce[1]), 0]);
-    tag("traj", "long", "lime", netPt("long"), -70, -18, it(avg("long", (s) => s.clear), 1) + " m sopra la rete");
-    tag("traj", "std", "white", netPt("std"), -70, 18, it(avg("std", (s) => s.clear), 1) + " m sopra la rete");
-    for (const ly of ["traj", "dots"]) {
-      tag(ly, "long", "lime", bncPt("long"), 70, -18, it(avg("long", (s) => s.depth), 1) + " m dal fondo");
-      tag(ly, "std", "white", bncPt("std"), 70, 18, it(avg("std", (s) => s.depth), 1) + " m dal fondo");
+    function buildTags() {
+      tags.forEach((t) => t.e.remove());
+      tags = [];
+      const netPt = (id) => toS([0, avg(id, (s) => s.net[1]), avg(id, (s) => s.net[2])]), bncPt = (id) => toS([avg(id, (s) => s.bounce[0]), avg(id, (s) => s.bounce[1]), 0]);
+      GROUPS.forEach((gr, k) => {
+        const up2 = k === 0 ? -1 : 1, cls = gr.lime ? "lime" : "white";
+        tag("traj", gr.id, cls, netPt(gr.id), -70, 18 * up2, it(avg(gr.id, (s) => s.clear), 1) + " m sopra la rete");
+        for (const ly of ["traj", "dots"]) tag(ly, gr.id, cls, bncPt(gr.id), 70, 18 * up2, it(avg(gr.id, (s) => s.depth), 1) + " m dal fondo");
+      });
+      for (const [a, b2, , , txt] of BANDS) tag("dots", null, "band", new Vector3(CX + 5.485 + 0.35, 0, zn + HL - (a + b2) / 2), 0, 0, txt);
+      for (const z of SC[st.scene].zones || []) tag("*all", null, "zone", toS([(z.x[0] + z.x[1]) / 2, z.y[0] - 0.5, 0]), 0, 0, z.label);
+      selTags = [0, 1, 2, 3, 4, 5].map(() => tag("*", null, "sel", new Vector3()));
+      tag("me", null, "me", meC.clone().setY(0.02), 0, 26, "Tommaso P.");
     }
-    for (const [a, b2, , , txt] of BANDS) tag("dots", null, "band", new Vector3(CX + 5.485 + 1, 0, zn + HL - (a + b2) / 2), 0, 0, txt);
-    const selTags = [0, 1, 2, 3, 4, 5].map(() => tag("*", null, "sel", new Vector3()));
-    const meTag = tag("me", null, "me", meC.clone().setY(0.02), 0, 26, "Tommaso P.");
     const VIEWS2 = {
       back: [[-3, 6.8, -11.5], [1.3, 0, 5.5]],
       side: [[CX - 15, 5.5, -5], [CX + 0.5, 0.4, 10]],
       front: [[CX + 3, 5.5, zn + HL + 9], [CX - 0.3, 0.4, 4]],
-      top: [[CX, 46, zn - 1.2], [CX, 0, zn - 1.19]]
+      top: [[CX, 21, zn - 3.5], [CX, 0, zn + 7.5]]
     };
-    {
-      const e1 = toS([avg("long", (x) => x.contact[0]) - 0.15, avg("long", (x) => x.contact[1]), 1.72]), l1 = toS([6, 0.6, 0.6]), e2 = toS([16.2, 1.6, 1.72]), l2 = toS([-6, -1.2, 0.6]);
-      VIEWS2.eyeT = [e1.toArray(), l1.toArray()];
-      VIEWS2.eyeO = [e2.toArray(), l2.toArray()];
-    }
+    const setEyes = () => {
+      const L2 = SHOTS.length ? SHOTS : [{ contact: [-12.6, Y0, 1] }];
+      const cx0 = L2.reduce((a, x) => a + x.contact[0], 0) / L2.length, cy0 = L2.reduce((a, x) => a + x.contact[1], 0) / L2.length;
+      VIEWS2.eyeT = [toS([cx0 - 0.15, cy0, 1.72]).toArray(), toS([6, 0.6, 0.6]).toArray()];
+      VIEWS2.eyeO = [toS([16.2, 1.6, 1.72]).toArray(), toS([-6, -1.2, 0.6]).toArray()];
+    };
     const CAMS_ANS = [["eyeT", "Occhi di Tommaso P."], ["eyeO", "Occhi dell'avversario"]];
+    let restoring = false;
     window.__ansView = (v) => {
       if (!st.on || !VIEWS2[v]) return false;
+      if (st.view && st.view !== v && !restoring) pushHist();
       st.view = v;
       camera.near = /^eye/.test(v) ? 2.5 : 0.05;
       camera.updateProjectionMatrix();
@@ -32131,7 +32446,6 @@ void main() {
     }
     function apply() {
       for (const [k] of LAYERS) LG[k].visible = st.layer === k;
-      if (st.layer === "spostamenti") buildHeat();
       const sel = st.sels;
       for (const s of SHOTS) {
         const dim = sel.length && !sel.includes(s.i);
@@ -32140,7 +32454,7 @@ void main() {
       applyTime();
       document.querySelectorAll("#ansLayer button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === st.layer)));
       document.querySelectorAll("#ansRow button[data-g]").forEach((b) => b.setAttribute("aria-pressed", String(st.vis[b.dataset.g])));
-      $("ansNote").textContent = NOTE[st.layer];
+      $("ansNote").textContent = N ? NOTE[st.layer] : "Ultime 5 partite \xB7 612 punti \xB7 tocca una riga della risposta per vederla sul campo";
       drawCard();
     }
     const fOf = (s) => MathUtils.clamp(st.t - s.k, 0, 1);
@@ -32159,12 +32473,13 @@ void main() {
           if (at === "shadow") o.geometry.setDrawRange(0, Math.max(2, Math.ceil(Math.min(1, f / s.fb) * o.geometry.attributes.position.count)));
         }
       }
+      if (st.layer === "spostamenti") buildHeat();
       fball.visible = !!cur && st.vis[cur.g] && st.layer === "traj";
       if (cur) {
         fball.position.copy(cur.curve.getPoint(fOf(cur)));
-        fball.material.color.set(GR[cur.g].col);
+        fball.material.color.set(colOf(cur.g));
       }
-      drawTrack(cur);
+      drawTrack();
     }
     let lastT = performance.now();
     (function playLoop(now) {
@@ -32172,26 +32487,31 @@ void main() {
       const dt = Math.min(0.05, (now - lastT) / 1e3);
       lastT = now;
       if (!st.on || !st.playing) return;
-      st.t = Math.min(N, st.t + dt / 1.2);
+      st.t = Math.min(N, st.t + dt / (N > 20 ? 0.45 : 1.2));
       if (st.t >= N) st.playing = false;
       applyTime();
     })(performance.now());
-    function drawTrack(cur) {
+    function drawTrack() {
       const T = $("ansTrackIn");
       if (!T) return;
-      if (!T.childElementCount) T.innerHTML = ORDER.map((s2, k) => `<div class="sgw" style="left:${k / N * 100}%;width:${100 / N}%"><div class="sg"><i style="width:0;background:${GR[s2.g].col}"></i></div></div><div class="lab" style="left:${(k + 0.5) / N * 100}%">${k + 1}</div>`).join("") + '<div class="knob"><b></b><b></b><b></b></div>';
-      const sg = T.querySelectorAll(".sg"), lab = T.querySelectorAll(".lab"), kc = Math.min(N - 1, Math.floor(st.t));
-      ORDER.forEach((s2, k) => {
-        sg[k].firstChild.style.width = fOf(s2) * 100 + "%";
+      if (T.dataset.n !== String(N) + "-" + st.scene) {
+        T.dataset.n = String(N) + "-" + st.scene;
+        const every = N > 30 ? 6 : N > 14 ? 4 : 1;
+        T.innerHTML = ORDER.map((s, k) => `<div class="sgw" style="left:${k / N * 100}%;width:${100 / N}%"><div class="sg"><i style="width:0;background:${colOf(s.g)}"></i></div></div>` + ((k + 1) % every === 0 || k === 0 ? `<div class="lab" style="left:${(k + 0.5) / N * 100}%">${k + 1}</div>` : "")).join("") + '<div class="knob"><b></b><b></b><b></b></div>';
+      }
+      if (!N) return;
+      const sg = T.querySelectorAll(".sg"), kc = Math.min(N - 1, Math.floor(st.t));
+      ORDER.forEach((s, k) => {
+        sg[k].firstChild.style.width = fOf(s) * 100 + "%";
         sg[k].classList.toggle("on", k === kc);
-        lab[k].classList.toggle("on", k === kc);
-        sg[k].parentNode.style.opacity = st.vis[s2.g] ? 1 : 0.3;
+        sg[k].parentNode.style.opacity = st.vis[s.g] ? 1 : 0.3;
       });
+      T.querySelectorAll(".lab").forEach((l) => l.classList.toggle("on", Number(l.textContent) === kc + 1));
       T.querySelector(".knob").style.left = st.t / N * 100 + "%";
-      const s = ORDER[kc];
       $("ansTlab").textContent = st.t >= N ? N + " colpi" : "Colpo " + (kc + 1);
+      $("ansTrack").setAttribute("aria-valuemax", String(N));
       $("ansTrack").setAttribute("aria-valuenow", st.t.toFixed(2));
-      $("ansTrack").setAttribute("aria-valuetext", "Colpo " + (kc + 1) + " di " + N + ", " + GR[s.g].label);
+      $("ansTrack").setAttribute("aria-valuetext", "Colpo " + (kc + 1) + " di " + N + ", " + GR[ORDER[kc].g].label);
       $("ansPlayIco").setAttribute("d", st.playing ? "M2 1.5h3.5v13H2zM8.5 1.5H12v13H8.5z" : "M2 1.5v13l11-6.5z");
     }
     const ray2 = new Raycaster(), ndc2 = new Vector2();
@@ -32206,7 +32526,7 @@ void main() {
       ray2.setFromCamera(ndc2, camera);
       const cand = [];
       for (const s of SHOTS) if (st.vis[s.g] && fOf(s) > 0) {
-        for (const h of per[s.i].hit) if (h.userData.layer === st.layer && (h.visible || h.material === inv)) cand.push(h);
+        for (const h of per[s.i].hit) if (h.userData.layer === st.layer) cand.push(h);
       }
       const hit = ray2.intersectObjects(cand, false)[0];
       pick(hit ? hit.object.userData.s : null);
@@ -32243,24 +32563,25 @@ void main() {
       return o;
     };
     function drawCard() {
-      const S2 = st.sels.map((i) => SHOTS[i]), card = $("ansCard");
+      const S2 = st.sels.map((i) => SHOTS[i]).filter(Boolean), card = $("ansCard");
       $("ansSum").hidden = !!S2.length;
       card.hidden = !S2.length;
       if (!S2.length) return;
       const one = S2.length === 1, a = S2[0], b = one ? MEAN(a.g) : S2[1];
       $("ansCardT").textContent = one ? "Dritto " + a.num + " \xB7 " + GR[a.g].label : "Confronto \xB7 A e B";
-      $("ansCardH").innerHTML = `<span></span><span class="pair"><span class="mono av">${one ? "colpo" : "A \xB7 " + a.num}</span><span class="mono as">${one ? "media" : "B \xB7 " + b.num}</span></span>`;
+      $("ansCardH").innerHTML = `<span></span><span class="pair"><span class="mono av">${one ? "colpo" : "A"}</span><span class="mono as">${one ? "media" : "B"}</span></span>`;
       $("ansCardR").innerHTML = F.map(([k, f]) => `<div class="row"><span>${k}</span><span class="pair"><span class="mono av">${f(a)}</span><span class="mono as">${f(b)}</span></span></div>`).join("");
-      $("ansCardN").textContent = (one ? "Media del gruppo \xAB" + GR[a.g].label + "\xBB. " : "A: dritto " + a.num + ", " + GR[a.g].label + " \xB7 B: dritto " + b.num + ", " + GR[b.g].label + ". ") + "Rotazione stimata dalla curvatura della traiettoria 3D, \xB1300 giri/min.";
+      $("ansCardN").textContent = (one ? "Media del gruppo \xAB" + GR[a.g].label + "\xBB. " : "A: " + GR[a.g].label + " \xB7 B: " + GR[b.g].label + ". ") + "Rotazione stimata dalla curvatura della traiettoria 3D, \xB1300 giri/min.";
       $("ansCmp").setAttribute("aria-pressed", String(st.compare));
       $("ansCmp").textContent = st.compare ? "Tocca il secondo colpo" : one ? "Confronta con un altro" : "Nuovo confronto";
+      $("ansPrev").hidden = $("ansNext").hidden = SHOTS.length < 3;
     }
     const v3 = new Vector3();
     (function tagLoop() {
       requestAnimationFrame(tagLoop);
       if (!st.on) return;
       const rc = renderer.domElement.getBoundingClientRect();
-      const S2 = st.sels.map((i) => SHOTS[i]);
+      const S2 = st.sels.map((i) => SHOTS[i]).filter(Boolean);
       let k = 0;
       for (const s of S2) {
         const L2 = S2.length === 2 ? s === S2[0] ? "A \xB7 " : "B \xB7 " : "";
@@ -32274,7 +32595,7 @@ void main() {
       }
       for (; k < selTags.length; k++) selTags[k].on = false;
       for (const t of tags) {
-        const show = t.layer === "*" ? t.on : t.layer === "me" ? st.view !== "eyeT" : t.layer === st.layer && (!t.grp || st.vis[t.grp]) && !st.sels.length && st.t >= N;
+        const show = t.layer === "*" ? t.on : t.layer === "*all" ? true : t.layer === "me" ? st.view !== "eyeT" : t.layer === st.layer && (!t.grp || st.vis[t.grp]) && !st.sels.length && st.t >= N;
         v3.copy(t.at).project(camera);
         if (!show || v3.z > 1) {
           t.e.hidden = true;
@@ -32285,55 +32606,37 @@ void main() {
         t.e.style.top = Math.max(112, rc.top + (1 - v3.y) / 2 * rc.height + t.dy) + "px";
       }
     })();
-    const tagA = (a) => `<span class="atag">${a}</span>`;
-    $("left").insertAdjacentHTML("beforeend", `<div id="ansLeft" class="ans">
-    <div style="font-size:11px;color:var(--t2);letter-spacing:1.5px;font-weight:700">VICKI <span style="color:var(--t4);font-weight:500">| Chiedi a VICKI</span></div>
-    <h1 class="aq">\xABCosa succede a Tommaso P. quando lo scambio va oltre gli otto colpi?\xBB</h1><div class="note">Tu \xB7 a voce \xB7 adesso</div>
-    <div class="sec">Come ho costruito la risposta</div>
-    <ol class="asteps">
-      <li><b>Capita la condizione:</b> scambi oltre 8 colpi</li>
-      <li><b>Trovati 70 scambi</b> nelle ultime 5 partite<div class="asrc">Punteggio delle 5 partite ${tagA("Tattica")}${tagA("Mentale")}</div></li>
-      <li><b>Confrontato ogni elemento</b> del gioco con il suo standard, in tutte le aree<div class="asrc">Traiettorie della palla ${tagA("Tecnica")}${tagA("Tattica")}</div><div class="asrc">Posizioni in campo ${tagA("Atletica")}${tagA("Tattica")}</div><div class="asrc">Note di medico e nutrizionista ${tagA("Medico")}${tagA("Nutrizione")}</div></li>
-      <li><b>Tenuto solo ci\xF2 che cambia</b> oltre il margine di misura</li></ol>
-    <div class="sec">Puoi chiedere anche</div>
-    <div class="achips"><button type="button" data-ask="Cosa \xE8 pi\xF9 a rischio?">Cosa \xE8 pi\xF9 a rischio?</button><button type="button" data-ask="Prepara un allenamento su questo">Prepara un allenamento su questo</button><button type="button" data-ask="Torna al colpo">Torna al colpo</button></div>
-  </div>`);
-    const row = (k, v, std, sub, ly) => `<div class="row${ly ? " go" : ""}"${ly ? ` data-ly="${ly}" role="button" tabindex="0"` : ""}><span>${k}${sub ? `<span class="asub">${sub}</span>` : ""}</span><span class="pair"><span class="mono av">${v}</span><span class="mono as">${std}</span></span></div>`;
-    $("right").insertAdjacentHTML("beforeend", `<div id="ansRight" class="ans">
-    <div id="ansSum">
-    <h1>Cosa cambia</h1><div class="sub">Oltre l'8\xB0 colpo, rispetto al suo standard</div>
-    <div class="ahead"><span></span><span class="pair"><span class="mono av">oltre 8\xB0</span><span class="mono as">standard</span></span></div>
-    <div class="sec">Tecnica</div>
-    ${row("Profondit\xE0 del dritto", "\u22121,4 m", "", "", "dots")}${row("Errori di dritto", "12%", "7%", "15 su 126")}${row("Rovescio", "uguale", "", "nessuna differenza oltre il margine")}
-    <div class="sec">Atletica</div>
-    ${row("Rientro dopo la palla larga", "+0,3 s", "", "\xB10,1 \xB7 38 casi", "tempo")}
-    <div class="sec">Tattica</div>
-    ${row("Smorzate da fondo", "7%", "2%", "9 su 126")}${row("Punti vinti, scambi lunghi", "41%", "52%", "29 su 70")}
-    <div class="sec">Nella norma</div>
-    ${row("Mentale, medico, nutrizione", "\u2014", "", "nessuna differenza o indicazione")}
-    <div class="sec">Il dritto, oltre l'8\xB0 colpo</div>
-    <div class="note" style="margin-bottom:6px">Passa pi\xF9 alto, gira di pi\xF9, esce pi\xF9 lento e cade 1,4 m pi\xF9 corto. Il rovescio resta nel suo standard.</div>
-    ${row("Sopra la rete", "1,5 m", "1,1 m", "", "traj")}${row("Rotazione", "2.800", "2.400", "giri/min", "traj")}${row("Velocit\xE0", "92", "104", "km/h", "traj")}${row("Dal fondo", "3,2 m", "1,8 m", "", "dots")}
-    <div class="note" style="margin-top:6px">Standard = settembre \xB7 rotazione stimata dalla curvatura della traiettoria 3D, \xB1300 giri/min</div>
-    </div>
+    $("left").insertAdjacentHTML("beforeend", '<div id="ansLeft" class="ans"></div>');
+    $("right").insertAdjacentHTML("beforeend", `<div id="ansRight" class="ans"><div id="ansSum"></div>
     <div id="ansCard" hidden>
       <div class="acardh"><h1 id="ansCardT"></h1><button type="button" id="ansX" aria-label="Chiudi la scheda">\u2715</button></div>
       <div class="achips" style="margin:6px 0 2px"><button type="button" id="ansPrev">\u2039 Precedente</button><button type="button" id="ansNext">Successivo \u203A</button><button type="button" id="ansCmp" aria-pressed="false">Confronta con un altro</button></div>
       <div class="ahead" id="ansCardH"></div><div id="ansCardR"></div><div class="note" id="ansCardN" style="margin-top:6px"></div>
-    </div>
-  </div>`);
+    </div></div>`);
     $("edRow").insertAdjacentHTML("beforebegin", `<div id="ansRow" role="toolbar" aria-label="Cosa vedere sul campo">
     <div class="seg" id="ansLayer">${LAYERS.map(([k, l]) => `<button data-v="${k}" aria-pressed="${k === "traj"}">${l}</button>`).join("")}</div>
     <div id="ansTrackRow"><button type="button" class="ansPlay" id="ansPlay" aria-label="Riproduci la sequenza"><svg width="14" height="16" viewBox="0 0 14 16" aria-hidden="true"><path id="ansPlayIco" d="M2 1.5v13l11-6.5z" fill="currentColor"></path></svg></button>
-      <div class="tlab" id="ansTlab"></div><div id="ansTrack" tabindex="0" role="slider" aria-label="Sequenza dei colpi" aria-valuemin="0" aria-valuemax="${N}"><div class="in" id="ansTrackIn"></div></div></div>
-    <div class="ansRow2">${GROUPS.map((gr) => `<button type="button" data-g="${gr.id}" aria-pressed="true"><span class="sw" style="background:${gr.col}"></span>${gr.label}</button>`).join("")}<span class="note" id="ansNote"></span></div></div>`);
+      <div class="tlab" id="ansTlab"></div><div id="ansTrack" tabindex="0" role="slider" aria-label="Sequenza dei colpi" aria-valuemin="0" aria-valuemax="1"><div class="in" id="ansTrackIn"></div></div></div>
+    <div class="ansRow2"><span id="ansGroups"></span><span class="note" id="ansNote"></span></div></div>`);
+    function drawPanels() {
+      const c = SC[st.scene];
+      $("ansLeft").innerHTML = `<div style="font-size:11px;color:var(--t2);letter-spacing:1.5px;font-weight:700">VICKI <span style="color:var(--t4);font-weight:500">| Chiedi a VICKI \xB7 ${st.scene} di 7</span></div>
+      <h1 class="aq">\xAB${c.q}\xBB</h1><div class="note">Tu \xB7 a voce \xB7 adesso</div>
+      <div class="sec">Come ho costruito la risposta</div><ol class="asteps">${c.steps.map((x) => `<li>${x}</li>`).join("")}</ol>
+      <div class="sec">Puoi chiedere anche</div>
+      <div class="achips">${c.chips.map(([t, to]) => to == null ? `<button type="button" disabled>${t}</button>` : `<button type="button" data-to="${to}">${t}</button>`).join("")}</div>`;
+      $("ansSum").innerHTML = c.right;
+      $("ansGroups").innerHTML = GROUPS.map((gr) => `<button type="button" data-g="${gr.id}" aria-pressed="true"><span class="sw" style="background:${gr.lime ? LIME : WHITE}"></span>${gr.label}</button>`).join("");
+      document.body.classList.toggle("ansEmpty", !N);
+    }
     function setLayer(k) {
+      if (st.layer !== k && !restoring) pushHist();
       st.layer = k;
       apply();
     }
     $("ansLayer").addEventListener("click", (e) => {
       const b = e.target.closest("button");
-      if (b) setLayer(b.dataset.v);
+      if (b && N) setLayer(b.dataset.v);
     });
     $("ansRow").addEventListener("click", (e) => {
       const b = e.target.closest("button[data-g]");
@@ -32344,26 +32647,78 @@ void main() {
       st.sels = [];
       apply();
     });
-    $("ansLeft").addEventListener("click", (e) => {
-      const b = e.target.closest("button[data-ask]");
-      if (b) vAsk(b.dataset.ask);
-    });
-    $("ansX").addEventListener("click", () => pick(null));
-    const goRow = (e) => {
-      const r2 = e.target.closest(".row.go");
-      if (!r2) return;
-      if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
-      e.preventDefault();
-      st.t = N;
-      st.playing = false;
-      setLayer(r2.dataset.ly);
+    const doTo = (to) => {
+      if (to === "avatar") {
+        close();
+        vAsk0("confronta con l'altro dritto");
+      } else if (to === "play") play(true);
+      else if (to === "send") toast("Inviato");
+      else if (/^\d$/.test(String(to))) openScene(Number(to));
     };
-    $("ansSum").addEventListener("click", goRow);
-    $("ansSum").addEventListener("keydown", goRow);
+    const onPanel = (e) => {
+      if (e.type === "keydown" && e.key !== "Enter" && e.key !== " ") return;
+      const b = e.target.closest("button[data-to],button[data-act],.go");
+      if (!b || b.disabled) return;
+      e.preventDefault();
+      if (b.dataset.to) return doTo(b.dataset.to);
+      const a = b.dataset.act;
+      if (a === "gate") {
+        const on = b.getAttribute("aria-pressed") !== "true";
+        b.setAttribute("aria-pressed", String(on));
+        b.textContent = on ? "Attivo al Gate" : "Attiva al Gate";
+        return toast(on ? "Attivo al Gate" : "Tolto dal Gate");
+      }
+      if (a === "save") return toast("Vista salvata");
+      if (a === "send") return toast("Inviato");
+      if (a === "play") return play(true);
+      if (a === "avatar") return doTo("avatar");
+      if (a === "go1") return openScene(1);
+      const ly = b.dataset.ly;
+      if (!ly) return;
+      if (ly === "avatar") return doTo("avatar");
+      if (ly === "go1") return openScene(1);
+      if (ly === "go5") return openScene(5);
+      if (N) {
+        st.t = N;
+        st.playing = false;
+        setLayer(ly);
+      }
+    };
+    for (const id of ["ansLeft", "ansSum"]) {
+      $(id).addEventListener("click", onPanel);
+      $(id).addEventListener("keydown", onPanel);
+    }
+    $("ansX").addEventListener("click", () => pick(null));
+    const visIdx = () => SHOTS.filter((s) => st.vis[s.g]).map((s) => s.i);
+    const stepSel = (d) => {
+      const L2 = visIdx();
+      if (!L2.length) return;
+      const k = L2.indexOf(st.sels[0]);
+      st.sels = [L2[(k + d + L2.length) % L2.length]];
+      st.compare = false;
+      apply();
+    };
+    $("ansPrev").addEventListener("click", () => stepSel(-1));
+    $("ansNext").addEventListener("click", () => stepSel(1));
+    $("ansCmp").addEventListener("click", () => {
+      if (st.sels.length === 2) st.sels = [st.sels[0]];
+      st.compare = !st.compare;
+      apply();
+    });
+    function play(fromStart) {
+      if (!N) return;
+      if (st.playing && !fromStart) st.playing = false;
+      else {
+        if (fromStart || st.t >= N) st.t = 0;
+        st.playing = true;
+      }
+      applyTime();
+    }
     {
       const tr = $("ansTrack");
       let drag2 = false;
       const at = (e) => {
+        if (!N) return;
         const r2 = $("ansTrackIn").getBoundingClientRect();
         st.t = MathUtils.clamp((e.clientX - r2.left) / r2.width, 0, 1) * N;
         st.playing = false;
@@ -32381,37 +32736,14 @@ void main() {
         drag2 = false;
       });
       tr.addEventListener("keydown", (e) => {
-        if (e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
+        if (!N || e.key !== "ArrowRight" && e.key !== "ArrowLeft") return;
         e.preventDefault();
         st.playing = false;
         st.t = e.key === "ArrowRight" ? Math.min(N, Math.floor(st.t + 1e-6) + 1) : Math.max(0, Math.ceil(st.t - 1e-6) - 1);
         applyTime();
       });
-      $("ansPlay").addEventListener("click", () => {
-        if (st.playing) st.playing = false;
-        else {
-          if (st.t >= N) st.t = 0;
-          st.playing = true;
-        }
-        applyTime();
-      });
+      $("ansPlay").addEventListener("click", () => play(false));
     }
-    const visIdx = () => SHOTS.filter((s) => st.vis[s.g]).map((s) => s.i);
-    const stepSel = (d) => {
-      const L2 = visIdx();
-      if (!L2.length) return;
-      const k = L2.indexOf(st.sels[0]);
-      st.sels = [L2[(k + d + L2.length) % L2.length]];
-      st.compare = false;
-      apply();
-    };
-    $("ansPrev").addEventListener("click", () => stepSel(-1));
-    $("ansNext").addEventListener("click", () => stepSel(1));
-    $("ansCmp").addEventListener("click", () => {
-      if (st.sels.length === 2) st.sels = [st.sels[0]];
-      st.compare = !st.compare;
-      apply();
-    });
     const PV = { "Campo": "traj", "Mappa dei colpi": "colpi", "Sequenze": "sequenze", "Mappa degli spostamenti": "spostamenti", "Avatar 3D": "avatar" };
     document.addEventListener("click", (e) => {
       if (!st.on) return;
@@ -32424,82 +32756,214 @@ void main() {
       PILLS.open = null;
       drawPills();
       if (k === "avatar") close();
-      else setLayer(k);
+      else if (N) setLayer(k);
     }, true);
+    $("camBtn").insertAdjacentHTML("afterend", `<button id="qBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-label="Domande a VICKI"><svg width="26" height="22" viewBox="0 0 26 22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5a3 3 0 0 1 3-3h14a3 3 0 0 1 3 3v8a3 3 0 0 1-3 3h-8l-5 4v-4H6a3 3 0 0 1-3-3z"/><path d="M10 7.2a3 3 0 1 1 3.4 3c-.5.1-.9.5-.9 1"/></svg><span id="qLab">Domande</span></button>
+    <button id="backBtn" type="button" aria-label="Torna alla vista precedente" title="Torna alla vista precedente" hidden>\u2039</button>`);
+    $("camPop").insertAdjacentHTML("afterend", '<div id="qPop" hidden role="menu" aria-label="Domande"></div>');
+    const qPop = $("qPop"), qBtn = $("qBtn");
+    const drawQ = () => {
+      qPop.innerHTML = '<div class="chead">Domande</div>' + SC.slice(1).map((c, i) => `<button role="menuitemradio" aria-checked="${st.on && st.scene === i + 1}" data-q="${i + 1}"><span class="qn">${i + 1}</span>${c.short}</button>`).join("") + `<div class="qsep"></div><button role="menuitemradio" aria-checked="${!st.on}" data-q="0"><span class="qn"></span>Avatar 3D</button>`;
+    };
+    const qClose = () => {
+      qPop.hidden = true;
+      qBtn.setAttribute("aria-expanded", "false");
+    };
+    qBtn.addEventListener("click", (e) => {
+      e.stopPropagation();
+      if (!qPop.hidden) return qClose();
+      drawQ();
+      $("camPop").hidden = true;
+      qPop.hidden = false;
+      qBtn.setAttribute("aria-expanded", "true");
+    });
+    qPop.addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-q]");
+      if (!b) return;
+      const n = Number(b.dataset.q);
+      qClose();
+      if (n) openScene(n);
+      else close();
+    });
+    document.addEventListener("click", (e) => {
+      if (!qPop.hidden && !qPop.contains(e.target) && !qBtn.contains(e.target)) qClose();
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && !qPop.hidden) {
+        qClose();
+        qBtn.focus();
+      }
+    });
+    const hist = [];
+    const snap = () => ({ on: st.on, scene: st.scene, layer: st.layer, view: st.view, cam: camera.position.toArray(), tgt: controls.target.toArray(), sels: st.sels.slice() });
+    function pushHist() {
+      hist.push(snap());
+      if (hist.length > 40) hist.shift();
+      $("backBtn").hidden = false;
+    }
+    function back2() {
+      const h = hist.pop();
+      $("backBtn").hidden = !hist.length;
+      if (!h) return false;
+      restoring = true;
+      try {
+        if (!h.on) close();
+        else {
+          if (!st.on || st.scene !== h.scene) openScene(h.scene);
+          st.layer = h.layer;
+          st.sels = h.sels;
+          st.view = h.view;
+          apply();
+          camera.near = /^eye/.test(h.view) ? 2.5 : 0.05;
+          camera.updateProjectionMatrix();
+          camera.position.fromArray(h.cam);
+          controls.target.fromArray(h.tgt);
+          controls.update();
+          const c = CAMS.find((x) => x[0] === h.view);
+          if (c) $("camLab").textContent = c[1];
+        }
+      } finally {
+        restoring = false;
+      }
+      return true;
+    }
+    $("backBtn").addEventListener("click", back2);
     const titles = {};
-    function open() {
-      if (st.on) return;
+    function loadScene(n) {
+      st.scene = n;
+      const c = SC[n];
+      GROUPS = c.groups;
+      GR = Object.fromEntries(GROUPS.map((x) => [x.id, x]));
+      st.vis = Object.fromEntries(GROUPS.map((x) => [x.id, true]));
+      if (!c.shots) c.shots = makeShots(n, c);
+      SHOTS = c.shots;
+      ORDER = [];
+      {
+        const L2 = GROUPS.map((gr) => SHOTS.filter((x) => x.g === gr.id)), mx = Math.max(0, ...L2.map((x) => x.length));
+        for (let k = 0; k < mx; k++) for (let j = L2.length - 1; j >= 0; j--) if (L2[j][k]) ORDER.push(L2[j][k]);
+      }
+      ORDER.forEach((s, k) => {
+        s.k = k;
+      });
+      N = ORDER.length;
+      st.t = N;
+      st.playing = false;
+      st.sels = (c.sel || []).slice();
+      st.compare = false;
+      st.layer = c.layer;
+      setEyes();
+      build();
+      drawPanels();
+      PILLS.sel = c.pills.sel === "all" ? [...AREAS] : c.pills.sel.slice();
+      PILLS.dots = c.pills.dots.slice();
+      drawPills();
+    }
+    function openScene(n) {
+      if (st.on && st.scene === n) return;
+      if (!restoring) pushHist();
       if (S.edit) {
         S.finePending = true;
         exitEdit();
       }
+      const was = st.on;
       st.on = true;
       root.visible = true;
       document.body.classList.add("answer");
-      for (const id of ["left", "right"]) {
-        const bt = $(id).querySelector(".bar .bt");
-        titles[id] = bt.textContent;
-        bt.textContent = id === "left" ? "Domanda" : "Risposta";
+      if (!was) {
+        for (const id of ["left", "right"]) {
+          const bt = $(id).querySelector(".bar .bt");
+          titles[id] = bt.textContent;
+          bt.textContent = id === "left" ? "Domanda" : "Risposta";
+        }
+        if (ballLine) ballLine.visible = false;
+        CAMS.push(...CAMS_ANS);
+        S.playing = false;
+        controls.maxDistance = 60;
       }
-      if (ballLine) ballLine.visible = false;
-      PILLS.dots = ["Tecnica", "Tattica", "Atletica"];
-      drawPills();
-      CAMS.push(...CAMS_ANS);
-      S.playing = false;
-      st.t = N;
-      st.playing = false;
-      controls.maxDistance = 60;
+      loadScene(n);
       apply();
       render();
-      setView("back");
+      if (!restoring) {
+        const r0 = restoring;
+        restoring = true;
+        st.view = "";
+        setView(SC[n].layer === "dots" ? "top" : "back");
+        restoring = r0;
+      }
+      $("qLab").textContent = "Domanda " + n;
     }
     function close() {
       if (!st.on) return;
+      if (!restoring) pushHist();
       st.on = false;
+      st.playing = false;
       root.visible = false;
-      document.body.classList.remove("answer");
+      document.body.classList.remove("answer", "ansEmpty");
       tags.forEach((t) => {
         t.e.hidden = true;
       });
       for (const id of ["left", "right"]) $(id).querySelector(".bar .bt").textContent = titles[id];
       CAMS.splice(CAMS.length - CAMS_ANS.length, CAMS_ANS.length);
       if (ballLine) ballLine.visible = true;
+      PILLS.sel = [...AREAS];
       PILLS.dots = ["Tecnica"];
       drawPills();
       controls.maxDistance = 9;
       camera.near = 0.05;
       camera.updateProjectionMatrix();
       render();
+      const r0 = restoring;
+      restoring = true;
       setView("front");
+      restoring = r0;
+      $("qLab").textContent = "Domande";
     }
-    return { open, close, shots: SHOTS, get on() {
+    return { open: () => openScene(1), openScene, close, back: back2, get on() {
       return st.on;
     }, setLayer, pick, get st() {
       return st;
+    }, get shots() {
+      return SHOTS;
     }, setT: (t) => {
       st.t = t;
       st.playing = false;
       applyTime();
-    }, play: () => $("ansPlay").click() };
+    }, play: () => play(true) };
   })();
   window.__ans = ANS;
+  window.__setView = (v) => setView(v);
   window.__ansCam = (p, t) => {
     camera.position.set(...p);
     controls.target.set(...t);
     controls.update();
   };
+  var vAsk0 = vAsk;
   {
-    const vAsk0 = vAsk;
+    const QRE = [
+      [4, /prepara (un |l )?allenamento|allenamento di domani/],
+      [1, /oltre (gli |l )?(otto|8|ottavo)|piu di (otto|8) colpi|scambi? lungh/],
+      [2, /profondita del dritto/],
+      [3, /cosa (ha )?influenzato|cosa pesa|dove perde (piu )?punti/],
+      [5, /punti che contano|colpi gemelli|tre coppie/],
+      [6, /sotto pressione|cambia il suo gioco|era aperto/],
+      [7, /allenamento e partita|in partita (e|è) lo stesso|lavoriamo in allenamento/]
+    ];
     vAsk = (raw) => {
       const s = norm(raw || "");
-      if (/oltre (gli |l )?(otto|8|ottavo)|piu di (otto|8) colpi|scambi? lungh/.test(s)) {
+      if (window.__guide && window.__guide.open()) return vAsk0(raw);
+      if (/^(torna indietro|indietro|vista precedente|torna alla vista di prima)$/.test(s)) {
         vOpen(true);
-        ANS.open();
-        vOut("Ecco cosa cambia oltre l'8\xB0 colpo.");
+        vOut(ANS.back() ? "Fatto." : "Sei gi\xE0 all'inizio.");
+        return vChips();
+      }
+      for (const [n, re] of QRE) if (re.test(s)) {
+        vOpen(true);
+        ANS.openScene(n);
+        vOut("Ecco la risposta.");
         return vChips();
       }
       if (ANS.on) {
-        if (/torna al colpo|chiudi la risposta|torna all avatar/.test(s)) {
+        if (/torna al colpo|chiudi la risposta|torna all avatar|avatar 3d/.test(s)) {
           ANS.close();
           vOut("Sei di nuovo sul colpo.");
           return vChips();
@@ -32536,13 +33000,15 @@ void main() {
     vChips = () => {
       vChips0();
       if (S.edit) return;
-      const L2 = ANS.on ? ["Fammi vedere i rimbalzi", "Fammi vedere le traiettorie", "Mappa dei colpi", "Rientro nel tempo", "Occhi di Tommaso", "Vista dall'alto", "Torna al colpo"] : null;
+      const L2 = ANS.on ? ["Fammi vedere i rimbalzi", "Fammi vedere le traiettorie", "Riproduci", "Occhi di Tommaso", "Vista dall'alto", "Torna indietro", "Torna al colpo"] : null;
       if (L2) $("vChips").innerHTML = L2.map((t) => `<button type="button">${t}</button>`).join("");
       else $("vChips").insertAdjacentHTML("afterbegin", `<button type="button">Cosa succede oltre l'8\xB0 colpo?</button>`);
     };
   }
-  if (new URLSearchParams(location.search).get("scena") === "1") ANS.open();
-  window.__setView = (v) => setView(v);
+  {
+    const q = new URLSearchParams(location.search).get("scena");
+    if (q && /^[1-7]$/.test(q)) ANS.openScene(Number(q));
+  }
 })();
 /*! Bundled license information:
 
