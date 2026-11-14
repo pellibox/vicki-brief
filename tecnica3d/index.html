@@ -24671,6 +24671,12 @@ void main() {
     return { solve, legTo };
   }
 
+  // dash4.css
+  var dash4_default = "/* Dashboard del maestro e dell'atleta (owner 14/11): stessi token della PWA/demo \u2014 vetro, aurora, Manrope + IBM Plex Mono */\n#dash{position:fixed;inset:0;z-index:40;color:#E9ECF2;font-family:Manrope,system-ui,sans-serif;opacity:0;visibility:hidden;transition:opacity .55s ease,visibility 0s linear .55s}\n#dash.on{opacity:1;visibility:visible;transition:opacity .55s ease}\n#dash .dBg{position:absolute;inset:0;background:#0c0d11;overflow:hidden}\n#dash .dBg i{position:absolute;border-radius:50%;filter:blur(60px);opacity:.5}\n#dash .dBg i:nth-child(1){width:70vw;height:70vw;left:-18vw;top:-30vw;background:rgba(185,167,232,.5)}\n#dash .dBg i:nth-child(2){width:55vw;height:55vw;right:-14vw;bottom:-28vw;background:rgba(64,200,224,.4)}\n#dash .dBg i:nth-child(3){width:45vw;height:45vw;right:-10vw;top:-20vw;background:rgba(224,122,158,.34)}\n#dash .dBg i:nth-child(4){width:35vw;height:35vw;left:20vw;bottom:-22vw;background:rgba(232,239,98,.18)}\n#dash .dBg::after{content:'';position:absolute;inset:0;background:radial-gradient(120% 90% at 50% 40%,rgba(12,13,17,.15),rgba(12,13,17,.55))}\n@media (prefers-reduced-motion:no-preference){#dash .dBg i{animation:dDrift 46s ease-in-out infinite alternate}#dash .dBg i:nth-child(2){animation-duration:56s}#dash .dBg i:nth-child(3){animation-duration:38s}}\n@keyframes dDrift{to{transform:translate(4vw,3vh) scale(1.08)}}\n#dash .dWrap{position:absolute;inset:0;display:flex;flex-direction:column;padding:22px 24px 24px 24px;box-sizing:border-box}\n#dash .dHead{display:flex;align-items:center;gap:14px;min-height:52px;padding-left:46px}\n#dash .dBrand{display:flex;flex-direction:column;gap:2px;min-width:0}\n#dash .dBrand small{font-size:11px;letter-spacing:1.6px;color:#C3C9D4;font-weight:700}\n#dash .dBrand small span{color:#6D7482;font-weight:500;letter-spacing:.4px}\n#dash .dName{display:flex;align-items:center;gap:8px;font-size:26px;font-weight:700;letter-spacing:-.3px;white-space:nowrap}\n#dash .dIco{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.16);background:rgba(22,24,29,.6);color:#E9ECF2;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;transition:background .15s}\n#dash .dIco:hover,#dash .dIco:focus-visible{background:rgba(255,255,255,.12);outline:none}\n#dash .dIco[aria-pressed=true]{background:#E9ECF2;color:#16181D}\n#dash .dSp{flex:1}\n#dash .dSeg{display:flex;gap:2px;padding:4px;border-radius:999px;border:1.5px solid rgba(255,255,255,.85);background:rgba(14,17,22,.28)}\n#dash .dSeg button{font:inherit;font-weight:700;font-size:13.5px;color:#fff;background:transparent;border:0;border-radius:999px;padding:8px 14px;cursor:pointer;white-space:nowrap;transition:background .15s}\n#dash .dSeg button[aria-pressed=true]{background:#fff;color:#16181D}\n#dash .dSeg button:hover:not([aria-pressed=true]){background:rgba(255,255,255,.08)}\n#dash .dBar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:14px 0 4px 46px}\n#dash .dChip{font:inherit;font-weight:700;font-size:12.5px;border-radius:999px;padding:7px 12px;border:1px solid rgba(255,255,255,.18);background:rgba(22,24,29,.55);color:#E9ECF2;cursor:pointer;transition:background .15s,opacity .15s,color .15s}\n#dash .dChip[aria-pressed=true]{background:#E9ECF2;color:#16181D;border-color:#E9ECF2}\n#dash .dChip.grey{opacity:.45}\n#dash .dChip:focus-visible,#dash .dSeg button:focus-visible{outline:2px solid #B9A7E8;outline-offset:2px}\n#dash .dCap{font-size:11.5px;color:#9AA1B0;margin:4px 0 0 46px}\n#dash .dBody{flex:1;min-height:0;overflow:auto;margin-top:14px;padding:2px 2px 90px 46px;scrollbar-width:thin}\n#dash .dGrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(330px,1fr));gap:14px;align-items:start}\n#dash .dCard{border-radius:16px;background:rgba(20,22,28,.55);backdrop-filter:blur(28px) saturate(1.6);-webkit-backdrop-filter:blur(28px) saturate(1.6);border:1px solid rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.1);padding:4px 16px 14px}\n#dash .dCard.wide{grid-column:1/-1}\n#dash details>summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 0 8px;font-size:11px;letter-spacing:1.6px;font-weight:700;color:#C3C9D4;text-transform:uppercase}\n#dash details>summary::-webkit-details-marker{display:none}\n#dash details>summary::after{content:'';width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(-45deg);transition:transform .15s;opacity:.7;flex:none}\n#dash details[open]>summary::after{transform:rotate(45deg)}\n#dash details>summary:focus-visible{outline:2px solid #B9A7E8;outline-offset:2px;border-radius:6px}\n#dash .row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px solid rgba(255,255,255,.06);font-size:14px}\n#dash .row:first-of-type{border-top:0}\n#dash .row .k{display:flex;flex-direction:column;gap:2px;min-width:0}\n#dash .row .k small{font-size:12px;color:#9AA1B0}\n#dash .row .v{display:flex;align-items:baseline;gap:10px;flex:none;text-align:right}\n#dash .num{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}\n#dash .v .num{font-size:15px;font-weight:600}\n#dash .v .std{font-size:12px;color:#9AA1B0}\n#dash .go{cursor:pointer;border-radius:10px;margin:0 -8px;padding-left:8px;padding-right:8px;transition:background .15s}\n#dash .go:hover,#dash .go:focus-visible{background:rgba(255,255,255,.06);outline:none}\n#dash .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}\n#dash .tone-worse{color:#FF9A7A}#dash .tone-better{color:#7FD6E8}#dash .tone-same{color:#C3C9D4}\n#dash .dot.worse{background:#FF9A7A}#dash .dot.better{background:#7FD6E8}#dash .dot.same{background:#6D7482}\n#dash .big{display:flex;gap:18px;flex-wrap:wrap;padding:6px 0 4px}\n#dash .big div{display:flex;flex-direction:column;gap:2px}\n#dash .big b{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:30px;font-weight:600;letter-spacing:-.5px}\n#dash .big small{font-size:12px;color:#9AA1B0}\n#dash .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}\n#dash .btn{font:inherit;font-weight:700;font-size:13px;border-radius:999px;padding:8px 14px;border:0;background:#E9ECF2;color:#16181D;cursor:pointer;transition:opacity .15s}\n#dash .btn.ghost{background:transparent;color:#E9ECF2;border:1px solid rgba(255,255,255,.2)}\n#dash .btn:hover{opacity:.9}#dash .btn:focus-visible{outline:2px solid #B9A7E8;outline-offset:2px}\n#dash .ath{display:flex;align-items:center;gap:12px;padding:12px;border-radius:14px;background:rgba(20,22,28,.55);border:1px solid rgba(255,255,255,.12);cursor:pointer;transition:background .15s,transform .2s}\n#dash .ath:hover,#dash .ath:focus-visible{background:rgba(40,43,52,.7);outline:none;transform:translateY(-1px)}\n#dash .av{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;background:rgba(255,166,64,.18);color:#FFB869;flex:none}\n#dash .av.o{background:rgba(185,167,232,.18);color:#C9BBF0}\n#dash .athRow{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-bottom:14px}\n#dash .ath .k{display:flex;flex-direction:column;gap:2px;min-width:0}\n#dash .ath b{font-size:15px;white-space:nowrap}#dash .ath small{font-size:12px;color:#9AA1B0}\n#dash .tag{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;border:1px solid rgba(255,255,255,.18);color:#C3C9D4;white-space:nowrap}\n#dash .tag.on{border-color:rgba(127,214,232,.5);color:#7FD6E8}#dash .tag.off{border-color:rgba(255,255,255,.12);color:#6D7482}\n#dash .tag.watch{border-color:rgba(255,154,122,.5);color:#FF9A7A}\n#dash .note{font-size:12px;color:#9AA1B0;margin-top:8px;line-height:1.45}\n#dash .chart{width:100%;height:auto;display:block;margin-top:6px}\n#dash .chart text{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:11px;fill:#9AA1B0}\n#dash .leg{display:flex;gap:14px;font-size:12px;color:#C3C9D4;margin-top:6px;flex-wrap:wrap}\n#dash .leg span{display:inline-flex;align-items:center;gap:6px}\n#dash .bar{height:6px;border-radius:999px;background:rgba(255,255,255,.08);overflow:hidden;margin-top:6px}\n#dash .bar i{display:block;height:100%;border-radius:999px;background:#FFA640}\n#dash .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}\n#dash .pair>div{border-radius:11px;padding:10px;background:rgba(255,255,255,.04);font-size:13px;line-height:1.4}\n#dash .pair small{display:block;font-size:11px;letter-spacing:1.2px;color:#9AA1B0;font-weight:700;margin-bottom:4px}\n#dash input.dIn{font:inherit;font-size:14px;color:#E9ECF2;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.14);border-radius:10px;padding:9px 11px;width:100%;box-sizing:border-box}\n#dash input.dIn:focus-visible{outline:2px solid #B9A7E8;outline-offset:1px}\n#dash .swap{animation:dIn .45s cubic-bezier(.2,.7,.2,1)}\n@keyframes dIn{from{opacity:0;transform:translateY(10px) scale(.99)}to{opacity:1;transform:none}}\n@media (prefers-reduced-motion:reduce){#dash,#dash .swap{transition:none;animation:none}}\n#dSaved{position:fixed;z-index:62;min-width:240px;padding:8px;border-radius:12px;background:rgba(20,22,28,.94);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border:1px solid rgba(255,255,255,.12);box-shadow:0 10px 30px rgba(0,0,0,.45);color:#E9ECF2;font-family:Manrope,system-ui,sans-serif}\n#dSaved[hidden]{display:none}\n#dSaved .t{font-size:11px;color:#9AA1B0;padding:4px 8px 6px;letter-spacing:1.2px;font-weight:700}\n#dSaved button{display:block;width:100%;text-align:left;font:inherit;font-weight:600;font-size:13px;color:#E9ECF2;background:transparent;border:0;border-radius:8px;padding:9px 10px;cursor:pointer}\n#dSaved button:hover,#dSaved button:focus-visible{background:rgba(255,255,255,.1);outline:none}\nbody.dashOn #backBtn,body.dashOn #vDock,body.dashOn #vPanel{z-index:55}\nbody.dashOn #toast{z-index:65}\n@media (max-width:1100px){#dash .dName{font-size:22px}#dash .dWrap{padding:18px 16px 16px}#dash .dGrid{grid-template-columns:repeat(auto-fill,minmax(380px,1fr))}}\n";
+
+  // dash_data.json
+  var dash_data_default = { versione: "2026-11-14e", periodi: { ultima: { partite: ["12/11"], agg: { punti: 100, scambi: 14, punti_vinti: { n: 6, su: 14 }, gruppi: { oltre8: { colpi: 35, kmh: 93.59, rpm: 2853.45, rete: 1.54, fondo: 3.06, rimbalzi: { corta: { n: 0, su: 26 }, media: { n: 23, su: 26 }, profonda: { n: 0, su: 26 }, fuori: { n: 3, su: 26 } }, rientro: { stati: { rientrato: { n: 21, su: 35 }, non_completato: { n: 0, su: 35 }, gia_in_copertura: { n: 4, su: 35 }, avanza_a_rete: { n: 0, su: 35 }, fine_punto: { n: 10, su: 35 }, non_definito: { n: 0, su: 35 } }, tempo: 0.87, tempo_su: 21, mancava: null, mancava_su: 0 }, errori_dritto: { n: 3, su: 14 } }, std: { colpi: 115, kmh: 104.03, rpm: 2438.94, rete: 1.29, fondo: 1.91, rimbalzi: { corta: { n: 0, su: 98 }, media: { n: 62, su: 98 }, profonda: { n: 23, su: 98 }, fuori: { n: 13, su: 98 } }, rientro: { stati: { rientrato: { n: 67, su: 115 }, non_completato: { n: 3, su: 115 }, gia_in_copertura: { n: 16, su: 115 }, avanza_a_rete: { n: 2, su: 115 }, fine_punto: { n: 27, su: 115 }, non_definito: { n: 0, su: 115 } }, tempo: 0.83, tempo_su: 67, mancava: 1.07, mancava_su: 3 }, errori_dritto: { n: 12, su: 69 } } } } }, "2sett": { partite: ["01/11", "08/11", "12/11"], agg: { punti: 384, scambi: 47, punti_vinti: { n: 26, su: 47 }, gruppi: { oltre8: { colpi: 93, kmh: 92.84, rpm: 2803.61, rete: 1.48, fondo: 3.17, rimbalzi: { corta: { n: 0, su: 76 }, media: { n: 68, su: 76 }, profonda: { n: 1, su: 76 }, fuori: { n: 7, su: 76 } }, rientro: { stati: { rientrato: { n: 56, su: 93 }, non_completato: { n: 3, su: 93 }, gia_in_copertura: { n: 13, su: 93 }, avanza_a_rete: { n: 1, su: 93 }, fine_punto: { n: 20, su: 93 }, non_definito: { n: 0, su: 93 } }, tempo: 0.81, tempo_su: 56, mancava: 0.73, mancava_su: 3 }, errori_dritto: { n: 8, su: 45 } }, std: { colpi: 431, kmh: 103.84, rpm: 2434.38, rete: 1.29, fondo: 1.93, rimbalzi: { corta: { n: 1, su: 370 }, media: { n: 233, su: 370 }, profonda: { n: 90, su: 370 }, fuori: { n: 46, su: 370 } }, rientro: { stati: { rientrato: { n: 249, su: 431 }, non_completato: { n: 19, su: 431 }, gia_in_copertura: { n: 52, su: 431 }, avanza_a_rete: { n: 7, su: 431 }, fine_punto: { n: 104, su: 431 }, non_definito: { n: 0, su: 431 } }, tempo: 0.82, tempo_su: 249, mancava: 0.83, mancava_su: 19 }, errori_dritto: { n: 38, su: 234 } } } } }, "5p": { partite: ["18/10", "25/10", "01/11", "08/11", "12/11"], agg: { punti: 612, scambi: 70, punti_vinti: { n: 37, su: 70 }, gruppi: { oltre8: { colpi: 127, kmh: 93.5, rpm: 2808.77, rete: 1.44, fondo: 3.17, rimbalzi: { corta: { n: 0, su: 104 }, media: { n: 91, su: 104 }, profonda: { n: 2, su: 104 }, fuori: { n: 11, su: 104 } }, rientro: { stati: { rientrato: { n: 75, su: 127 }, non_completato: { n: 4, su: 127 }, gia_in_copertura: { n: 16, su: 127 }, avanza_a_rete: { n: 2, su: 127 }, fine_punto: { n: 30, su: 127 }, non_definito: { n: 0, su: 127 } }, tempo: 0.85, tempo_su: 75, mancava: 0.72, mancava_su: 4 }, errori_dritto: { n: 11, su: 62 } }, std: { colpi: 704, kmh: 103.78, rpm: 2425.8, rete: 1.29, fondo: 1.95, rimbalzi: { corta: { n: 4, su: 603 }, media: { n: 377, su: 603 }, profonda: { n: 146, su: 603 }, fuori: { n: 76, su: 603 } }, rientro: { stati: { rientrato: { n: 399, su: 704 }, non_completato: { n: 30, su: 704 }, gia_in_copertura: { n: 92, su: 704 }, avanza_a_rete: { n: 9, su: 704 }, fine_punto: { n: 174, su: 704 }, non_definito: { n: 0, su: 704 } }, tempo: 0.82, tempo_su: 399, mancava: 0.83, mancava_su: 30 }, errori_dritto: { n: 71, su: 390 } } } } } }, tutte: { punti: 612, scambi: 70, punti_vinti: { n: 37, su: 70 }, gruppi: { oltre8: { colpi: 127, kmh: 93.5, rpm: 2808.77, rete: 1.44, fondo: 3.17, rimbalzi: { corta: { n: 0, su: 104 }, media: { n: 91, su: 104 }, profonda: { n: 2, su: 104 }, fuori: { n: 11, su: 104 } }, rientro: { stati: { rientrato: { n: 75, su: 127 }, non_completato: { n: 4, su: 127 }, gia_in_copertura: { n: 16, su: 127 }, avanza_a_rete: { n: 2, su: 127 }, fine_punto: { n: 30, su: 127 }, non_definito: { n: 0, su: 127 } }, tempo: 0.85, tempo_su: 75, mancava: 0.72, mancava_su: 4 }, errori_dritto: { n: 11, su: 62 } }, std: { colpi: 704, kmh: 103.78, rpm: 2425.8, rete: 1.29, fondo: 1.95, rimbalzi: { corta: { n: 4, su: 603 }, media: { n: 377, su: 603 }, profonda: { n: 146, su: 603 }, fuori: { n: 76, su: 603 } }, rientro: { stati: { rientrato: { n: 399, su: 704 }, non_completato: { n: 30, su: 704 }, gia_in_copertura: { n: 92, su: 704 }, avanza_a_rete: { n: 9, su: 704 }, fine_punto: { n: 174, su: 704 }, non_definito: { n: 0, su: 704 } }, tempo: 0.82, tempo_su: 399, mancava: 0.83, mancava_su: 30 }, errori_dritto: { n: 71, su: 390 } } } }, partite: [{ id: "18/10", superficie: "cemento", punti: 115, risultato: { set: [[4, 6], [4, 6]], vince: "A" }, agg: { punti: 115, scambi: 10, punti_vinti: { n: 4, su: 10 }, gruppi: { oltre8: { colpi: 11, kmh: 98.7, rpm: 2875, rete: 1.28, fondo: 2.98, rimbalzi: { corta: { n: 0, su: 9 }, media: { n: 6, su: 9 }, profonda: { n: 1, su: 9 }, fuori: { n: 2, su: 9 } }, rientro: { stati: { rientrato: { n: 6, su: 11 }, non_completato: { n: 0, su: 11 }, gia_in_copertura: { n: 0, su: 11 }, avanza_a_rete: { n: 0, su: 11 }, fine_punto: { n: 5, su: 11 }, non_definito: { n: 0, su: 11 } }, tempo: 1, tempo_su: 6, mancava: null, mancava_su: 0 }, errori_dritto: { n: 2, su: 6 } }, std: { colpi: 151, kmh: 104.04, rpm: 2410.49, rete: 1.27, fondo: 2.05, rimbalzi: { corta: { n: 3, su: 130 }, media: { n: 82, su: 130 }, profonda: { n: 30, su: 130 }, fuori: { n: 15, su: 130 } }, rientro: { stati: { rientrato: { n: 81, su: 151 }, non_completato: { n: 5, su: 151 }, gia_in_copertura: { n: 26, su: 151 }, avanza_a_rete: { n: 1, su: 151 }, fine_punto: { n: 38, su: 151 }, non_definito: { n: 0, su: 151 } }, tempo: 0.8, tempo_su: 81, mancava: 0.82, mancava_su: 5 }, errori_dritto: { n: 19, su: 89 } } } } }, { id: "25/10", superficie: "cemento", punti: 113, risultato: { set: [[1, 6], [4, 6]], vince: "A" }, agg: { punti: 113, scambi: 13, punti_vinti: { n: 7, su: 13 }, gruppi: { oltre8: { colpi: 23, kmh: 93.62, rpm: 2797.62, rete: 1.35, fondo: 3.26, rimbalzi: { corta: { n: 0, su: 19 }, media: { n: 17, su: 19 }, profonda: { n: 0, su: 19 }, fuori: { n: 2, su: 19 } }, rientro: { stati: { rientrato: { n: 13, su: 23 }, non_completato: { n: 1, su: 23 }, gia_in_copertura: { n: 3, su: 23 }, avanza_a_rete: { n: 1, su: 23 }, fine_punto: { n: 5, su: 23 }, non_definito: { n: 0, su: 23 } }, tempo: 0.92, tempo_su: 13, mancava: 0.7, mancava_su: 1 }, errori_dritto: { n: 1, su: 11 } }, std: { colpi: 122, kmh: 103.27, rpm: 2415.22, rete: 1.32, fondo: 1.89, rimbalzi: { corta: { n: 0, su: 103 }, media: { n: 62, su: 103 }, profonda: { n: 26, su: 103 }, fuori: { n: 15, su: 103 } }, rientro: { stati: { rientrato: { n: 69, su: 122 }, non_completato: { n: 6, su: 122 }, gia_in_copertura: { n: 14, su: 122 }, avanza_a_rete: { n: 1, su: 122 }, fine_punto: { n: 32, su: 122 }, non_definito: { n: 0, su: 122 } }, tempo: 0.83, tempo_su: 69, mancava: 0.85, mancava_su: 6 }, errori_dritto: { n: 14, su: 67 } } } } }, { id: "01/11", superficie: "cemento", punti: 169, risultato: { set: [[7, 5], [7, 5]], vince: "G" }, agg: { punti: 169, scambi: 23, punti_vinti: { n: 17, su: 23 }, gruppi: { oltre8: { colpi: 39, kmh: 92.94, rpm: 2770.83, rete: 1.46, fondo: 3.11, rimbalzi: { corta: { n: 0, su: 33 }, media: { n: 31, su: 33 }, profonda: { n: 1, su: 33 }, fuori: { n: 1, su: 33 } }, rientro: { stati: { rientrato: { n: 24, su: 39 }, non_completato: { n: 2, su: 39 }, gia_in_copertura: { n: 6, su: 39 }, avanza_a_rete: { n: 1, su: 39 }, fine_punto: { n: 6, su: 39 }, non_definito: { n: 0, su: 39 } }, tempo: 0.82, tempo_su: 24, mancava: 0.75, mancava_su: 2 }, errori_dritto: { n: 3, su: 23 } }, std: { colpi: 191, kmh: 103.76, rpm: 2434.46, rete: 1.27, fondo: 1.95, rimbalzi: { corta: { n: 0, su: 166 }, media: { n: 109, su: 166 }, profonda: { n: 40, su: 166 }, fuori: { n: 17, su: 166 } }, rientro: { stati: { rientrato: { n: 114, su: 191 }, non_completato: { n: 12, su: 191 }, gia_in_copertura: { n: 20, su: 191 }, avanza_a_rete: { n: 4, su: 191 }, fine_punto: { n: 41, su: 191 }, non_definito: { n: 0, su: 191 } }, tempo: 0.81, tempo_su: 114, mancava: 0.78, mancava_su: 12 }, errori_dritto: { n: 12, su: 90 } } } } }, { id: "08/11", superficie: "cemento", punti: 115, risultato: { set: [[1, 6], [2, 6]], vince: "A" }, agg: { punti: 115, scambi: 10, punti_vinti: { n: 3, su: 10 }, gruppi: { oltre8: { colpi: 19, kmh: 91.44, rpm: 2788.89, rete: 1.41, fondo: 3.5, rimbalzi: { corta: { n: 0, su: 17 }, media: { n: 14, su: 17 }, profonda: { n: 0, su: 17 }, fuori: { n: 3, su: 17 } }, rientro: { stati: { rientrato: { n: 11, su: 19 }, non_completato: { n: 1, su: 19 }, gia_in_copertura: { n: 3, su: 19 }, avanza_a_rete: { n: 0, su: 19 }, fine_punto: { n: 4, su: 19 }, non_definito: { n: 0, su: 19 } }, tempo: 0.69, tempo_su: 11, mancava: 0.7, mancava_su: 1 }, errori_dritto: { n: 2, su: 8 } }, std: { colpi: 125, kmh: 103.78, rpm: 2430.17, rete: 1.3, fondo: 1.92, rimbalzi: { corta: { n: 1, su: 106 }, media: { n: 62, su: 106 }, profonda: { n: 27, su: 106 }, fuori: { n: 16, su: 106 } }, rientro: { stati: { rientrato: { n: 68, su: 125 }, non_completato: { n: 4, su: 125 }, gia_in_copertura: { n: 16, su: 125 }, avanza_a_rete: { n: 1, su: 125 }, fine_punto: { n: 36, su: 125 }, non_definito: { n: 0, su: 125 } }, tempo: 0.82, tempo_su: 68, mancava: 0.78, mancava_su: 4 }, errori_dritto: { n: 14, su: 75 } } } } }, { id: "12/11", superficie: "cemento", punti: 100, risultato: { set: [[3, 6], [2, 6]], vince: "A" }, agg: { punti: 100, scambi: 14, punti_vinti: { n: 6, su: 14 }, gruppi: { oltre8: { colpi: 35, kmh: 93.59, rpm: 2853.45, rete: 1.54, fondo: 3.06, rimbalzi: { corta: { n: 0, su: 26 }, media: { n: 23, su: 26 }, profonda: { n: 0, su: 26 }, fuori: { n: 3, su: 26 } }, rientro: { stati: { rientrato: { n: 21, su: 35 }, non_completato: { n: 0, su: 35 }, gia_in_copertura: { n: 4, su: 35 }, avanza_a_rete: { n: 0, su: 35 }, fine_punto: { n: 10, su: 35 }, non_definito: { n: 0, su: 35 } }, tempo: 0.87, tempo_su: 21, mancava: null, mancava_su: 0 }, errori_dritto: { n: 3, su: 14 } }, std: { colpi: 115, kmh: 104.03, rpm: 2438.94, rete: 1.29, fondo: 1.91, rimbalzi: { corta: { n: 0, su: 98 }, media: { n: 62, su: 98 }, profonda: { n: 23, su: 98 }, fuori: { n: 13, su: 98 } }, rientro: { stati: { rientrato: { n: 67, su: 115 }, non_completato: { n: 3, su: 115 }, gia_in_copertura: { n: 16, su: 115 }, avanza_a_rete: { n: 2, su: 115 }, fine_punto: { n: 27, su: 115 }, non_definito: { n: 0, su: 115 } }, tempo: 0.83, tempo_su: 67, mancava: 1.07, mancava_su: 3 }, errori_dritto: { n: 12, su: 69 } } } } }] };
+
   // app4.js
   var D = window.AVATAR_DATA;
   var dec = (b64, T) => {
@@ -31992,7 +31998,7 @@ void main() {
     controls.update();
     followLight();
     if (S.edit && !anim) placeHandles();
-    renderer.render(scene, camera);
+    if (!window.__pause3D) renderer.render(scene, camera);
     requestAnimationFrame(loop);
   })();
   window.__scene = scene;
@@ -34374,6 +34380,9 @@ void main() {
       reframe,
       focus,
       open3D,
+      get histLen() {
+        return hist.length;
+      },
       get selShot() {
         return isP() && st.psel.length === 1 ? st.psel[0] : null;
       },
@@ -34614,6 +34623,307 @@ void main() {
       else if (e.key === "-") $("zOut").click();
     });
   }
+  var DASH = (() => {
+    document.head.insertAdjacentHTML("beforeend", `<style>${dash4_default}</style>`);
+    const AREAS2 = ["Tecnica", "Tattica", "Atletica", "Mentale", "Medico", "Nutrizione"];
+    const S2 = { on: false, view: "coach", mode: { coach: "campo", ath: "studio" }, period: "5p", areas: [...AREAS2], chart: "fondo", base: 0, viaScene: false, open: {} };
+    const PER = [["ultima", "Ultima partita"], ["2sett", "Ultime 2 settimane"], ["5p", "Ultime 5 partite"]];
+    const f = (x, d = 1) => x == null ? "\u2014" : Number(x).toLocaleString("it-IT", { minimumFractionDigits: d, maximumFractionDigits: d });
+    const nm = (o) => o ? `${o.n} su ${o.su}` : "\u2014";
+    const esc = (t) => String(t).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c]);
+    const tone = (v, s, margin2, worseIfHigher) => {
+      if (v == null || s == null) return "same";
+      const d = v - s;
+      if (Math.abs(d) <= margin2) return "same";
+      return d > 0 === worseIfHigher ? "worse" : "better";
+    };
+    const sec = (id, title, open, body, cls = "") => `<section class="dCard ${cls}"><details data-sec="${id}"${S2.open[id] ?? open ? " open" : ""}><summary>${title}</summary>${body}</details></section>`;
+    const row = (k, sub, v, std, t, attrs = "") => `<div class="row${attrs ? " go" : ""}"${attrs}><span class="k"><span>${k}</span>${sub ? `<small>${sub}</small>` : ""}</span><span class="v">${t ? `<span class="dot ${t}"></span>` : ""}<span class="num${t ? " tone-" + t : ""}">${v}</span>${std != null ? `<span class="std num">${std}</span>` : ""}</span></div>`;
+    const ATLETI = [
+      { id: "tp", nome: "Tommaso P.", ini: "TP", liv: "Agonista \xB7 cemento", disp: true, focus: "Profondit\xE0 del dritto negli scambi lunghi", guarda: 1 },
+      { id: "gb", nome: "Giulia B.", ini: "GB", liv: "Agonista under 16", disp: true, focus: "Seconda di servizio: variet\xE0 di bersagli", guarda: 0 },
+      { id: "ps", nome: "Pietro S.", ini: "PS", liv: "Agonista", disp: false, focus: "Rientro dopo il colpo in diagonale", guarda: 0 },
+      { id: "ar", nome: "Anna R.", ini: "AR", liv: "Preagonista", disp: true, focus: "Appoggi sul rovescio", guarda: 0 }
+    ];
+    const OGGI = [["15:00", "Tommaso P.", "Allenamento \xB7 campo 2", "tp"], ["16:30", "Gruppo under 14", "Situazioni di gioco \xB7 campo 1", null], ["18:00", "Anna R.", "Lezione \xB7 campo 3", "ar"]];
+    document.body.insertAdjacentHTML("beforeend", `<div id="dash" aria-hidden="true"><div class="dBg"><i></i><i></i><i></i><i></i></div><div class="dWrap" id="dWrap"></div></div>
+    <div id="dSaved" role="menu" hidden></div>`);
+    const $d = (id) => document.getElementById(id);
+    const SKEY = "vicki-viste-salvate";
+    const loadSaved = () => {
+      try {
+        return JSON.parse(localStorage.getItem(SKEY) || "[]");
+      } catch (_) {
+        return [];
+      }
+    };
+    const storeSaved = (L2) => {
+      try {
+        localStorage.setItem(SKEY, JSON.stringify(L2.slice(-12)));
+      } catch (_) {
+      }
+    };
+    const viewName = () => S2.view === "coach" ? `Maestro \xB7 ${S2.mode.coach === "campo" ? "In campo" : "Studio"}` : `Tommaso P. \xB7 ${S2.mode.ath === "campo" ? "In campo" : "Studio"} \xB7 ${S2.areas.length === AREAS2.length ? "tutte le aree" : S2.areas.join(", ")} \xB7 ${PER.find((p) => p[0] === S2.period)[1].toLowerCase()}`;
+    function saveView() {
+      const L2 = loadSaved();
+      L2.push({ n: viewName(), v: S2.view, m: { ...S2.mode }, p: S2.period, a: S2.areas.slice() });
+      storeSaved(L2);
+      toast("Vista salvata: " + viewName());
+    }
+    function openSavedMenu(btn) {
+      const L2 = loadSaved(), M = $d("dSaved");
+      M.innerHTML = `<div class="t">VISTE</div><button type="button" role="menuitem" data-sv="save">Salva questa vista</button>` + L2.map((x, i) => `<button type="button" role="menuitem" data-sv="${i}">${esc(x.n)}</button>`).reverse().join("");
+      M.hidden = false;
+      const r = btn.getBoundingClientRect();
+      M.style.left = r.left + "px";
+      M.style.top = r.bottom + 8 + "px";
+      const b = M.querySelector("button");
+      if (b) b.focus({ preventScroll: true });
+    }
+    document.addEventListener("click", (e) => {
+      const b = e.target.closest("[data-sv]");
+      if (b) {
+        $d("dSaved").hidden = true;
+        if (b.dataset.sv === "save") return saveView();
+        const x = loadSaved()[Number(b.dataset.sv)];
+        if (x) {
+          S2.view = x.v;
+          S2.mode = { ...x.m };
+          S2.period = x.p;
+          S2.areas = x.a.slice();
+          draw(true);
+        }
+        return;
+      }
+      if (!e.target.closest("#dSaved") && !e.target.closest("[data-act=saved]")) $d("dSaved").hidden = true;
+    });
+    const icoBook = '<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 3h12v18l-6-4-6 4z"/></svg>';
+    const seg2 = (key2, cur) => `<div class="dSeg" role="group" aria-label="Modo">${[["campo", "In campo"], ["studio", "Studio"]].map(([k, l]) => `<button type="button" data-mode="${key2}:${k}" aria-pressed="${cur === k}">${l}</button>`).join("")}</div>`;
+    const head = (small, name) => `<div class="dHead"><div class="dBrand"><small>VICKI <span>| ${small}</span></small><div class="dName">${name}<button type="button" class="dIco" data-act="saved" aria-label="Viste salvate" title="Viste salvate">${icoBook}</button></div></div><div class="dSp"></div>${seg2(S2.view, S2.mode[S2.view])}</div>`;
+    function coach() {
+      const m = S2.mode.coach, A = dash_data_default.periodi["5p"].agg.gruppi, last2 = dash_data_default.partite[dash_data_default.partite.length - 1];
+      const cards = ATLETI.map((a) => `<div class="ath" role="button" tabindex="0" ${a.id === "tp" ? 'data-act="ath"' : ""}><span class="av${a.id === "tp" ? "" : " o"}">${a.ini}</span><span class="k"><b>${a.nome}</b><small>${a.liv}</small></span><span class="dSp"></span>${a.guarda ? `<span class="tag watch">Da guardare \xB7 ${a.guarda}</span>` : `<span class="tag ${a.disp ? "on" : "off"}">${a.disp ? "disponibile" : "non disponibile"}</span>`}</div>`).join("");
+      let body;
+      if (m === "campo") body = sec("c-oggi", "Oggi \xB7 sabato 14 novembre", true, OGGI.map(([h, chi, cosa, id]) => row(chi, cosa, h, null, null, id === "tp" ? ' data-act="ath" role="button" tabindex="0"' : "")).join("")) + sec("c-disp", "Disponibilit\xE0", true, ATLETI.map((a) => `<div class="row"><span class="k"><span>${a.nome}</span></span><span class="tag ${a.disp ? "on" : "off"}">${a.disp ? "disponibile" : "non disponibile"}</span></div>`).join("")) + sec("c-focus", "Focus per atleta", true, ATLETI.map((a) => row(a.nome, a.focus, "", null, null, a.id === "tp" ? ' data-act="ath" role="button" tabindex="0"' : "")).join("")) + sec("c-reg", "Registrazione rapida", true, `<div class="acts">${[1, 2, 3].map((n) => `<button type="button" class="btn${n > 1 ? " ghost" : ""}" data-rec="${n}">Registra campo ${n}</button>`).join("")}</div><div class="note">La registrazione parte sulle telecamere del campo e si collega all'atleta in agenda.</div>`);
+      else body = sec("c-riv", "Da rivedere", true, row(`Partita del ${last2.id} \xB7 Tommaso P.`, `${last2.punti} punti \xB7 ${last2.agg.scambi} scambi lunghi`, "", null, null, ' data-act="ath" role="button" tabindex="0"') + row("Allenamento del 13/11 \xB7 Giulia B.", "servizio \xB7 48 colpi", "", null, null) + row("Allenamento del 12/11 \xB7 Anna R.", "rovescio \xB7 61 colpi", "", null, null)) + sec("c-guarda", "Da guardare", true, row("Tommaso P. \xB7 dritto dal 9\xB0 colpo", "distanza del rimbalzo dalla riga di fondo \xB7 suo standard a destra", `${f(A.oltre8.fondo)} m`, `${f(A.std.fondo)} m`, tone(A.oltre8.fondo, A.std.fondo, 0.3, true), ' data-act="ath" role="button" tabindex="0"')) + sec("c-prog", "Programmazione \xB7 settimana", false, [["Lun", "Tommaso P. \xB7 scambi lunghi in diagonale"], ["Mer", "Giulia B. \xB7 seconda di servizio"], ["Gio", "Gruppo under 14 \xB7 punti a tema"], ["Sab", "Tommaso P. \xB7 torneo"]].map(([d, t]) => row(t, "", d, null, null)).join("")) + sec("c-ris", "Risultati \xB7 Tommaso P.", false, dash_data_default.partite.map((p) => row(`Partita del ${p.id}`, `${p.punti} punti \xB7 ${p.superficie || ""}`, p.risultato.set.map((s) => s.join("-")).join(" "), p.risultato.vince === "G" ? "vinta" : "persa", null)).join("")) + sec("c-met", "Il mio metodo", false, row("Correzioni confermate", "ultimi 30 giorni", "18", null, null) + row("In osservazione", "si conferma dopo 3 sessioni", "6", null, null) + row("Atleti seguiti col metodo", "", "4", null, null));
+      return head("Maestro", "Buongiorno") + `<div class="dBody" id="dBody"><div class="athRow">${cards}</div><div class="dGrid">${body}</div></div>`;
+    }
+    const chartSvg = (key2, label, unit, worseIfHigher) => {
+      const L2 = dash_data_default.partite.filter((p) => dash_data_default.periodi[S2.period].partite.includes(p.id));
+      if (!L2.length) return "";
+      const W = 560, H = 170, pl = 44, pr = 16, pt = 14, pb = 28, v1 = L2.map((p) => p.agg.gruppi.oltre8[key2]), v2 = L2.map((p) => p.agg.gruppi.std[key2]), all = [...v1, ...v2].filter((x) => x != null);
+      let lo = Math.min(...all), hi = Math.max(...all);
+      const pad = (hi - lo) * 0.25 || 0.5;
+      lo -= pad;
+      hi += pad;
+      const X = (i) => pl + (L2.length === 1 ? (W - pl - pr) / 2 : i * (W - pl - pr) / (L2.length - 1)), Y = (v) => pt + (1 - (v - lo) / (hi - lo)) * (H - pt - pb);
+      const path = (V) => V.map((v, i) => `${i ? "L" : "M"}${X(i).toFixed(1)},${Y(v).toFixed(1)}`).join("");
+      const ticks = [lo + pad, (lo + hi) / 2, hi - pad].map((v) => `<line x1="${pl}" x2="${W - pr}" y1="${Y(v)}" y2="${Y(v)}" stroke="rgba(255,255,255,.07)"/><text x="${pl - 8}" y="${Y(v) + 4}" text-anchor="end">${f(v)}</text>`).join("");
+      const pts = (V, c, r) => V.map((v, i) => `<circle cx="${X(i)}" cy="${Y(v)}" r="${r}" fill="${c}" stroke="#14161c" stroke-width="2"><title>${L2[i].id}: ${f(v)} ${unit}</title></circle>`).join("");
+      return `<svg class="chart" viewBox="0 0 ${W} ${H}" role="img" aria-label="${label} partita per partita: dal 9\xB0 colpo e suo standard">${ticks}
+      <path d="${path(v2)}" fill="none" stroke="#9C6A3A" stroke-width="2" stroke-dasharray="5 5"/>${pts(v2, "#9C6A3A", 4)}
+      <path d="${path(v1)}" fill="none" stroke="#FFA640" stroke-width="2.5"/>${pts(v1, "#FFA640", 5)}
+      ${L2.map((p, i) => `<text x="${X(i)}" y="${H - 8}" text-anchor="middle">${p.id}</text>`).join("")}</svg>
+      <div class="leg"><span><span class="dot" style="background:#FFA640"></span>dal 9\xB0 colpo</span><span><span class="dot" style="background:#9C6A3A"></span>suo standard (dal 3\xB0 all'8\xB0)</span><span>${unit}${worseIfHigher != null ? " \xB7 " + (worseIfHigher ? "pi\xF9 alto = peggio" : "pi\xF9 alto = meglio") : ""}</span></div>`;
+    };
+    const CH = { fondo: ["Rimbalzo dalla riga di fondo", "m dalla riga di fondo", true], kmh: ["Velocit\xE0 della palla", "km/h", false], rete: ["Altezza sulla rete", "m sopra il nastro", null] };
+    function ath() {
+      const m = S2.mode.ath, A = dash_data_default.periodi[S2.period].agg, G = A.gruppi, o = G.oltre8, s = G.std, on = (a) => S2.areas.includes(a), one = S2.areas.length === 1;
+      const prof = (g) => g.rimbalzi && g.rimbalzi.profonda, pct = (x) => x && x.su ? x.n / x.su : null;
+      const watch = [];
+      if (on("Tecnica")) watch.push(
+        row("Dritto e rovescio dal 9\xB0 colpo \xB7 rimbalzo", "metri dalla riga di fondo \xB7 suo standard a destra", `${f(o.fondo)} m`, `${f(s.fondo)} m`, tone(o.fondo, s.fondo, 0.3, true)),
+        row("Velocit\xE0 della palla dal 9\xB0 colpo", "km/h \xB7 suo standard a destra", f(o.kmh), f(s.kmh), tone(o.kmh, s.kmh, 3, false)),
+        row("Rimbalzi profondi dal 9\xB0 colpo", "suo standard a destra", nm(prof(o)), nm(prof(s)), tone(pct(prof(o)), pct(prof(s)), 0.03, false)),
+        ...one ? [
+          row("Altezza sulla rete dal 9\xB0 colpo", "m sopra il nastro", f(o.rete, 2), f(s.rete, 2), "same"),
+          row("Rotazione dal 9\xB0 colpo", "giri/min", f(o.rpm, 0), f(s.rpm, 0), "same"),
+          row("Errori di dritto dal 9\xB0 colpo", "errori su dritti giocati", nm(o.errori_dritto), nm(s.errori_dritto), tone(pct(o.errori_dritto), pct(s.errori_dritto), 0.03, true))
+        ] : []
+      );
+      if (on("Atletica")) {
+        const r1 = o.rientro, r2 = s.rientro, nc = (x) => x.stati.non_completato;
+        watch.push(
+          row("Rientro in copertura dal 9\xB0 colpo", "rientri completati \xB7 tempo medio", `${f(r1.tempo)} s`, `${f(r2.tempo)} s`, tone(r1.tempo, r2.tempo, 0.1, true)),
+          row("Al colpo dell'avversario fuori copertura", `in media a ${f(r1.mancava)} m \xB7 suo standard ${f(r2.mancava)} m`, nm(nc(r1)), nm(nc(r2)), tone(pct(nc(r1)), pct(nc(r2)), 0.03, true))
+        );
+      }
+      if (on("Tattica")) watch.push(row("Punti vinti negli scambi lunghi", "9 colpi o pi\xF9", nm(A.punti_vinti), null, null));
+      if (on("Mentale")) watch.push(row("Diario dell'atleta", "voci scritte da Tommaso P. nella PWA", "3", null, null));
+      if (on("Medico")) watch.push(row("Note del medico", "nel periodo", "nessuna", null, null));
+      if (on("Nutrizione")) watch.push(row("Piano alimentare", "invariato dal 02/11", "\u2014", null, null));
+      const ch = CH[S2.chart];
+      const chart = `<div class="acts" style="margin:0 0 4px">${Object.entries(CH).map(([k, c]) => `<button type="button" class="dChip" data-chart="${k}" aria-pressed="${S2.chart === k}">${c[0]}</button>`).join("")}</div>${chartSvg(S2.chart, ch[0], ch[1], ch[2])}`;
+      const goals = `${row("Rimbalzi profondi negli scambi lunghi", "obiettivo del maestro: 15 su 100", nm(prof(o)), null, null)}<div class="bar"><i style="width:${Math.min(100, (pct(prof(o)) || 0) / 0.15 * 100)}%"></i></div>
+      ${row("Rientri completati dal 9\xB0 colpo", "obiettivo del maestro: restare sul suo standard", nm(o.rientro.stati.rientrato), nm(s.rientro.stati.rientrato), "same")}`;
+      const conv = `<div class="pair"><div><small>CONVERGONO</small>Tecnica: dal 9\xB0 colpo la palla \xE8 pi\xF9 lenta (${f(o.kmh)} contro ${f(s.kmh)} km/h) e rimbalza pi\xF9 lontano dalla riga di fondo (${f(o.fondo)} contro ${f(s.fondo)} m).</div>
+      <div><small>DIVERGONO</small>Tecnica: dritto pi\xF9 corto dal 9\xB0 colpo \xB7 Tattica: punti vinti negli scambi lunghi ${nm(A.punti_vinti)}.</div></div><div class="note">Misure messe a confronto: la lettura resta al maestro.</div>`;
+      const go = `<div class="acts"><button type="button" class="btn" data-go="campo">Vedi sul campo</button><button type="button" class="btn ghost" data-go="3d">Analisi 3D del dritto</button><button type="button" class="btn ghost" data-go="video">Video dei dritti</button></div>`;
+      const pills = `<div class="dBar" role="group" aria-label="Aree">${AREAS2.map((a) => `<button type="button" class="dChip${on(a) ? "" : " grey"}" data-area="${a}" aria-pressed="${on(a)}">${a}</button>`).join("")}</div>
+      <div class="dCap">${S2.areas.length === AREAS2.length ? "Tutte le aree: lo stato su tutto" : one ? `Solo ${S2.areas[0]}: approfondimento` : `Incrocio fra ${S2.areas.join(", ")}`} \xB7 tocca un'area per includerla o toglierla</div>`;
+      const per = `<div class="dBar" role="group" aria-label="Periodo">${PER.map(([k, l]) => `<button type="button" class="dChip" data-per="${k}" aria-pressed="${S2.period === k}">${l}</button>`).join("")}</div>`;
+      let body;
+      if (m === "campo") body = sec("a-focus", "Focus di oggi \xB7 profondit\xE0 del dritto negli scambi lunghi", true, `<div class="big"><div><b class="tone-${tone(o.fondo, s.fondo, 0.3, true)}">${f(o.fondo)} m</b><small>dal 9\xB0 colpo \xB7 dalla riga di fondo</small></div><div><b>${f(s.fondo)} m</b><small>suo standard</small></div><div><b>${nm(prof(o))}</b><small>rimbalzi profondi dal 9\xB0 colpo</small></div></div>${go}`, "wide") + sec("a-guarda", "Da guardare", true, watch.join("") || '<div class="note">Nessuna area scelta.</div>') + sec("a-video", "Video", true, `${row("Dritti dal 9\xB0 colpo", dash_data_default.periodi[S2.period].partite.map((x) => "partita del " + x).join(" \xB7 "), "", null, null, ' data-go="video" role="button" tabindex="0"')}${row("Punti lunghi dell'ultima partita", "scambi di 9 colpi o pi\xF9", "", null, null, ' data-go="video" role="button" tabindex="0"')}`) + sec("a-nota", "Nota rapida", false, `<input class="dIn" id="dNote" placeholder="Scrivi una nota per Tommaso P." aria-label="Nota rapida"><div class="acts"><button type="button" class="btn" data-act="note">Salva la nota</button></div>`);
+      else body = sec("a-guarda", "Da guardare", true, watch.join("") || '<div class="note">Nessuna area scelta.</div>') + (on("Tecnica") ? sec("a-chart", "Partita per partita", true, chart) : "") + sec("a-goal", "Obiettivi", true, goals) + sec("a-conv", "Convergenze e divergenze", false, conv) + sec("a-ris", "Risultati", false, dash_data_default.partite.filter((p) => dash_data_default.periodi[S2.period].partite.includes(p.id)).map((p) => row(`Partita del ${p.id}`, `${p.punti} punti \xB7 ${p.agg.scambi} scambi lunghi`, p.risultato.set.map((x) => x.join("-")).join(" "), p.risultato.vince === "G" ? "vinta" : "persa", null)).join("")) + sec("a-go", "Vai a", true, go);
+      return head("Atleta", "Tommaso P.") + per + pills + `<div class="dBody" id="dBody"><div class="dGrid">${body}</div></div>`;
+    }
+    function draw(anim2) {
+      const w = $d("dWrap");
+      w.innerHTML = S2.view === "coach" ? coach() : ath();
+      if (anim2) {
+        w.classList.remove("swap");
+        void w.offsetWidth;
+        w.classList.add("swap");
+      }
+      w.querySelectorAll("details[data-sec]").forEach((d) => d.addEventListener("toggle", () => {
+        S2.open[d.dataset.sec] = d.open;
+      }));
+      syncBack();
+    }
+    function syncBack() {
+      const b = document.getElementById("backBtn");
+      if (!b) return;
+      const show2 = S2.on ? S2.view === "ath" : true;
+      b.hidden = !show2;
+      document.body.classList.toggle("hasBack", show2);
+    }
+    function show(view, anim2 = true) {
+      if (view) S2.view = view;
+      S2.on = true;
+      const d = $d("dash");
+      d.classList.add("on");
+      d.setAttribute("aria-hidden", "false");
+      document.body.classList.add("dashOn");
+      draw(anim2);
+      clearTimeout(S2.pt);
+      S2.pt = setTimeout(() => {
+        if (S2.on) window.__pause3D = true;
+      }, 600);
+    }
+    function hide() {
+      S2.on = false;
+      clearTimeout(S2.pt);
+      window.__pause3D = false;
+      const d = $d("dash");
+      d.classList.remove("on");
+      d.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("dashOn");
+      $d("dSaved").hidden = true;
+      syncBack();
+    }
+    function leave(to) {
+      S2.base = ANS.histLen;
+      S2.viaScene = to === "campo";
+      hide();
+      if (to === "campo") {
+        ANS.openScene(1);
+      } else if (to === "3d") {
+        if (ANS.on) ANS.close();
+        window.__setView && window.__setView("side");
+      } else if (to === "video") {
+        if (window.__openVideos) window.__openVideos({ atleta: "Tommaso P.", colpo: "dritto", gruppo: "oltre8", partite: dash_data_default.periodi[S2.period].partite });
+        else {
+          S2.viaScene = true;
+          ANS.openScene(1);
+        }
+      }
+      setTimeout(syncBack, 0);
+    }
+    document.addEventListener("click", (e) => {
+      if (!S2.on) return;
+      const t = e.target.closest("[data-mode],[data-act],[data-area],[data-per],[data-chart],[data-go],[data-rec]");
+      if (!t || !$d("dash").contains(t)) return;
+      if (t.dataset.mode) {
+        const [k, v] = t.dataset.mode.split(":");
+        S2.mode[k] = v;
+        return draw(true);
+      }
+      if (t.dataset.act === "ath") return show("ath");
+      if (t.dataset.act === "saved") return openSavedMenu(t);
+      if (t.dataset.act === "note") {
+        const i = $d("dNote");
+        if (i && i.value.trim()) {
+          toast("Nota salvata per Tommaso P.");
+          i.value = "";
+        }
+        return;
+      }
+      if (t.dataset.area) {
+        const a = t.dataset.area;
+        if (S2.areas.includes(a)) {
+          if (S2.areas.length > 1) S2.areas = S2.areas.filter((x) => x !== a);
+        } else S2.areas = AREAS2.filter((x) => S2.areas.includes(x) || x === a);
+        return draw(false);
+      }
+      if (t.dataset.per) {
+        S2.period = t.dataset.per;
+        return draw(false);
+      }
+      if (t.dataset.chart) {
+        S2.chart = t.dataset.chart;
+        return draw(false);
+      }
+      if (t.dataset.rec) return toast(`Registrazione avviata sul campo ${t.dataset.rec}`);
+      if (t.dataset.go) return leave(t.dataset.go);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (!S2.on || e.key !== "Enter" && e.key !== " ") return;
+      const t = e.target.closest && e.target.closest("[role=button][data-act],[role=button][data-go]");
+      if (t && $d("dash").contains(t)) {
+        e.preventDefault();
+        t.click();
+      }
+    });
+    const bb = document.getElementById("backBtn");
+    if (bb) bb.addEventListener("click", (e) => {
+      if (S2.on) {
+        e.stopImmediatePropagation();
+        if (S2.view === "ath") show("coach");
+        return;
+      }
+      const own = ANS.histLen - S2.base - (S2.viaScene ? 1 : 0);
+      if (own > 0) {
+        setTimeout(syncBack, 0);
+        return;
+      }
+      e.stopImmediatePropagation();
+      if (S2.viaScene && ANS.histLen > S2.base) ANS.back();
+      show(null);
+    }, true);
+    {
+      const vPrev = vAsk;
+      vAsk = (raw) => {
+        const s = norm(raw || "");
+        if (/^(vicki )?(apri )?(la )?(dashboard|home|pagina iniziale)( del maestro)?$/.test(s)) {
+          vOpen(true);
+          if (!S2.on && ANS.on) ANS.close();
+          show("coach");
+          vOut("Ecco la tua pagina.");
+          return vChips();
+        }
+        if (/^(vicki )?(apri |mostrami |fammi vedere )?(la dashboard di |il profilo di )?tommaso( p)?$/.test(s)) {
+          vOpen(true);
+          if (!S2.on && ANS.on) ANS.close();
+          show("ath");
+          vOut("Ecco Tommaso P.");
+          return vChips();
+        }
+        if (/salva (questa |la )?vista/.test(s) && S2.on) {
+          vOpen(true);
+          saveView();
+          vOut("Vista salvata.");
+          return vChips();
+        }
+        return vPrev(raw);
+      };
+    }
+    const fromShot = /vai3d=/.test(location.hash) || new URLSearchParams(location.search).get("vista") === "avatar";
+    if (!fromShot) show("coach", false);
+    return { show, hide, get on() {
+      return S2.on;
+    }, state: S2 };
+  })();
+  window.__dash = DASH;
 })();
 /*! Bundled license information:
 
