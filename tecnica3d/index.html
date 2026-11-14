@@ -331,7 +331,7 @@ body.answer.min #ansLeft{display:none}
 .achips{display:flex;flex-wrap:wrap;gap:6px}.achips button{font:inherit;font-size:12px;font-weight:600;color:#E9ECF2;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:6px 11px;cursor:pointer}.achips button:hover{border-color:#B9A7E8}
 #ansRight .asub{display:block;font-size:11px;color:var(--t3);margin-top:1px}
 #ansRight .row{align-items:flex-start;padding:5px 0}
-#ansRight .pair .mono{white-space:nowrap;min-width:58px;font-family:inherit;font-size:13px}#ansRight .pair .av{color:#E8EF62!important;font-weight:700}#ansRight .pair .as{color:#E9ECF2!important;opacity:.75}
+#ansRight .pair .mono{white-space:nowrap;min-width:58px;font-family:inherit;font-size:13px}#ansRight .pair .av{color:#E9ECF2!important;font-weight:700}#ansRight .ahead .av::before{content:'';display:inline-block;width:7px;height:7px;border-radius:50%;background:#FFA640;margin-right:6px;vertical-align:1px}#ansRight .pair .as{color:#E9ECF2!important;opacity:.75}
 #ansRight .ahead{display:flex;justify-content:space-between;font-size:10.5px;color:var(--t3);margin-top:8px}#ansRight .ahead .mono{font-family:inherit;font-weight:600}
 #ansRow{display:none;flex-direction:column;gap:10px;align-items:stretch}
 body.answer #ansRow{display:flex}body.answer #edRow,body.answer #trackRow{display:none!important}
@@ -345,7 +345,7 @@ body.answer #ansRow{display:flex}body.answer #edRow,body.answer #trackRow{displa
 #ansRow button[data-g]:hover{background:rgba(255,255,255,.06)}#ansRow button[data-g][aria-pressed=false]{opacity:.45}#ansRow button[data-g]:focus-visible{outline:2px solid #B9A7E8;outline-offset:2px}
 #ansRow .sw{width:10px;height:10px;border-radius:999px;display:inline-block}
 .ansTag{position:fixed;z-index:6;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;font-size:11.5px;font-weight:700;padding:4px 9px;border-radius:999px;background:rgba(20,22,28,.82);border:1px solid rgba(255,255,255,.18);color:#E9ECF2;backdrop-filter:blur(8px)}
-.ansTag[hidden]{display:none}.ansTag.lime{color:#E8EF62;border-color:rgba(232,239,98,.55)}.ansTag.band{background:none;border:0;color:var(--t3);font-weight:600;font-size:11px}
+.ansTag[hidden]{display:none}.ansTag.lime{color:#FFA640;border-color:rgba(255,166,64,.55)}.ansTag.band{background:none;border:0;color:var(--t3);font-weight:600;font-size:11px}
 /* cursore della sequenza nelle risposte: lo stesso dell'avatar 3D (owner 13/11) */
 #ansTrackRow{display:flex;align-items:center;gap:14px}
 .ansPlay{flex:none;width:44px;height:44px;border-radius:999px;border:0;background:#fff;color:#16181D;display:flex;align-items:center;justify-content:center;cursor:pointer}.ansPlay:focus-visible{outline:2px solid var(--vk);outline-offset:3px}
@@ -391,7 +391,7 @@ body.answer #ansRow{display:flex}body.answer #edRow,body.answer #trackRow{displa
 .adrill .asay{font-size:12px;color:#B9A7E8;margin:4px 0 6px;font-style:italic}
 .agate{font:inherit;font-size:12px;font-weight:700;color:#0F1115;background:#E9ECF2;border:0;border-radius:999px;padding:6px 12px;cursor:pointer}.agate[aria-pressed=true]{background:#E8EF62}
 body.ansEmpty #ansLayer,body.ansEmpty #ansTrackRow{display:none!important}
-.ansTag.num{font-size:10.5px;padding:2px 6px;font-weight:700}.ansTag.zone{color:#E8EF62;background:rgba(20,22,28,.7);border-color:rgba(232,239,98,.5);font-weight:600}
+.ansTag.num{font-size:10.5px;padding:2px 6px;font-weight:700}.ansTag.zone{color:#FFA640;background:rgba(20,22,28,.7);border-color:rgba(255,166,64,.5);font-weight:600}
 /* zoom: tre tasti rotondi sotto il menu della telecamera, stesso stile del «?» */
 #zoomRow{position:fixed;z-index:11;display:flex;align-items:center;gap:4px}
 #zoomRow button{flex:none;width:24px;height:24px;border-radius:999px;border:1px solid rgba(255,255,255,.35);background:#16181D;color:#E9ECF2;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;padding:0;transition:background .15s}
@@ -32146,7 +32146,7 @@ void main() {
       };
     };
     const CROSS = [2.6, 1.6, 3.2, 0.6, 2.2, -1.2], Y0 = -1.2;
-    const LIME = "#E8EF62", WHITE = "#FFFFFF";
+    const PCOL = "#FFA640", BALL = "#E8EF62", WHITE = "#FFFFFF";
     const tagA = (a) => `<span class="atag">${a}</span>`;
     const src = (t, ...a) => `<div class="asrc">${t} ${a.map(tagA).join("")}</div>`;
     const rowW = (k, v, sub) => `<div class="row wide"><span>${k}</span><span class="mono av wv">${v}</span>${sub ? `<span class="asub">${sub}</span>` : ""}</div>`;
@@ -32384,7 +32384,7 @@ void main() {
     }
     const st = { on: false, scene: 1, layer: "traj", vis: {}, sels: [], compare: false, view: "back", t: 0, playing: false, psel: [] };
     let SHOTS = [], GROUPS = [], GR = {}, ORDER = [], N = 0;
-    const colOf = (id) => GR[id] && GR[id].lime ? LIME : WHITE;
+    const colOf = (id) => GR[id] && GR[id].lime ? PCOL : WHITE;
     const avg = (id, f) => {
       const L2 = SHOTS.filter((s) => s.g === id);
       return L2.length ? L2.reduce((a, s) => a + f(s), 0) / L2.length : 0;
@@ -32526,7 +32526,7 @@ void main() {
         per[s.i].hit.push(hit);
       }
     };
-    const fball = new Mesh(new SphereGeometry(0.045, 20, 14), mat(LIME, 1));
+    const fball = new Mesh(new SphereGeometry(0.045, 20, 14), mat(BALL, 1));
     fball.visible = false;
     root.add(fball);
     const disposeAll = (grp) => {
@@ -32587,11 +32587,11 @@ void main() {
       }
       for (const z of SC[st.scene].zones || []) {
         const w = z.y[1] - z.y[0], l = z.x[1] - z.x[0], p = toS([(z.x[0] + z.x[1]) / 2, (z.y[0] + z.y[1]) / 2, 0]);
-        const q = new Mesh(new PlaneGeometry(w, l), new MeshBasicMaterial({ color: LIME, transparent: true, opacity: 0.12, toneMapped: false, depthWrite: false }));
+        const q = new Mesh(new PlaneGeometry(w, l), new MeshBasicMaterial({ color: PCOL, transparent: true, opacity: 0.12, toneMapped: false, depthWrite: false }));
         q.rotation.x = -Math.PI / 2;
         q.position.set(p.x, 5e-3, p.z);
         fixedG.add(q);
-        const e = new LineSegments(new EdgesGeometry(new PlaneGeometry(w, l)), new LineBasicMaterial({ color: LIME, transparent: true, opacity: 0.7 }));
+        const e = new LineSegments(new EdgesGeometry(new PlaneGeometry(w, l)), new LineBasicMaterial({ color: PCOL, transparent: true, opacity: 0.7 }));
         e.rotation.x = -Math.PI / 2;
         e.position.set(p.x, 7e-3, p.z);
         fixedG.add(e);
@@ -32630,7 +32630,7 @@ void main() {
       }
     }
     const PT = D.punti && D.punti.punti || [], AVV = "#FFFFFF";
-    const pcol = (chi) => chi === "G" ? LIME : AVV, who = (chi) => chi === "G" ? "Tommaso P." : "Avversario";
+    const pcol = (chi) => chi === "G" ? PCOL : AVV, who = (chi) => chi === "G" ? "Tommaso P." : "Avversario";
     let PP = null, pper = [];
     const scenePts = () => PT.filter((p) => p.scena === st.scene);
     const isP = () => st.layer === "punto" && !!PP;
@@ -32676,7 +32676,7 @@ void main() {
       d.userData.base = d.material.opacity;
       return d;
     });
-    const pShots = new Group(), pl = { G: mkPlayer(LIME, 1), A: mkPlayer(AVV, -1) }, trail = { G: mkTrail(LIME), A: mkTrail(AVV) };
+    const pShots = new Group(), pl = { G: mkPlayer(PCOL, 1), A: mkPlayer(AVV, -1) }, trail = { G: mkTrail(PCOL), A: mkTrail(AVV) };
     LG.punto.add(pShots, pl.G, pl.A, ...trail.G, ...trail.A);
     const FAS = { finish: "vicino alla rete", aggressive: "dentro il campo", neutral: "sulla riga di fondo", defensive: "lontano dietro la riga" };
     const MOM = { in_salita: "in salita", al_culmine: "al punto pi\xF9 alto", in_discesa: "in discesa", al_volo: "al volo, prima del rimbalzo" };
@@ -33291,7 +33291,7 @@ void main() {
     }
     function drawGroups() {
       const L2 = scenePts();
-      $("ansGroups").innerHTML = isP() ? L2.map((p, i) => `<button type="button" data-p="${i}" aria-pressed="${p === PP}"><span class="sw" style="background:${p === PP ? LIME : WHITE}"></span>Punto ${i + 1} \xB7 ${p.punteggio.testo}</button>`).join("") : GROUPS.map((gr) => `<button type="button" data-g="${gr.id}" aria-pressed="${st.vis[gr.id] !== false}"><span class="sw" style="background:${gr.lime ? LIME : WHITE}"></span>${gr.label}</button>`).join("");
+      $("ansGroups").innerHTML = isP() ? L2.map((p, i) => `<button type="button" data-p="${i}" aria-pressed="${p === PP}"><span class="sw" style="background:${p === PP ? PCOL : WHITE}"></span>Punto ${i + 1} \xB7 ${p.punteggio.testo}</button>`).join("") : GROUPS.map((gr) => `<button type="button" data-g="${gr.id}" aria-pressed="${st.vis[gr.id] !== false}"><span class="sw" style="background:${gr.lime ? PCOL : WHITE}"></span>${gr.label}</button>`).join("");
     }
     function setLayer(k) {
       if (k === "punto" && !PP) return;
@@ -33664,7 +33664,19 @@ void main() {
       restoring = r0;
       $("qLab").textContent = "Domande";
     }
-    const focus = () => new Box3().setFromPoints(pointsOf()).getCenter(new Vector3());
+    const focus = () => {
+      if (isP()) {
+        const C = PP.colpi, T = pTime(st.t), k = st.psel.length ? st.psel[st.psel.length - 1] : pIdx(T), c = C[k];
+        return toS(c.rimbalzo && (st.psel.length || T >= tBounce(c)) ? [c.rimbalzo[0], c.rimbalzo[1], 0] : c.impatto);
+      }
+      const L2 = st.sels.map((i) => SHOTS[i]).filter(Boolean);
+      if (L2.length) {
+        const atHit = /^(colpi|tempo|spostamenti)$/.test(st.layer), v = new Vector3();
+        L2.forEach((x) => v.add(toS(atHit ? x.contact : x.bounce)));
+        return v.divideScalar(L2.length);
+      }
+      return new Box3().setFromPoints(pointsOf()).getCenter(new Vector3());
+    };
     return {
       reframe,
       focus,
@@ -33838,14 +33850,51 @@ void main() {
       camera.updateProjectionMatrix();
       render();
     };
-    const dolly = (k) => {
+    const RATE = 1.1;
+    const step2 = (dir, dt) => {
+      const k = Math.exp(dir * RATE * dt);
       if (ANS.on && ANS.eye) return lens(k);
-      const f = ANS.on ? ANS.focus() : bodyFocus(), o = camera.position.clone().sub(f), d = MathUtils.clamp(o.length() * k, controls.minDistance, controls.maxDistance);
-      const tgt = controls.target.clone().lerp(f, k < 1 ? 0.5 : 0.25);
-      window.__cam(f.clone().addScaledVector(o.normalize(), d).toArray(), tgt.toArray(), 0.35);
+      const off = camera.position.clone().sub(controls.target), tgt = controls.target.clone();
+      if (dir < 0) tgt.lerp(ANS.on ? ANS.focus() : bodyFocus(), 1 - Math.exp(-2.8 * dt));
+      const d = MathUtils.clamp(off.length() * k, controls.minDistance, controls.maxDistance);
+      return [tgt.clone().addScaledVector(off.normalize(), d), tgt];
     };
-    $("zIn").addEventListener("click", () => dolly(0.75));
-    $("zOut").addEventListener("click", () => dolly(1.33));
+    const hold = (btn, dir) => {
+      let raf = 0, last2 = 0;
+      const stop = () => {
+        cancelAnimationFrame(raf);
+        raf = 0;
+      };
+      const loop2 = (now) => {
+        const dt = Math.min(0.05, (now - last2) / 1e3);
+        last2 = now;
+        const r = step2(dir, dt);
+        if (r) {
+          window.__cam(r[0].toArray(), r[1].toArray(), 0);
+          render();
+        }
+        raf = requestAnimationFrame(loop2);
+      };
+      btn.addEventListener("pointerdown", (e) => {
+        if (e.button) return;
+        e.preventDefault();
+        try {
+          btn.setPointerCapture(e.pointerId);
+        } catch (_) {
+        }
+        stop();
+        last2 = performance.now();
+        loop2(last2);
+      });
+      ["pointerup", "pointercancel", "lostpointercapture"].forEach((ev) => btn.addEventListener(ev, stop));
+      btn.addEventListener("click", (e) => {
+        if (e.detail !== 0) return;
+        const r = step2(dir, 0.3);
+        if (r) window.__cam(r[0].toArray(), r[1].toArray(), 0.3);
+      });
+    };
+    hold($("zIn"), -1);
+    hold($("zOut"), 1);
     $("zFit").addEventListener("click", () => {
       if (camera.fov !== FOV0) {
         camera.fov = FOV0;
