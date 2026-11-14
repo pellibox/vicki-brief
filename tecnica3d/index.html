@@ -24732,6 +24732,44 @@ void main() {
   stage.appendChild(renderer.domElement);
   var scene = new Scene();
   scene.background = new Color("#0E1A33");
+  var AURORA = (() => {
+    const W = 2048, H = 1152, c = document.createElement("canvas");
+    c.width = W;
+    c.height = H;
+    const x = c.getContext("2d");
+    x.fillStyle = "#0C0D11";
+    x.fillRect(0, 0, W, H);
+    const glow = (cx, cy, r, rgb, o) => {
+      const g = x.createRadialGradient(cx, cy, 0, cx, cy, r);
+      g.addColorStop(0, `rgba(${rgb},${o})`);
+      g.addColorStop(0.35, `rgba(${rgb},${o * 0.55})`);
+      g.addColorStop(0.75, `rgba(${rgb},0)`);
+      x.fillStyle = g;
+      x.fillRect(0, 0, W, H);
+    };
+    glow(W * 0.12, H * 0.08, W * 0.42, "185,167,232", 0.5);
+    glow(W * 0.86, H * 0.82, W * 0.36, "64,200,224", 0.4);
+    glow(W * 0.88, H * 0.12, W * 0.34, "224,122,158", 0.34);
+    glow(W * 0.3, H * 0.98, W * 0.26, "232,239,98", 0.18);
+    const v = x.createRadialGradient(W / 2, H * 0.4, 0, W / 2, H * 0.4, W * 0.7);
+    v.addColorStop(0, "rgba(12,13,17,0.15)");
+    v.addColorStop(1, "rgba(12,13,17,0.45)");
+    x.fillStyle = v;
+    x.fillRect(0, 0, W, H);
+    const n = x.getImageData(0, 0, W, H), d = n.data;
+    for (let i = 0; i < d.length; i += 4) {
+      const r = (Math.random() - 0.5) * 8;
+      d[i] += r;
+      d[i + 1] += r;
+      d[i + 2] += r;
+    }
+    x.putImageData(n, 0, 0);
+    const t = new CanvasTexture(c);
+    t.colorSpace = SRGBColorSpace;
+    return t;
+  })();
+  scene.background = AURORA;
+  var FOG_COL = new Color("#0D0F16");
   var pmrem = new PMREMGenerator(renderer);
   scene.environment = pmrem.fromScene(new RoomEnvironment(), 0.04).texture;
   scene.environmentIntensity = 0.55;
@@ -29039,46 +29077,60 @@ void main() {
       }
     });
   });
-  (() => {
+  var FLOOR_LOGO = (() => {
     const c = document.createElement("canvas");
-    c.width = 1024;
-    c.height = 1300;
+    c.width = 2048;
+    c.height = 512;
     const g = c.getContext("2d");
-    const col = "#1A2F5B";
-    const cx = 512, cy = 500, R = 420, r = 280;
-    g.fillStyle = col;
-    g.beginPath();
-    g.arc(cx, cy, R, 0, Math.PI * 2);
-    g.arc(cx, cy, r, 0, Math.PI * 2, true);
-    g.fill("evenodd");
-    g.globalCompositeOperation = "destination-out";
-    g.beginPath();
-    g.moveTo(cx - 3, cy - r + 2);
-    g.lineTo(cx + 3, cy - r + 2);
-    g.lineTo(cx + 66, cy - R - 10);
-    g.lineTo(cx - 66, cy - R - 10);
-    g.closePath();
-    g.fill();
-    g.globalCompositeOperation = "source-over";
-    g.fillStyle = col;
-    g.font = "700 190px Manrope, Helvetica, Arial, sans-serif";
-    g.textAlign = "center";
-    g.textBaseline = "alphabetic";
-    g.fillText("VICKI", cx, 1230);
+    const col = "#16295A";
+    const draw = () => {
+      g.clearRect(0, 0, 2048, 512);
+      g.fillStyle = col;
+      const cx = 330, cy = 256, R = 200, r = 134;
+      g.beginPath();
+      g.arc(cx, cy, R, 0, Math.PI * 2);
+      g.arc(cx, cy, r, 0, Math.PI * 2, true);
+      g.fill("evenodd");
+      g.globalCompositeOperation = "destination-out";
+      g.beginPath();
+      g.moveTo(cx - 2, cy - r + 1);
+      g.lineTo(cx + 2, cy - r + 1);
+      g.lineTo(cx + 32, cy - R - 6);
+      g.lineTo(cx - 32, cy - R - 6);
+      g.closePath();
+      g.fill();
+      g.globalCompositeOperation = "source-over";
+      g.font = "800 300px Manrope, Helvetica, Arial, sans-serif";
+      g.textAlign = "left";
+      g.textBaseline = "middle";
+      g.fillText("VICKI", 600, cy + 12);
+    };
+    draw();
     const tex = new CanvasTexture(c);
     tex.colorSpace = SRGBColorSpace;
-    const logo = new Mesh(new PlaneGeometry(2.6, 2.6 * 1300 / 1024), new MeshStandardMaterial({ map: tex, transparent: true, depthWrite: false, roughness: 0.9 }));
-    logo.scale.setScalar(0.5);
-    logo.position.set(0, 1.8, -6.48);
-    scene.add(logo);
+    tex.anisotropy = renderer.capabilities.getMaxAnisotropy();
+    const W = 4.4, m = new Mesh(new PlaneGeometry(W, W / 4), new MeshStandardMaterial({
+      map: tex,
+      transparent: true,
+      depthWrite: false,
+      roughness: 0.55,
+      polygonOffset: true,
+      polygonOffsetFactor: 2,
+      polygonOffsetUnits: 4
+    }));
+    m.rotation.x = -Math.PI / 2;
+    m.position.set(CX + 2.4, 6e-4, CZ - 3.4);
+    m.receiveShadow = true;
+    scene.add(m);
     document.fonts && document.fonts.ready.then(() => {
-      g.clearRect(0, 1e3, 1024, 300);
-      g.fillStyle = col;
-      g.font = "700 190px Manrope, Helvetica, Arial, sans-serif";
-      g.fillText("VICKI", cx, 1230);
+      draw();
       tex.needsUpdate = true;
     });
+    return m;
   })();
+  WALLS.forEach((w) => {
+    w.visible = false;
+  });
   var CMD_PHASE = COLPO === "servizio" ? [
     [/\b(caricament\w*|caric\w*)\b/, "Caricamento: intendi il trofeo (gambe cariche) o la caduta della racchetta?"],
     [/\blancio\b/, "Il lancio della palla sta fra Inizio e Trofeo: dimmi \xABinizio\xBB o \xABtrofeo\xBB."],
@@ -33554,7 +33606,8 @@ void main() {
       WALLS.forEach((w) => {
         w.visible = false;
       });
-      scene.fog = new Fog(scene.background.clone(), 34, 90);
+      FLOOR_LOGO.visible = false;
+      scene.fog = new Fog(FOG_COL.clone(), 34, 90);
       floor.material.roughness = 1;
       floor.material.color.set(RUN);
       limits(false);
@@ -33587,9 +33640,7 @@ void main() {
       st.playing = false;
       root.visible = false;
       document.body.classList.remove("answer", "ansEmpty");
-      WALLS.forEach((w) => {
-        w.visible = true;
-      });
+      FLOOR_LOGO.visible = true;
       scene.fog = null;
       floor.material.roughness = 0.55;
       floor.material.color.set("#0E1C3C");
@@ -33613,8 +33664,13 @@ void main() {
       restoring = r0;
       $("qLab").textContent = "Domande";
     }
+    const focus = () => new Box3().setFromPoints(pointsOf()).getCenter(new Vector3());
     return {
       reframe,
+      focus,
+      get eye() {
+        return /^eye/.test(st.view);
+      },
       frameFor: () => frameFor(curDir()),
       open: () => openScene(1),
       openScene,
@@ -33772,13 +33828,30 @@ void main() {
       new ResizeObserver(zPlace).observe($("camRow"));
       setTimeout(zPlace, 0);
     }
+    const FOV0 = camera.fov;
+    const bodyFocus = () => {
+      const sd = S.edit || activeSide();
+      return new Box3().setFromObject(sd.av.mesh, true).union(new Box3().setFromObject(sd.av.racket, true)).getCenter(new Vector3());
+    };
+    const lens = (k) => {
+      camera.fov = MathUtils.clamp(camera.fov * k, 12, 60);
+      camera.updateProjectionMatrix();
+      render();
+    };
     const dolly = (k) => {
-      const o = camera.position.clone().sub(controls.target), d = MathUtils.clamp(o.length() * k, controls.minDistance, controls.maxDistance);
-      window.__cam(controls.target.clone().addScaledVector(o.normalize(), d).toArray(), controls.target.toArray(), 0.35);
+      if (ANS.on && ANS.eye) return lens(k);
+      const f = ANS.on ? ANS.focus() : bodyFocus(), o = camera.position.clone().sub(f), d = MathUtils.clamp(o.length() * k, controls.minDistance, controls.maxDistance);
+      const tgt = controls.target.clone().lerp(f, k < 1 ? 0.5 : 0.25);
+      window.__cam(f.clone().addScaledVector(o.normalize(), d).toArray(), tgt.toArray(), 0.35);
     };
     $("zIn").addEventListener("click", () => dolly(0.75));
     $("zOut").addEventListener("click", () => dolly(1.33));
     $("zFit").addEventListener("click", () => {
+      if (camera.fov !== FOV0) {
+        camera.fov = FOV0;
+        camera.updateProjectionMatrix();
+        render();
+      }
       if (ANS.on) return ANS.reframe();
       const sd = S.edit || activeSide(), b = new Box3().setFromObject(sd.av.mesh, true).union(new Box3().setFromObject(sd.av.racket, true)), c = b.getCenter(new Vector3());
       const r = b.getSize(new Vector3()).length() / 2 * 1.02, tv = Math.tan(MathUtils.degToRad(camera.fov) / 2), h = Math.min(Math.atan(tv * 0.7), Math.atan(tv * camera.aspect * 0.5));
