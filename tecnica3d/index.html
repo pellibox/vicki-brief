@@ -33465,6 +33465,7 @@ void main() {
     function clearShot3D() {
       if (!SHOT_ON) return;
       SHOT_ON = false;
+      setShotDz(SA, 0);
       LDB.reset();
       LDB.end();
       disposeAll(SHOT3D);
@@ -33502,7 +33503,9 @@ void main() {
         SHOT3D.add(trajMesh(new CatmullRomCurve3(pts), Math.max(8, pts.length * 2), 0.022, pcol(x.chi), 1));
         if (x.nb >= 0) SHOT3D.add(ballMark(pcol(x.chi), 0.95, toS([x.traj[x.nb][0], x.traj[x.nb][1], 0]), x.traj[Math.max(0, x.nb - 4)], x.traj[x.nb]));
       }
-      const imp = toS(c.impatto), con = new Vector3(...SA.contact);
+      const imp = toS(c.impatto);
+      setShotDz(SA, imp.y - contactOf(SA).y);
+      const con = contactOf(SA);
       COURT_G.position.set(con.x - imp.x, 0, con.z - imp.z);
       if (ballLine) ballLine.visible = false;
       S.mode = "a";
@@ -33633,6 +33636,59 @@ void main() {
         dp0();
         if (SHOT_ON) updShotLayers();
       };
+    }
+    const KNEE_MIN = 105;
+    const contactOf = (sd) => {
+      sd.rig.fk(sd.poseAt(3));
+      return worldOf(sd, racketFrame(sd.rig).head);
+    };
+    const lowerPose = (sd, pose, dz) => {
+      const rig = sd.rig, p = clonePose(pose);
+      rig.fk(p);
+      const pins = {}, fr = {};
+      for (const x of ["R", "L"]) {
+        pins[x] = rig.head(rig.id["foot." + x]).clone();
+        fr[x] = qW(rig, "foot." + x);
+      }
+      rig.moveRoot(p, new Vector3(0, 0, dz));
+      rig.fk(p);
+      pinFeet(sd, p, pins, fr);
+      return p;
+    };
+    const legsFine = (sd, p) => {
+      const rig = sd.rig;
+      rig.fk(p);
+      return ["R", "L"].every((x) => {
+        const Hh = rig.head(rig.id["upperleg01." + x]), K = rig.head(rig.id["lowerleg01." + x]), An = rig.head(rig.id["foot." + x]);
+        return Hh.distanceTo(An) < REACH * (Hh.distanceTo(K) + K.distanceTo(An)) + 1e-4 && innerOf(rig, x, "knee") >= KNEE_MIN;
+      });
+    };
+    let shotDz = 0, poseAt0 = null;
+    window.__shotDz = () => +shotDz.toFixed(3);
+    function setShotDz(sd, want) {
+      if (poseAt0) {
+        sd.poseAt = poseAt0;
+        poseAt0 = null;
+      }
+      shotDz = 0;
+      if (!want) return;
+      const base = clonePose(sd.poseAt(3));
+      let lo = 0, hi = 1;
+      if (!legsFine(sd, lowerPose(sd, base, want))) {
+        for (let i = 0; i < 14; i++) {
+          const m2 = (lo + hi) / 2;
+          if (legsFine(sd, lowerPose(sd, base, want * m2))) lo = m2;
+          else hi = m2;
+        }
+      } else lo = 1;
+      shotDz = want * lo;
+      if (Math.abs(shotDz) < 5e-3) {
+        shotDz = 0;
+        return;
+      }
+      poseAt0 = sd.poseAt;
+      const orig = poseAt0;
+      sd.poseAt = (t, e) => lowerPose(sd, orig(t, e), shotDz);
     }
     function openVideo(k) {
       const c = PP && PP.colpi[k];
